@@ -1,2 +1,2 @@
-appathon
+Appathon
 ========
