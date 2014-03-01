@@ -176,11 +176,25 @@ public class Graphics {
         return obj;
     }
 
-    public static void setColour(int r, int g, int b, Object3D obj)
+    public static void setColour(RGBColor rgbColor, Object3D obj)
     {
 
-        obj.setAdditionalColor(r, g, b);
+        //obj.setAdditionalColor(r, g, b);
+        obj.setAdditionalColor(rgbColor);
     }
+
+    public static RGBColor getColour(Object3D obj)
+    {
+        return obj.getAdditionalColor();
+    }
+
+    public static void setTransparency(int a, Object3D obj)
+    {
+        obj.setTransparencyMode(Object3D.TRANSPARENCY_MODE_ADD);
+        obj.setTransparency(a);
+    }
+
+
 
     public static void setObjPosition(float x, float y, Object3D obj)
     {
@@ -195,9 +209,9 @@ public class Graphics {
         obj.translate(x, y, depth);
     }
 
-    public static void moveObjPosition(float x, float y, Object3D obj)
+    public static void moveObjPosition(float x, float y, float z, Object3D obj)
     {
-        SimpleVector v = SimpleVector.create(x, y, 0.0f);
+        SimpleVector v = SimpleVector.create(x, y, z);
 
         obj.translate(v);
     }
