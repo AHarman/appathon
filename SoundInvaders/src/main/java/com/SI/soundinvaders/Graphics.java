@@ -18,7 +18,7 @@ public class Graphics {
     public static FrameBuffer fb;
     public static World world = null;
 
-    public static ArrayList<Object3D> objs = new ArrayList<Object3D>();
+    //public static ArrayList<Object3D> objs = new ArrayList<Object3D>();
 
     private static final float depth = 1.0f;
 
@@ -90,7 +90,7 @@ public class Graphics {
         SimpleVector m = SimpleVector.create(x, y, depth);
 
         obj.translate(m);
-        objs.add(obj);
+        //objs.add(obj);
         world.addObject(obj);
 
         return obj;
@@ -101,8 +101,6 @@ public class Graphics {
         x = translateX(x);
         y = translateY(y);
 
-        //Object3D obj = Primitives.getCone(90, 8.0f, 0.1f);
-        //Object3D obj = Primitives.getPyramide(1.0f, 10.0f);
         Object3D obj = new Object3D(1);
 
         obj.addTriangle(SimpleVector.create(0, -1.0f, 0), SimpleVector.create(-1.0f, 1.0f, 0), SimpleVector.create(1.0f, 1.0f, 0));
@@ -117,7 +115,7 @@ public class Graphics {
         SimpleVector m = SimpleVector.create(x, y, depth);
 
         obj.translate(m);
-        objs.add(obj);
+        //objs.add(obj);
         world.addObject(obj);
 
         return obj;
@@ -151,5 +149,10 @@ public class Graphics {
     public static float getObjY(Object3D obj)
     {
         return backTranslateY(obj.getTransformedCenter().y);
+    }
+
+    public static void removeObject(Object3D obj)
+    {
+        world.removeObject(obj);
     }
 }

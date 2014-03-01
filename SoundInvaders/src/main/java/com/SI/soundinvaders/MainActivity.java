@@ -181,11 +181,10 @@ public class MainActivity extends Activity {
                 plane = Primitives.getPlane(1, 0.001f);
 
                 Graphics.setWorld(world);
-                Object3D obj = Graphics.addRect(10.0f, 10.0f);
+                Object3D obj = Graphics.addPlayer(10.0f, 10.0f);
                 Graphics.setObjPosition(5.0f, 5.0f, obj);
 
                 world.addObject(plane);
-
 
                 light = new Light(world);
                 light.enable();
