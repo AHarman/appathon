@@ -100,6 +100,15 @@ public class MainActivity extends Activity {
         super.onStop();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        // Immersive mode is only supported in Android KitKat and above
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus)
+            hideSystemBars();
+    }
+
     private void copy(Object src) {
         try {
             Logger.log("Copying data from master Activity!");
