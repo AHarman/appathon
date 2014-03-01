@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/clouds"
+              tools:context="com.SI.soundinvaders.MenuActivity"
+              android:paddingTop="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/display_name"
+            android:textColor="@color/wetasphalt"
+            android:id="@+id/menuTitle"
+            android:layout_gravity="center_horizontal"
+            android:textSize="40sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/waveform"
+            android:longClickable="false"
+            android:contentDescription="waveform"
+            android:adjustViewBounds="true"/>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="play now!"
+            android:id="@+id/playButton"
+            android:textColor="@color/wetasphalt"
+            android:background="@color/clouds"
+            android:textSize="25sp"
+            android:onClick="startGame"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wetasphalt"
+            android:layout_gravity="center_horizontal"
+            android:text="or don't."
+            android:paddingTop="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wetasphalt"
+            android:layout_gravity="center_horizontal"
+            android:text="I don't care."
+            android:paddingTop="15dp"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -16,6 +16,14 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait">
             <intent-filter>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.SI.soundinvaders.MenuActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

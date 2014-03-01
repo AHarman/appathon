@@ -29,6 +29,7 @@ import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.GLSLShader;
 import com.threed.jpct.Light;
+import com.threed.jpct.Loader;
 import com.threed.jpct.Logger;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
@@ -65,8 +66,6 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
     private Light light;
 
     private GLSLShader shader = null;
-
-    private float scale = 0.05f;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -173,10 +172,14 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
         return super.onTouchEvent(me);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    protected boolean isFullscreenOpaque() {
+        return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void hideSystemBars()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -200,6 +203,8 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
 
         private long time = System.currentTimeMillis();
 
+        GLSLShader shader;
+
         public MyRenderer() {
             Texture.defaultToMipmapping(true);
             Texture.defaultTo4bpp(true);
@@ -219,7 +224,16 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
                 font = new Texture(res.openRawResource(R.raw.numbers));
                 font.setMipmap(false);
 
-                plane = Primitives.getPlane(1, 0.001f);
+                
+                plane = Primitives.getPlane(1, 10000.0f);
+                plane.setOrigin(SimpleVector.create(0, 0, 2000));
+                plane.setAdditionalColor(back);
+
+                shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
+                shader.setUniform("windowSize", SimpleVector.create(fb.getWidth(), fb.getHeight(), 0.0f));
+                plane.setShader(shader);
+
+                plane.setAdditionalColor(0, 255, 0);
 
                 Camera cam = world.getCamera();
 
@@ -250,7 +264,7 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
 
                 GameWorld.initialise();
 
-
+                GameAudio.startMedia();
 
                 if (master == null) {
                     Logger.log("Saving master Activity!");
@@ -272,7 +286,32 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
             Logger.log("onSurfaceCreated");
         }
 
+        private float beatFracAvg = 0;
+
+        int c = 0;
+        boolean b = false;
+
         public void onDrawFrame(GL10 gl) {
+
+            if(GameAudio.isGoing())
+            {
+                beatFracAvg = (float)GameAudio.plzGetBeatFraction();
+
+                if(beatFracAvg < 0.5 && !b)
+                {
+                    c++;
+                    //Log.d("SoundInvadersI", Float.toString((float) (c/(System.nanoTime()/(1000.0*1000.0)))));
+                    b = true;
+                }
+                if(beatFracAvg > 0.5)
+                {
+                    b = false;
+                }
+
+                if(shader!=null)
+                    shader.setUniform("beatFrac", beatFracAvg);
+                //Log.d("SoundInvaders", Float.toString(beatFracAvg));
+            }
 
             if (this.hasToCreateBuffer) {
                 Logger.log("Recreating buffer...");
@@ -281,12 +320,14 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
             }
 
             if (touchTurn != 0) {
-                plane.rotateY(touchTurn);
+                //plane.rotateY(touchTurn);
+                //plane.rotateY(touchTurn);
                 touchTurn = 0;
             }
 
             if (touchTurnUp != 0) {
-                plane.rotateX(touchTurnUp);
+                //plane.rotateX(touchTurnUp);
+                //plane.rotateX(touchTurnUp);
                 touchTurnUp = 0;
             }
 

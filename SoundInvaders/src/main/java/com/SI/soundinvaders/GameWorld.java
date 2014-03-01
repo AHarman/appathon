@@ -8,6 +8,8 @@ import com.threed.jpct.RGBColor;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andy on 01/03/2014.
@@ -47,7 +49,7 @@ public class GameWorld {
     {
         for (GameObject block: blockQueue)
         {
-            Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
+            Graphics.moveObjPosition(0.0f,1.0f, 0, block.getObj());
         }
         checkCollisions();
         randomSpawn();
@@ -85,19 +87,26 @@ public class GameWorld {
             int col = block.getColumn();
 
             // check if the block has passed off the bottom of the screen
-            if (blockY > 120.0f + 10.0f/2) // screen height / block height
+            if (blockY > Graphics.getHeight() + 50.0f) // screen height / block height
+            {
                 block.remove(iterator);
+                continue;
+            }
+
+            if (!block.isAlive())
+                continue;
 
             if (col == playerObject.getColumn())
             {
                 if (playerY - blockY < 20.0f) // change this to the actual size of the objects
                 {
+                    block.kill();
                     switch (block.type)
                     {
                         case GREEN_BLOCK:
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
-                            block.remove(iterator);
+                            //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
                             Log.d("SOUNDINVADERS", "red collision");
@@ -105,7 +114,7 @@ public class GameWorld {
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
-                            block.remove(iterator);
+                            //block.remove(iterator);
                             break;
                         default:
                             Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
@@ -118,6 +127,46 @@ public class GameWorld {
     public static class GameObject {
         public Object3D obj;
         public GameObjectType type;
+        boolean alive = true;
+
+        public boolean isAlive() {
+            return alive;
+        }
+
+        public void kill() {
+            if (!isAlive())
+                return;
+
+            alive = false;
+
+            Log.d("SOUNDINVADERS","Kill");
+
+            final Object3D obj = this.getObj();
+            final GameObject gameObject = this;
+            final int moveTime = 500;
+            //blockQueue.remove(gameObject);
+            Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                final int stepTime = 15;
+                int i = stepTime;
+                @Override
+                public void run() {
+                    float stepMovement = (2000/(moveTime/stepTime));
+
+                    Graphics.moveObjPosition(0,0,stepMovement, obj);
+
+                    i += stepTime;
+                    if (i>=moveTime)
+                    {
+                        Graphics.moveObjPosition(0.0f,100.0f,-3000.0f, obj);
+                        //gameObject.removeFromWorld();
+                        cancel();
+                    }
+                }
+
+            }, 0, 15);
+        }
+
         int column;
 
         // Do we still need this?
@@ -155,7 +204,7 @@ public class GameWorld {
 
             if (type != GameObjectType.PLAYER)
             {
-                this.obj = Graphics.addRect(xPos,0,colour);
+                this.obj = Graphics.addRect(xPos,-50,colour);
                 blockQueue.add(this);
             }
             else
@@ -167,9 +216,27 @@ public class GameWorld {
 
         public void setColumn(int column)
         {
-            int xMovement = column - this.column;
+            final int xMovement = (column - this.column)*30;
+            final int moveTime = 200;
+            final Object3D obj = this.getObj();
+
+            Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                final int stepTime = 15;
+                int i = stepTime;
+                @Override
+                public void run() {
+                    float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
+
+                    Graphics.moveObjPosition(stepMovement, 0, 0, obj);
+
+                    i += stepTime;
+                    if (i>=moveTime) cancel();
+                }
+
+            }, 0, 15);
+
             this.column = column;
-            Graphics.moveObjPosition(xMovement*30,0,this.getObj());
         }
 
         public Object3D getObj() {
@@ -185,10 +252,14 @@ public class GameWorld {
             return column;
         }
 
+        private void removeFromWorld() {
+            Graphics.world.removeObject(obj);
+        }
+
         public void remove(Iterator<GameObject> iter)
         {
             iter.remove();
-            Graphics.world.removeObject(obj);
+            removeFromWorld();
         }
     }
 
