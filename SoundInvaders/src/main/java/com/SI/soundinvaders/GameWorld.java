@@ -45,11 +45,17 @@ public class GameWorld {
             Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
         }
         checkCollisions();
+        randomSpawn();
     }
 
-    public static void spawn(GameObjectType gameObjectType, int col)
+    public static void randomSpawn()
     {
-
+        if (Math.random() > 0.95)
+        {
+            int col = 1 + (int)(Math.random() * ((3 - 1) + 1));
+            int type = (int)(Math.random() * ((2) + 1));
+            new GameObject(GameObjectType.values()[type],col);
+        }
     }
 
     public static void checkCollisions()
@@ -98,6 +104,7 @@ public class GameWorld {
         public GameObjectType type;
         int column;
 
+        // Do we still need this?
         public GameObject(Object3D obj, GameObjectType type, int column) {
             this.obj = obj;
             this.type = type;
