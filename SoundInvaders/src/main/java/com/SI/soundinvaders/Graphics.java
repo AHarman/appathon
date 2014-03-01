@@ -20,7 +20,7 @@ public class Graphics {
 
     public ArrayList<Object3D> objs = new ArrayList<Object3D>();
 
-    private final float depth = 1.5f;
+    private final float depth = 1.0f;
 
     Graphics()
     {
@@ -44,11 +44,12 @@ public class Graphics {
 
     public Object3D addRect(float x, float y)
     {
-        Object3D obj = Primitives.getCube(10.0f);
+        Object3D obj = Primitives.getBox(0.1f, 10.0f);
         obj.rotateY((float) (-Math.PI/4.0));
         obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(255, 0, 0);
         obj.compile();
+        //obj.setBillboarding(true);
 
         SimpleVector m = SimpleVector.create(x, y, depth);
 
@@ -63,6 +64,7 @@ public class Graphics {
     {
         SimpleVector v = obj.getTransformedCenter();
         SimpleVector f = new SimpleVector();
+
         f.x = -v.x;
         f.y = -v.y;
         f.z = -v.z;
