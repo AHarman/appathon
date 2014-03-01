@@ -186,11 +186,15 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 font = new Texture(res.openRawResource(R.raw.numbers));
                 font.setMipmap(false);
 
+                plane = Primitives.getPlane(1, 0.001f);
+
                 //graphics.setCamera(camera);
                 graphics.setWorld(world);
-                graphics.addRect(SimpleVector.create(10, 10, 0));
+                Object3D obj = graphics.addRect(10.0f, 10.0f);
+                graphics.setObjPosition(0, 0, obj);
 
-                //world.addObject(plane);
+                world.addObject(plane);
+
 
                 light = new Light(world);
                 light.enable();
@@ -246,7 +250,7 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 touchTurnUp = 0;
             }
 
-            shader.setUniform("heightScale", scale);
+            //shader.setUniform("heightScale", scale);
 
             fb.clear(back);
             world.renderScene(fb);
@@ -298,6 +302,6 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
     }
 
     public void onScaleEnd(ScaleGestureDetector detector) {
-        
+
     }
 }
