@@ -4,16 +4,23 @@ import java.lang.reflect.Field;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
+import java.io.LineNumberReader;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,8 +38,10 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
-public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
+public class MainActivity extends FragmentActivity implements GestureDetector.OnGestureListener {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
@@ -82,7 +91,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         setContentView(mGLView);
 
         hideSystemBars();
-        new ScoreBoard(this.getApplicationContext());
+        new ScoreBoard(getApplicationContext());
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void showScores(){
+        android.app.FragmentManager fm = getFragmentManager();
+        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
+        scoreboard.show(fm, "tag");
     }
 
     @Override
@@ -127,7 +143,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onDown(MotionEvent event) {return true;}
     public void onLongPress(MotionEvent event) {}
     public void onShowPress(MotionEvent event) {}
-    public boolean onSingleTapUp(MotionEvent event) {return true;}
+    public boolean onSingleTapUp(MotionEvent event)
+    {
+        showScores();
+        return true;
+    }
     public boolean onDoubleTap(MotionEvent event) {return true;}
     public boolean onDoubleTapEvent(MotionEvent event) {return true;}
     public boolean onSingleTapConfirmed(MotionEvent event) {return true;}
@@ -149,12 +169,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onTouchEvent(MotionEvent me) {
 
         mDetector.onTouchEvent(me);
-
         return super.onTouchEvent(me);
-    }
-
-    protected boolean isFullscreenOpaque() {
-        return true;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
