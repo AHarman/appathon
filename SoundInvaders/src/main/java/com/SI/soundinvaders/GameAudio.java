@@ -62,7 +62,7 @@ public class GameAudio {
     {
         mediaPlayerx.stop();
         mediaPlayerx.release();
-        mediaPlayerx = MediaPlayer.create(c, com.SI.soundinvaders.R.raw.eiawav);
+        mediaPlayerx = null;
     }
 
     public static double plzGetBeatFraction()

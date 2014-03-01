@@ -235,6 +235,8 @@ public class MainActivity extends Activity {
 
                 GameWorld.initialise();
 
+                GameAudio.init(getApplicationContext());
+
                 if (master == null) {
                     Logger.log("Saving master Activity!");
                     master = MainActivity.this;
