@@ -6,6 +6,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -77,6 +78,7 @@ public class  MainActivity extends Activity implements OnScaleGestureListener {
         setContentView(mGLView);
 
         gestureDec = new ScaleGestureDetector(this.getApplicationContext(), this);
+        new ScoreBoard(this.getBaseContext());
     }
 
     @Override
