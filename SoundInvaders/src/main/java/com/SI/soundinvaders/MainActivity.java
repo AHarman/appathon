@@ -214,8 +214,8 @@ public class MainActivity extends Activity {
 
                 Graphics.init();
 
-                Object3D obj = Graphics.addRect(10.0f, 10.0f, GameWorld.blueColour);
-                Graphics.moveObjPosition(10.0f, 10.0f, obj);
+                //Object3D obj = Graphics.addRect(10.0f, 10.0f, GameWorld.blueColour);
+                //Graphics.moveObjPosition(10.0f, 10.0f, obj);
 
                 world.addObject(plane);
 

@@ -34,7 +34,7 @@ public class GameWorld {
         // start the player in the middle of the screen
         playerObject = new GameObject(Graphics.addPlayer(Graphics.getWidth() / 2, Graphics.getHeight() - 10.0f, playerColour),GameObjectType.PLAYER, 2);
 
-        //Graphics.addRect(10.0f, 10.0f, redColour);
+        Graphics.addRect(10.0f, 10.0f, redColour);
         Graphics.addRect(35.0f, 10.0f, blueColour);
         Graphics.addRect(55.0f, 10.0f, greenColour);
     }
