@@ -88,18 +88,25 @@ public class GameWorld {
 
             // check if the block has passed off the bottom of the screen
             if (blockY > Graphics.getHeight() + 50.0f) // screen height / block height
+            {
                 block.remove(iterator);
+                continue;
+            }
+
+            if (!block.isAlive())
+                continue;
 
             if (col == playerObject.getColumn())
             {
                 if (playerY - blockY < 20.0f) // change this to the actual size of the objects
                 {
+                    block.kill(h);
                     switch (block.type)
                     {
                         case GREEN_BLOCK:
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
-                            block.remove(iterator);
+                            //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
                             Log.d("SOUNDINVADERS", "red collision");
@@ -107,10 +114,10 @@ public class GameWorld {
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
-                            block.remove(iterator);
+                            //block.remove(iterator);
                             break;
                         default:
-                            Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
+                      h      Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
                     }
                 }
             }
@@ -120,6 +127,39 @@ public class GameWorld {
     public static class GameObject {
         public Object3D obj;
         public GameObjectType type;
+        boolean alive;
+
+        public boolean isAlive() {
+            return alive;
+        }
+
+        public void kill() {
+            if (!isAlive())
+                return;
+
+            alive = false;
+
+            RGBColor initialColour = Graphics.getColour(this.getObj());
+
+            initialColour.setTo(initialColour.getRed(),initialColour.getGreen(),initialColour.getBlue(),127);
+
+            Graphics.setColour(initialColour);
+
+            /*Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                final int stepTime = 15;
+                int i = stepTime;
+                @Override
+                public void run() {
+                    Graphics.
+
+                    i += stepTime;
+                    if (i>=moveTime) cancel();
+                }
+
+            }, 0, 15);*/
+        }
+
         int column;
 
         // Do we still need this?

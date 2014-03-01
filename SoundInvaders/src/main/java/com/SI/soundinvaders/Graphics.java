@@ -178,11 +178,20 @@ public class Graphics {
         return obj;
     }
 
-    public static void setColour(int r, int g, int b, Object3D obj)
+    public static void setColour(int r, int g, int b, int a, Object3D obj)
     {
 
-        obj.setAdditionalColor(r, g, b);
+        //obj.setAdditionalColor(r, g, b);
+        RGBColor rgbColor = new RGBColor(r,b,g,a);
+        obj.setAdditionalColor(rgbColor);
     }
+
+    public static RGBColor getColour(Object3D obj)
+    {
+        return obj.getAdditionalColor();
+    }
+
+
 
     public static void setObjPosition(float x, float y, Object3D obj)
     {
