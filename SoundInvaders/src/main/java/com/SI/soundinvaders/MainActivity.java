@@ -172,10 +172,6 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
         return super.onTouchEvent(me);
     }
 
-    protected boolean isFullscreenOpaque() {
-        return true;
-    }
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void hideSystemBars()
     {
