@@ -3,6 +3,7 @@ package com.SI.soundinvaders;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v7.appcompat.R;
+import android.util.Log;
 
 import com.musicg.wave.Wave;
 
@@ -13,9 +14,11 @@ import java.io.InputStream;
  */
 public class GameAudio {
     static MediaPlayer mediaPlayerx = new MediaPlayer();
-    static double bpm = 104.993; //beat per minute
+    //static double bpm = 104.993; //beat per minute
+    static double bpm = 148.003; //beat per minute
+    //static double bpm = 148; //beat per minute
     static double spb = 60.0/bpm; //seconds per beat
-    static int intro = 250;
+    static int intro = 1346;
     static double mean = 0;
     static Context c;
     static InputStream is;
@@ -23,6 +26,8 @@ public class GameAudio {
     static short[] amps;
     static double upperThreshold;
     static double lowerThreshold;
+
+    static long stime = System.nanoTime();
 
     public static void init(Context con)
     {
@@ -67,9 +72,24 @@ public class GameAudio {
 
     public static double plzGetBeatFraction()
     {
-        int curPos = mediaPlayerx.getCurrentPosition()-intro ;
-        double frac = (curPos % spb*1000.0)/(spb*1000.0);
+        double abpm = bpm / 60.0f;
+        abpm = 1.0 / abpm;
+        double curPos = ((System.nanoTime() - stime)/(1000.0*1000.0)) - intro;
+
+        float r = (float) (curPos / (abpm*1000.0));
+
+        float f = (float) Math.floor(r);
+
+        r -= f;
+
+        float frac = r;
+
         return frac;
+    }
+
+    public static boolean isGoing()
+    {
+        return mediaPlayerx.isPlaying();
     }
 
 

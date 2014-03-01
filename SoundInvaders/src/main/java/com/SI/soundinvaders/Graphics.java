@@ -11,6 +11,7 @@ import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.World;
 import com.threed.jpct.Primitives;
+import com.threed.jpct.Loader;
 
 import java.util.ArrayList;
 
@@ -128,7 +129,6 @@ public class Graphics {
         obj.addTriangle(upperRightFront,0,0, lowerRightFront,0,1, upperRightBack,1,0);
         obj.addTriangle(upperRightBack,1,0, lowerRightFront, 0,1, lowerRightBack,1,1);
 
-        //obj.setTexture("base");
         obj.build();
 
         obj.scale(10.0f);
@@ -147,7 +147,6 @@ public class Graphics {
         SimpleVector m = SimpleVector.create(x, y, depth);
 
         obj.translate(m);
-        //objs.add(obj);
         world.addObject(obj);
 
         return obj;
@@ -165,8 +164,6 @@ public class Graphics {
 
         obj.scale(10.0f);
 
-        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
-        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(colour);
         obj.compile();
         obj.strip();
@@ -174,7 +171,6 @@ public class Graphics {
         SimpleVector m = SimpleVector.create(x, y, depth);
 
         obj.translate(m);
-        //objs.add(obj);
         world.addObject(obj);
 
         return obj;
@@ -187,9 +183,6 @@ public class Graphics {
 
     public static void setObjPosition(float x, float y, Object3D obj)
     {
-        //x = translateX(x);
-        //y = translateY(y);
-
         SimpleVector v = obj.getTransformedCenter();
         SimpleVector f = new SimpleVector();
 
