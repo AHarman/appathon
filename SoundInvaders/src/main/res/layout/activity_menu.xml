@@ -37,7 +37,8 @@
             android:id="@+id/playButton"
             android:textColor="@color/wetasphalt"
             android:background="@color/clouds"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:onClick="startGame"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
