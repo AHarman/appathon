@@ -11,7 +11,7 @@ import java.util.Deque;
 public class GameWorld {
 
     public Deque<GameObject> gameObjectsQueue = new ArrayDeque<GameObject>();
-    //public GameObject playerObject = new GameObject();
+    public GameObject playerObject;
 
     public enum GameObjectType
     {
@@ -26,7 +26,7 @@ public class GameWorld {
 
     public void initialiseGameWorld()
     {
-        
+        //playerObject = new GameObject(new Object3D(),GameObjectType.PLAYER);
     }
 
 
