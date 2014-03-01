@@ -22,7 +22,7 @@ public class AudioGameplayIntegrater
             if(cur==0)
             {
                 justDone = true;
-                GameWorld.nextBeat(GameAudio.plzGetIntenseValue());
+                GameWorld.processBeat(GameAudio.plzGetIntenseValue());
             }
 
             cur = (cur+1) % n;

@@ -23,7 +23,7 @@ public class GameWorld {
 
     public static final RGBColor playerColour = new RGBColor(230, 126, 34);
 
-    public static void nextBeat(int intensity)
+    public static void processBeat(int intensity)
     {
 
     }
