@@ -42,12 +42,27 @@ public class Graphics {
         world = w;
     }
 
+    private float translateX(float x)
+    {
+        return x - 40.0f;
+    }
+    private float translateY(float y)
+    {
+        return y - 60.0f;
+    }
+
+    public float getWidth()
+    {
+        //return 5.0f /
+        return 0;
+    }
+
     public Object3D addRect(float x, float y)
     {
         Object3D obj = Primitives.getBox(10.0f, 0.1f);
         obj.rotateY((float) (-Math.PI/4.0));
         obj.rotateY((float) (-Math.PI/2.0));
-        obj.rotateX((float) (-Math.PI / 2.0));
+        obj.rotateX((float) (-Math.PI/2.0));
         obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(255, 0, 0);
         obj.compile();
@@ -60,6 +75,11 @@ public class Graphics {
         world.addObject(obj);
 
         return obj;
+    }
+
+    public void setColour(int r, int g, int b, Object3D obj)
+    {
+        obj.setAdditionalColor(r, g, b);
     }
 
     public void setObjPosition(float x, float y, Object3D obj)
@@ -83,5 +103,4 @@ public class Graphics {
     {
         return obj.getTransformedCenter().y;
     }
-
 }

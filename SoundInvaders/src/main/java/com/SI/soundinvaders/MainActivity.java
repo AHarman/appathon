@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
                 //graphics.setCamera(camera);
                 graphics.setWorld(world);
                 Object3D obj = graphics.addRect(10.0f, 10.0f);
-                graphics.setObjPosition(-25.0f, 0, obj);
+                graphics.setObjPosition(-35.0f, -55.0f, obj);
 
                 world.addObject(plane);
 
