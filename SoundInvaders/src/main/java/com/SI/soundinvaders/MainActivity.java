@@ -214,8 +214,8 @@ public class MainActivity extends Activity {
 
                 Graphics.init();
 
-                //Object3D obj = Graphics.addRect(10.0f, 10.0f);
-                //Graphics.setObjPosition(10.0f, 0.0f, obj);
+                Object3D obj = Graphics.addRect(10.0f, 10.0f, GameWorld.blueColour);
+                Graphics.moveObjPosition(10.0f, 10.0f, obj);
 
                 world.addObject(plane);
 
@@ -223,11 +223,8 @@ public class MainActivity extends Activity {
                 light.enable();
 
                 light.setIntensity(60, 50, 50);
-                light.setPosition(SimpleVector.create(-10, -50, -100));
-
+                light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
-
-
 
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());
