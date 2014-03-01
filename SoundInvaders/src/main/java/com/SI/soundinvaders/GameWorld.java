@@ -27,6 +27,8 @@ public class GameWorld {
 
     public static float ySpeed = 1.0f;
 
+    private static int ticksSinceLastRed = 0;
+
     public static void processBeat(int intensity)
     {
         if(intensity >= 1 && intensity <= 3)
@@ -44,8 +46,48 @@ public class GameWorld {
             ySpeed = (float) 1.3;
         }
 
+        float greenWeight = (float) 0.1;
+        float redWeight = (float) 0.3;
+        float blueWeight = (float) 0.6;
 
-        new GameObject(GameObjectType.values()[(int) (Math.random() * 3)], (int) (Math.random() * 3) + 1);
+        float bType = (float) Math.random();
+
+        int type = 0;
+
+        if(bType < greenWeight)
+        {
+            type = 0;
+        }
+        else if(bType < redWeight + greenWeight)
+        {
+            type = 1;
+        }
+        else
+        {
+            type = 2;
+        }
+
+        if(type==1 && ticksSinceLastRed == 0)
+        {
+            type = 2;
+        }
+
+        if(type==1)
+        {
+            ticksSinceLastRed = 0;
+        }
+
+        if(type!=1)
+        {
+            ticksSinceLastRed++;
+            if(ticksSinceLastRed > 4)
+            {
+                type = 1;
+                ticksSinceLastRed = 0;
+            }
+        }
+
+        new GameObject(GameObjectType.values()[type], (int) (Math.random() * 3) + 1);
     }
 
     public static enum GameObjectType
