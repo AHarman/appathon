@@ -1,22 +1,25 @@
 package com.SI.soundinvaders;
 
 import java.lang.reflect.Field;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
+import android.os.Looper;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -70,20 +73,33 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
 
         mDetector = new GestureDetector(this,this);
-
+        setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        mGLView = new GLSurfaceView(getApplication());
+        mGLView = (GLSurfaceView)findViewById(R.id.openGlView);
 
         // Enable the OpenGL ES2.0 context
         mGLView.setEGLContextClientVersion(2);
 
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
-        setContentView(mGLView);
+
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");
+        TextView tvScore = (TextView)findViewById(R.id.tvScore);
+        tvScore.setTypeface(myTypeface);
 
         hideSystemBars();
         new ScoreBoard(this.getApplicationContext());
+
+        updateScore(0);
+
     }
+
+    void updateScore(int score)
+    {
+        TextView tvScore = (TextView)findViewById(R.id.tvScore);
+        tvScore.setText(String.valueOf(GameWorld.score));
+    }
+
 
     @Override
     protected void onPause() {
@@ -319,6 +335,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             world.renderScene(fb);
             world.draw(fb);
             blitNumber(lfps, 5, 5);
+
             fb.display();
 
             if (System.currentTimeMillis() - time >= 1000) {
@@ -327,9 +344,21 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 time = System.currentTimeMillis();
             }
             fps++;
+
+            master.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    master.updateScore(GameWorld.score);
+                }
+            });
+
         }
 
+
+
         private void blitNumber(int number, int x, int y) {
+
+
             if (font != null) {
                 String sNum = Integer.toString(number);
 
