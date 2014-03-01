@@ -158,7 +158,7 @@ public class GameWorld {
         {
             int col = 1 + (int)(Math.random() * 3);
             int type = (int)(Math.random() * 3);
-            new GameObject(GameObjectType.values()[type],col);
+            //new GameObject(GameObjectType.values()[type],col);
         }
     }
 
