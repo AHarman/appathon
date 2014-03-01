@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jpct_ae">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/SoundInvaders/src/main/libs/jpct_ae.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SoundInvaders/src/main/java/libs/jpct_ae.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
