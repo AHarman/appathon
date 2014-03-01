@@ -27,127 +27,127 @@
             android:id="@+id/scoreName0"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score0"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName1"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score1"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName2"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score2"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName3"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score3"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName4"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score4"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName5"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score5"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName6"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score6"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName7"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score7"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName8"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score8"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
 
         <TextView
             android:id="@+id/scoreName9"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
         <TextView
             android:id="@+id/score9"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_width="80dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="7dp"/>
     </GridLayout>
     <Button
         android:id="@+id/close"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:text="@string/closepopup"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         android:layout_gravity="center"/>
 </LinearLayout>

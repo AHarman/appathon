@@ -35,12 +35,12 @@ public class ScoreBoard {
         {
             try{
                 outyougo = appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
-                outyougo.write("Beat Me;100".getBytes());
+                for(int i=100; i<=1000; i+=100)
+                    outyougo.write(("Beat Me;" + i + "\n").getBytes());
                 outyougo.close();
             } catch (Exception e){
                 Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
             }
-
         }
         Log.d("files", "FILE EXISTS!");
         readScores();
