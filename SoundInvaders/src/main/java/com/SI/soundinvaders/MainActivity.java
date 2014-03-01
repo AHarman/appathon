@@ -164,7 +164,7 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
         private int fps = 0;
         private int lfps = 0;
 
-        Graphics graphics;
+        Graphics graphics = new Graphics();
 
         private long time = System.currentTimeMillis();
 
@@ -183,47 +183,14 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 Logger.log("Initializing game...");
                 world = new World();
 
-                TextureManager tm = TextureManager.getInstance();
-
-                Texture face = new Texture(res.openRawResource(R.raw.face));
-                Texture normals = new Texture(res.openRawResource(R.raw.face_norm), true);
-                Texture heighty = new Texture(res.openRawResource(R.raw.face_height2));
-
-                plane = Primitives.getPlane(1, 100);
-
-                TexelGrabber grabber = new TexelGrabber();
-                heighty.setEffect(grabber);
-                heighty.applyEffect();
-                int[] heighties = grabber.getAlpha();
-
-                AlphaMerger setter = new AlphaMerger(heighties);
-                normals.setEffect(setter);
-                normals.applyEffect();
-
                 font = new Texture(res.openRawResource(R.raw.numbers));
                 font.setMipmap(false);
 
-                tm.addTexture("face", face);
-                tm.addTexture("normals", normals);
-
-                TextureInfo ti = new TextureInfo(TextureManager.getInstance().getTextureID("face"));
-                ti.add(TextureManager.getInstance().getTextureID("normals"), TextureInfo.MODE_BLEND);
-
-                plane.setTexture(ti);
-
-                shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertexshader_offset)), Loader.loadTextFile(res.openRawResource(R.raw.fragmentshader_offset)));
-                plane.setShader(shader);
-                plane.setSpecularLighting(true);
-                shader.setStaticUniform("invRadius", 0.0003f);
-
-                plane.build();
-                plane.strip();
-
                 //graphics.setCamera(camera);
-                //graphics.setWorld(world);
-                //graphics.addRect(SimpleVector.create(10, 10, 0));
+                graphics.setWorld(world);
+                graphics.addRect(SimpleVector.create(10, 10, 0));
 
-                world.addObject(plane);
+                //world.addObject(plane);
 
                 light = new Light(world);
                 light.enable();
@@ -326,72 +293,11 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
     }
 
     public boolean onScaleBegin(ScaleGestureDetector detector) {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     public void onScaleEnd(ScaleGestureDetector detector) {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * Merges the height map into the alpha channel of the normal map.
-     *
-     * @author EgonOlsen
-     *
-     */
-    private static class AlphaMerger implements ITextureEffect {
-
-        private int[] alpha = null;
-
-        public AlphaMerger(int[] alpha) {
-            this.alpha = alpha;
-        }
-
-        public void apply(int[] arg0, int[] arg1) {
-            int end = arg1.length;
-            for (int i = 0; i < end; i++) {
-                arg0[i] = arg1[i] & 0x00ffffff | alpha[i];
-            }
-        }
-
-        public boolean containsAlpha() {
-            return true;
-        }
-
-        public void init(Texture arg0) {
-            // TODO Auto-generated method stub
-        }
-    }
-
-    /**
-     * Extracts the alpha channel from a texture.
-     *
-     * @author EgonOlsen
-     *
-     */
-    private static class TexelGrabber implements ITextureEffect {
-
-        private int[] alpha = null;
-
-        public void apply(int[] arg0, int[] arg1) {
-            alpha = new int[arg1.length];
-            int end = arg1.length;
-            for (int i = 0; i < end; i++) {
-                alpha[i] = (arg1[i] << 24);
-            }
-        }
-
-        public int[] getAlpha() {
-            return alpha;
-        }
-
-        public boolean containsAlpha() {
-            return true;
-        }
-
-        public void init(Texture arg0) {
-            // TODO Auto-generated method stub
-        }
+        
     }
 }

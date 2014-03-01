@@ -18,7 +18,12 @@ public class Graphics {
     public FrameBuffer fb;
     public World world = null;
 
-    ArrayList<Object3D> objs = new ArrayList<Object3D>();
+    public ArrayList<Object3D> objs = new ArrayList<Object3D>();
+
+    Graphics()
+    {
+
+    }
 
     public void setCamera(Camera c)
     {
@@ -35,16 +40,22 @@ public class Graphics {
         world = w;
     }
 
-    public int addRect(SimpleVector v)
+    public Object3D addRect(SimpleVector v)
     {
-        Object3D obj = Primitives.getCube(1.0f);
+        Object3D obj = Primitives.getCube(10.0f);
+        obj.rotateY((float) (-Math.PI/4.0));
+        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        obj.setAdditionalColor(255, 0, 0);
         obj.compile();
-        v.z = 0;
-        //obj.addTriangle(SimpleVector.create(0, 0, 0), 0, 0, SimpleVector.create(1, 0, 0), 0, 0, SimpleVector.create(0, 1, 0), 0, 0);
+
+        SimpleVector m = v;
+        m.z = 1.5f;
+
         obj.translate(v);
         objs.add(obj);
         world.addObject(obj);
-        return objs.size() -1;
+
+        return obj;
     }
 
 }
