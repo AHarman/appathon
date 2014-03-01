@@ -199,10 +199,10 @@ public class Graphics {
         obj.setAdditionalColor(r, g, b);
     }
 
-    /*public static void setObjPosition(float x, float y, Object3D obj)
+    public static void setObjPosition(float x, float y, Object3D obj)
     {
-        x = translateX(x);
-        y = translateY(y);
+        //x = translateX(x);
+        //y = translateY(y);
 
         SimpleVector v = obj.getTransformedCenter();
         SimpleVector f = new SimpleVector();
@@ -213,14 +213,10 @@ public class Graphics {
 
         obj.translate(f);
         obj.translate(x, y, depth);
-    }*/
+    }
 
     public static void moveObjPosition(float x, float y, Object3D obj)
     {
-        //x = translateX(x);
-        //y = translateY(y);
-
-
         SimpleVector v = SimpleVector.create(x, y, 0.0f);
 
         obj.translate(v);

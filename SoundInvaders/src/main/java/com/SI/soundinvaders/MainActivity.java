@@ -223,11 +223,8 @@ public class MainActivity extends Activity {
                 light.enable();
 
                 light.setIntensity(60, 50, 50);
-                light.setPosition(SimpleVector.create(-10, -50, -100));
-
+                light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
-
-
 
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());
