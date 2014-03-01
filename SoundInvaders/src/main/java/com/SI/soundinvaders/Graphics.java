@@ -26,8 +26,6 @@ public class Graphics {
 
     private static final float depth = 1.0f;
 
-    private static SimpleVector tl, tr, bl, br;
-
     static
     {
 
@@ -35,10 +33,7 @@ public class Graphics {
 
     public static void init()
     {
-        //tl = Interact2D.reproject2D3DWS(cam, fb, 0, 0, 2.0f);
-        //tr = Interact2D.reproject2D3DWS(cam, fb, fb.getWidth(), 0, 2.0f);
-        //bl = Interact2D.reproject2D3DWS(cam, fb, 0, fb.getHeight(), 2.0f);
-        //br = Interact2D.reproject2D3DWS(cam, fb, fb.getWidth(), fb.getHeight(), 2.0f);
+
     }
 
     public static void setCamera(Camera c)
@@ -58,32 +53,21 @@ public class Graphics {
 
     private static float translateX(float x)
     {
-        //float width = tr.x - tl.x;
-        //Log.d("SoundInvaders", Float.toString(width));
-        //float base = tl.x;
-
-        //return (x/getWidth())*width + base;
-
-        return x - 5 - getWidth()/2.0f;
+        return x - getWidth()/2.0f;
     }
     private static float translateY(float y)
     {
-        //float height = tl.y - bl.y;
-        //float base = tl.y;
-
-        //return (y/getHeight())*height + base;
-
-        return y - 3 - getHeight()/2.0f;
+        return y - getHeight()/2.0f;
     }
 
     private static float backTranslateX(float x)
     {
-        return x + 5 + getWidth()/2.0f;
+        return x + getWidth()/2.0f;
     }
 
     private static float backTranslateY(float y)
     {
-        return y + 3 + getHeight()/2.0f;
+        return y + getHeight()/2.0f;
     }
 
     public static float getWidth()
