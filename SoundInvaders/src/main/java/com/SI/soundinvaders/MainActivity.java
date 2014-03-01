@@ -210,9 +210,16 @@ public class MainActivity extends Activity {
 
                 plane = Primitives.getPlane(1, 0.001f);
 
+                Camera cam = world.getCamera();
+
+                Graphics.setCamera(cam);
+                Graphics.setFrameBuffer(fb);
                 Graphics.setWorld(world);
+
+                Graphics.init();
+
                 Object3D obj = Graphics.addRect(10.0f, 10.0f);
-                Graphics.setObjPosition(10.0f, 10.0f, obj);
+                Graphics.setObjPosition(10.0f, 0.0f, obj);
 
                 world.addObject(plane);
 
@@ -224,7 +231,7 @@ public class MainActivity extends Activity {
 
                 world.setAmbientLight(10, 10, 10);
 
-                Camera cam = world.getCamera();
+
 
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());

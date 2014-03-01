@@ -1,7 +1,10 @@
 package com.SI.soundinvaders;
 
+import android.util.Log;
+
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
+import com.threed.jpct.Interact2D;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
 import com.threed.jpct.SimpleVector;
@@ -22,7 +25,20 @@ public class Graphics {
 
     private static final float depth = 1.0f;
 
-    static{}
+    private static SimpleVector tl, tr, bl, br;
+
+    static
+    {
+
+    }
+
+    public static void init()
+    {
+        //tl = Interact2D.reproject2D3DWS(cam, fb, 0, 0, 2.0f);
+        //tr = Interact2D.reproject2D3DWS(cam, fb, fb.getWidth(), 0, 2.0f);
+        //bl = Interact2D.reproject2D3DWS(cam, fb, 0, fb.getHeight(), 2.0f);
+        //br = Interact2D.reproject2D3DWS(cam, fb, fb.getWidth(), fb.getHeight(), 2.0f);
+    }
 
     public static void setCamera(Camera c)
     {
@@ -41,21 +57,32 @@ public class Graphics {
 
     private static float translateX(float x)
     {
-        return x - getWidth()/2.0f;
+        //float width = tr.x - tl.x;
+        //Log.d("SoundInvaders", Float.toString(width));
+        //float base = tl.x;
+
+        //return (x/getWidth())*width + base;
+
+        return x - 5 - getWidth()/2.0f;
     }
     private static float translateY(float y)
     {
-        return y - getHeight()/2.0f;
+        //float height = tl.y - bl.y;
+        //float base = tl.y;
+
+        //return (y/getHeight())*height + base;
+
+        return y - 3 - getHeight()/2.0f;
     }
 
     private static float backTranslateX(float x)
     {
-        return x + getWidth()/2.0f;
+        return x + 5 + getWidth()/2.0f;
     }
 
     private static float backTranslateY(float y)
     {
-        return y + getHeight()/2.0f;
+        return y + 3 + getHeight()/2.0f;
     }
 
     public static float getWidth()
@@ -124,7 +151,7 @@ public class Graphics {
         //obj.rotateY((float) (-Math.PI/4.0));
         //obj.rotateY((float) (-Math.PI/2.0));
         //obj.rotateX((float) (-Math.PI/2.0));
-        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(255, 0, 0);
         obj.compile();
 
@@ -149,7 +176,7 @@ public class Graphics {
 
         obj.scale(10.0f);
 
-        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(0, 0, 255);
         obj.compile();
 
