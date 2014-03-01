@@ -178,7 +178,6 @@ public class Graphics {
 
     public static void setColour(RGBColor rgbColor, Object3D obj)
     {
-
         //obj.setAdditionalColor(r, g, b);
         obj.setAdditionalColor(rgbColor);
     }
