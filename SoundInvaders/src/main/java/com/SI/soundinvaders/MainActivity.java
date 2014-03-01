@@ -164,6 +164,8 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
         private int fps = 0;
         private int lfps = 0;
 
+        Graphics graphics;
+
         private long time = System.currentTimeMillis();
 
         public MyRenderer() {
@@ -217,6 +219,10 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 plane.build();
                 plane.strip();
 
+                //graphics.setCamera(camera);
+                //graphics.setWorld(world);
+                //graphics.addRect(SimpleVector.create(10, 10, 0));
+
                 world.addObject(plane);
 
                 light = new Light(world);
@@ -228,6 +234,7 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 world.setAmbientLight(10, 10, 10);
 
                 Camera cam = world.getCamera();
+
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());
 

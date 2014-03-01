@@ -1,15 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$/SoundInvaders" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="appathon" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="defaultFlavorDebug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDefaultFlavorDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDefaultFlavorDebugJava" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDefaultFlavorDebugTest" />
+        <option name="SOURCE_GEN_TASK_NAME" value="generateDefaultFlavorDebugSources" />
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/SoundInvaders/src/main/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+      </configuration>
+    </facet>
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":SoundInvaders" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
+    <output url="file://$MODULE_DIR$/SoundInvaders/build/classes/defaultFlavor/debug" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/build" />
+    <content url="file://$MODULE_DIR$/SoundInvaders">
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/r/defaultFlavor/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/aidl/defaultFlavor/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/buildConfig/defaultFlavor/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/rs/defaultFlavor/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/res/rs/defaultFlavor/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavorDebug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/r/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/aidl/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/buildConfig/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/source/rs/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/build/res/rs/test/defaultFlavor/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/defaultFlavor/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/assets" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTestDefaultFlavor/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/debug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/assets" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/SoundInvaders/src/instrumentTest/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/apk" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/dependency-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/incremental" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/res" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/SoundInvaders/build/tmp" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="jpct_ae" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />
+    <orderEntry type="library" exported="" name="ComAndroidSupportAppcompatV71901.aar" level="project" />
   </component>
 </module>
 

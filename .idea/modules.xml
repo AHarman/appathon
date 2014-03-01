@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SoundInvaders.iml" filepath="$PROJECT_DIR$/SoundInvaders.iml" />
       <module fileurl="file://$PROJECT_DIR$/SoundInvaders/SoundInvaders-SoundInvaders.iml" filepath="$PROJECT_DIR$/SoundInvaders/SoundInvaders-SoundInvaders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appathon.iml" filepath="$PROJECT_DIR$/appathon.iml" />
     </modules>
   </component>
 </project>
