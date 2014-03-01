@@ -3,6 +3,7 @@ package com.SI.soundinvaders;
 import android.util.Log;
 
 import com.threed.jpct.Object3D;
+import com.threed.jpct.RGBColor;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -16,18 +17,32 @@ public class GameWorld {
     public static Deque<GameObject> blockQueue = new ArrayDeque<GameObject>();
     public static GameObject playerObject;
 
+    public static final RGBColor blueColour = new RGBColor(41, 128, 185);
+    public static final RGBColor redColour = new RGBColor(192, 57, 43);
+    public static final RGBColor greenColour = new RGBColor(46, 204, 113);
+
+    public static final RGBColor playerColour = new RGBColor(230, 126, 34);
+
+
     public static enum GameObjectType
     {
         GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
-        PLAYER
+        PLAYER;
     }
-
-    public static void initialiseGameWorld()
+    public static void initialise()
     {
         // start the player in the middle of the screen
-        playerObject = new GameObject(Graphics.addRect(Graphics.getWidth()/2, Graphics.getHeight()-10.0f),GameObjectType.PLAYER, 2);
+        playerObject = new GameObject(Graphics.addPlayer(Graphics.getWidth() / 2, Graphics.getHeight() - 10.0f, playerColour),GameObjectType.PLAYER, 2);
+
+        Graphics.addRect(10.0f, 10.0f, redColour);
+        Graphics.addRect(35.0f, 10.0f, blueColour);
+        Graphics.addRect(55.0f, 10.0f, greenColour);
     }
 
+    public static void updateScene()
+    {
+
+    }
 
     public static void checkCollisions()
     {

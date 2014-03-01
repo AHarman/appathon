@@ -12,24 +12,18 @@ import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.View;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.GLSLShader;
-import com.threed.jpct.ITextureEffect;
 import com.threed.jpct.Light;
-import com.threed.jpct.Loader;
 import com.threed.jpct.Logger;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
-import com.threed.jpct.TextureInfo;
-import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
@@ -42,7 +36,7 @@ public class MainActivity extends Activity {
     private MyRenderer renderer = null;
     private FrameBuffer fb = null;
     private World world = null;
-    private RGBColor back = new RGBColor(50, 50, 100);
+    private RGBColor back = new RGBColor(44, 62, 80);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -211,8 +205,6 @@ public class MainActivity extends Activity {
                 plane = Primitives.getPlane(1, 0.001f);
 
                 Graphics.setWorld(world);
-                Object3D obj = Graphics.addRect(10.0f, 10.0f);
-                Graphics.setObjPosition(10.0f, 10.0f, obj);
 
                 world.addObject(plane);
 
@@ -233,6 +225,8 @@ public class MainActivity extends Activity {
 
                 world.compileAllObjects();
 
+                GameWorld.initialise();
+
                 if (master == null) {
                     Logger.log("Saving master Activity!");
                     master = MainActivity.this;
@@ -246,6 +240,7 @@ public class MainActivity extends Activity {
                 }
             }
             lastInstance = gl;
+
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -270,6 +265,7 @@ public class MainActivity extends Activity {
                 touchTurnUp = 0;
             }
 
+            GameWorld.updateScene();
             //shader.setUniform("heightScale", scale);
 
             fb.clear(back);
