@@ -11,7 +11,7 @@ import java.util.Deque;
 public class GameWorld {
 
     public Deque<GameObject> gameObjectsQueue = new ArrayDeque<GameObject>();
-    public GameObject playerObject = new GameObject();
+    //public GameObject playerObject = new GameObject();
 
     public enum GameObjectType
     {
