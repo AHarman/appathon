@@ -36,4 +36,5 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile files('src/main/java/libs/jpct_ae.jar')
+    compile files('src/main/libs/musicg-1.4.2.0.jar')
 }
