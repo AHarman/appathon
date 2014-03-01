@@ -6,18 +6,6 @@ import android.text.method.BaseKeyListener;
  * Created by James on 01/03/14.
  */
 
-class GameAudio
-{
-    public static float plzGetBeatFraction()
-    {
-        return 0.0f;
-    }
-    public static int plzGetIntenseValue()
-    {
-        return 0;
-    }
-}
-
 public class AudioGameplayIntegrater
 {
     private static final int n = 2;
