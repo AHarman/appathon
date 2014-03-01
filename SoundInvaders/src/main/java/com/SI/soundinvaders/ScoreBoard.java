@@ -1,7 +1,11 @@
 package com.SI.soundinvaders;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,8 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by alex on 01/03/14.
  */
-public class ScoreBoard {
-
+public class ScoreBoard{
 
     private File dir = null;
     private ArrayList<Integer> scores = new ArrayList();
@@ -35,7 +38,16 @@ public class ScoreBoard {
         {
             try{
                 outyougo = appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
-                outyougo.write("Beat Me;100".getBytes());
+                outyougo.write("Beat Me;1000\n".getBytes());
+                outyougo.write("Beat Me;900\n".getBytes());
+                outyougo.write("Beat Me;800\n".getBytes());
+                outyougo.write("Beat Me;700\n".getBytes());
+                outyougo.write("Beat Me;600\n".getBytes());
+                outyougo.write("Beat Me;500\n".getBytes());
+                outyougo.write("Beat Me;400\n".getBytes());
+                outyougo.write("Beat Me;300\n".getBytes());
+                outyougo.write("Beat Me;200\n".getBytes());
+                outyougo.write("Beat Me;100\n".getBytes());
                 outyougo.close();
             } catch (Exception e){
                 Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
@@ -50,6 +62,7 @@ public class ScoreBoard {
         String line;
         String[] nameScore;
         BufferedReader buff;
+        TextView tv;
         /*File file = new File(appContext.getFileStreamPath());
             if(!file.exists())
                 return false;*/
@@ -78,6 +91,11 @@ public class ScoreBoard {
         } catch(Exception e){
             Log.e("files", "reading " + e.toString());
         }
+
+       /* for(int i = 0; i < 10; i++){
+            tv = (TextView) findViewById(R.id.rate);
+            tv.setText("RAGE");
+        }*/
 
         return true;
     }

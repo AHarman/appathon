@@ -1,5 +1,6 @@
 package com.SI.soundinvaders;
 
+import java.io.LineNumberReader;
 import java.lang.reflect.Field;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -12,8 +13,14 @@ import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -27,8 +34,13 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
-public class MainActivity extends Activity {
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+
+public class MainActivity extends FragmentActivity {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
@@ -73,7 +85,18 @@ public class MainActivity extends Activity {
         setContentView(mGLView);
 
         hideSystemBars();
-        new ScoreBoard(this.getApplicationContext());
+
+        new ScoreBoard(getApplicationContext());
+        View v = new View(getApplicationContext());
+        v.setAlpha(1);
+        setContentView(v);
+
+    }
+
+    private void showEditDialog(){
+        android.app.FragmentManager fm = getFragmentManager();
+        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
+        scoreboard.show(fm, "tag");
     }
 
     @Override
@@ -120,44 +143,62 @@ public class MainActivity extends Activity {
 
     public boolean onTouchEvent(MotionEvent me) {
 
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            xpos = me.getX();
-            ypos = me.getY();
-            return true;
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_UP) {
-            xpos = -1;
-            ypos = -1;
-            touchTurn = 0;
-            touchTurnUp = 0;
-            return true;
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_MOVE) {
-            float xd = me.getX() - xpos;
-            float yd = me.getY() - ypos;
-
-            xpos = me.getX();
-            ypos = me.getY();
-
-            touchTurn = xd / -100f;
-            touchTurnUp = yd / -100f;
-            return true;
-        }
-
-        try {
-            Thread.sleep(15);
-        } catch (Exception e) {
-            // No need for this...
-        }
-
+        showEditDialog();
         return super.onTouchEvent(me);
     }
 
     protected boolean isFullscreenOpaque() {
         return true;
     }
+
+    public void showScores(){
+        LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.scoreboardfragment, null);
+        final PopupWindow popupScoreBoard = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        try{
+            Button closeButton = (Button)popupView.findViewById(R.id.close);
+            closeButton.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupScoreBoard.dismiss();
+                }
+            });
+        } catch(Exception e){
+            Log.e("popup", "here");
+        }
+
+        popupScoreBoard.showAtLocation(findViewById(R.id.container), Gravity.CENTER, 0, 0);
+
+    }
+
+    /*private void showPopup(final Activity context) {
+
+        // Inflate the popup_layout.xml
+        LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.scoreboardfragment);
+        LayoutInflater balloon = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = balloon.inflate(R.layout.scoreboardfragment, viewGroup);
+
+        // Creating the PopupWindow
+        final PopupWindow popup = new PopupWindow(context);
+        popup.setContentView(layout);
+        popup.setFocusable(true);
+
+        // Displaying the popup at the specified location, + offsets.
+        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+        // Getting a reference to Close button, and close the popup when clicked.
+        Button close = (Button) layout.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+    }*/
+
+
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void hideSystemBars()
