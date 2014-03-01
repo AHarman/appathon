@@ -142,6 +142,7 @@ public class Graphics {
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(colour);
         obj.compile();
+        obj.strip();
 
         SimpleVector m = SimpleVector.create(x, y, depth);
 
@@ -168,6 +169,7 @@ public class Graphics {
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(colour);
         obj.compile();
+        obj.strip();
 
         SimpleVector m = SimpleVector.create(x, y, depth);
 

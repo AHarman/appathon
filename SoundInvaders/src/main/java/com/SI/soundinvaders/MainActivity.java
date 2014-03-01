@@ -55,6 +55,9 @@ public class MainActivity extends Activity {
     private float scale = 0.05f;
 
     protected void onCreate(Bundle savedInstanceState) {
+
+        GameAudio.init(getApplicationContext());
+
         Logger.log("onCreate");
         Logger.setLogLevel(Logger.LL_DEBUG);
 
@@ -195,6 +198,7 @@ public class MainActivity extends Activity {
             Resources res = getResources();
 
             if (master == null) {
+
                 Logger.log("Initializing buffer...");
                 fb = new FrameBuffer(width, height);
 
@@ -235,7 +239,7 @@ public class MainActivity extends Activity {
 
                 GameWorld.initialise();
 
-                GameAudio.init(getApplicationContext());
+
 
                 if (master == null) {
                     Logger.log("Saving master Activity!");
