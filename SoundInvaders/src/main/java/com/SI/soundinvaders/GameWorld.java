@@ -53,6 +53,17 @@ public class GameWorld {
         randomSpawn();
     }
 
+    public static void movePlayer(int direction)
+    {
+        int newColumn = playerObject.column + direction;
+
+        if(newColumn > 0 && newColumn < 4)
+        {
+            playerObject.setColumn(newColumn);
+            Log.d("James", "New column: "+String.valueOf(playerObject.column));
+        }
+    }
+
     public static void randomSpawn()
     {
         if (Math.random() > 0.95)
@@ -152,6 +163,13 @@ public class GameWorld {
                 this.obj = Graphics.addPlayer(xPos,Graphics.getHeight()-10.f,colour);
                 playerObject = this;
             }
+        }
+
+        public void setColumn(int column)
+        {
+            int xMovement = column - this.column;
+            this.column = column;
+            Graphics.moveObjPosition(xMovement*30,0,this.getObj());
         }
 
         public Object3D getObj() {
