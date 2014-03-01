@@ -68,6 +68,11 @@ public class Graphics {
         return 120.0f;
     }
 
+    public static float getBoxSize()
+    {
+        return 10.0f;
+    }
+
     public static Object3D addRect(float x, float y)
     {
         x = translateX(x);

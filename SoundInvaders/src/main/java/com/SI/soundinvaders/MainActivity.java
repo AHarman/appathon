@@ -158,8 +158,6 @@ public class MainActivity extends Activity {
         private int fps = 0;
         private int lfps = 0;
 
-        Graphics graphics = new Graphics();
-
         private long time = System.currentTimeMillis();
 
         public MyRenderer() {
@@ -183,9 +181,9 @@ public class MainActivity extends Activity {
                 plane = Primitives.getPlane(1, 0.001f);
 
                 //graphics.setCamera(camera);
-                graphics.setWorld(world);
-                Object3D obj = graphics.addRect(10.0f, 10.0f);
-                graphics.setObjPosition(5.0f, 5.0f, obj);
+                Graphics.setWorld(world);
+                Object3D obj = Graphics.addRect(10.0f, 10.0f);
+                Graphics.setObjPosition(5.0f, 5.0f, obj);
 
                 world.addObject(plane);
 
