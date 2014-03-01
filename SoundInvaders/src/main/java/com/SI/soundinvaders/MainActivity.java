@@ -78,10 +78,9 @@ public class  MainActivity extends Activity implements OnScaleGestureListener {
         setContentView(mGLView);
 
         gestureDec = new ScaleGestureDetector(this.getApplicationContext(), this);
-        new ScoreBoard(this.getBaseContext());
+        new ScoreBoard(this.getApplicationContext());
     }
-
-    @Override
+        @Override
     protected void onPause() {
         Logger.log("onPause");
         super.onPause();

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 /**
@@ -21,32 +21,32 @@ public class ScoreBoard {
 
     ScoreBoard(Context contextual)
     {
+        File scoreFile;
+        FileOutputStream outyougo;
         appContext = contextual;
         try{
             dir = appContext.getFilesDir();
         } catch (Exception e){
             Log.e("files", "dir " + e.toString());
         }
-        File scoreFile = appContext.getFileStreamPath("scores.txt");
-        if(scoreFile.exists())
-        {
-            Log.d("files", "FILE EXISTS!");
-            readScores();
-        }
-        else
+
+        scoreFile = appContext.getFileStreamPath("scores.txt");
+        if(!scoreFile.exists())
         {
             try{
-                appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
+                outyougo = appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
+                outyougo.write("Beat Me;100".getBytes());
+                outyougo.close();
             } catch (Exception e){
                 Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
             }
+
         }
-        Log.d("files", toString() + "boom");
+        Log.d("files", "FILE EXISTS!");
+        readScores();
     }
 
     private boolean readScores(){
-        //File scoreFile = new File(dir, "scores.txt");
-
         String line;
         String[] nameScore;
         BufferedReader buff;
@@ -69,12 +69,16 @@ public class ScoreBoard {
                 if(line == null)
                     return true;
                 nameScore = line.split(";");
-                scores.add(i, Integer.parseInt(nameScore[0]));
-                players.add(i, nameScore[1]);
+                Log.d("files", "name: " + nameScore[0]);
+                Log.d("files", "score: " + nameScore[1]);
+                players.add(i, nameScore[0]);
+                scores.add(i, Integer.parseInt(nameScore[1]));
             }
+            buff.close();
         } catch(Exception e){
             Log.e("files", "reading " + e.toString());
         }
+
         return true;
     }
 
@@ -100,6 +104,7 @@ public class ScoreBoard {
 
         scores.set(position, score);
         players.set(position, name);
+        writeScores();
         return true;
     }
 
@@ -112,5 +117,9 @@ public class ScoreBoard {
 
     public int getScore(int i){
         return scores.get(i);
+    }
+
+    private boolean writeScores(){
+        return true;
     }
 }
