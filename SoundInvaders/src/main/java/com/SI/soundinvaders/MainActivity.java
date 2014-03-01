@@ -207,7 +207,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 
                 plane = Primitives.getPlane(1, 10000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 100));
+                plane.setOrigin(SimpleVector.create(0, 0, 2000));
+                plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
                 shader.setUniform("windowSize", SimpleVector.create(fb.getWidth(), fb.getHeight(), 0.0f));
