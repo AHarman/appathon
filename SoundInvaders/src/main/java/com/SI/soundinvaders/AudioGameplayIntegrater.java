@@ -1,6 +1,7 @@
 package com.SI.soundinvaders;
 
 import android.text.method.BaseKeyListener;
+import android.util.Log;
 
 /**
  * Created by James on 01/03/14.
@@ -8,15 +9,14 @@ import android.text.method.BaseKeyListener;
 
 public class AudioGameplayIntegrater
 {
-    private static final int n = 2;
+    private static final int n = 1;
     private static int cur = 0;
 
     private static boolean justDone = false;
 
     public static void audioTick()
     {
-        boolean isBeat = (GameAudio.plzGetBeatFraction() < 0.01 || GameAudio.plzGetBeatFraction() > 0.99);
-
+        boolean isBeat = (GameAudio.plzGetBeatFraction() < 0.5);// || GameAudio.plzGetBeatFraction() > 0.99);
         if(isBeat && !justDone)
         {
             if(cur==0)

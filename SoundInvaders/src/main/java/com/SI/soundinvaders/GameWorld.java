@@ -29,9 +29,69 @@ public class GameWorld {
 
     public static int score = 0;
 
+    public static float ySpeed = 1.0f;
+
+    private static int ticksSinceLastRed = 0;
+
     public static void processBeat(int intensity)
     {
+        if(intensity >= 1 && intensity <= 3)
+        {
+            ySpeed = (float) 0.9;
+        }
 
+        if(intensity >= 4 && intensity <= 7)
+        {
+            ySpeed = (float) 1.1;
+        }
+
+        if(intensity >= 8 && intensity <= 10)
+        {
+            ySpeed = (float) 1.3;
+        }
+
+        float greenWeight = (float) 0.1;
+        float redWeight = (float) 0.3;
+        float blueWeight = (float) 0.6;
+
+        float bType = (float) Math.random();
+
+        int type = 0;
+
+        if(bType < greenWeight)
+        {
+            type = 0;
+        }
+        else if(bType < redWeight + greenWeight)
+        {
+            type = 1;
+        }
+        else
+        {
+            type = 2;
+        }
+
+        if(type==1 && ticksSinceLastRed == 0)
+        {
+            type = 2;
+        }
+
+        if(type==1)
+        {
+            ticksSinceLastRed = 0;
+        }
+
+        if(type!=1)
+        {
+            ticksSinceLastRed++;
+            if(ticksSinceLastRed > 4)
+            {
+                type = 1;
+                ticksSinceLastRed = 0;
+            }
+        }
+
+        new GameObject(GameObjectType.values()[type], (int) (Math.random() * 3) + 1);
     }
 
     public static enum GameObjectType
@@ -58,11 +118,12 @@ public class GameWorld {
     {
         for (GameObject block: blockQueue)
         {
-            Graphics.moveObjPosition(0.0f,1.0f, 0, block.getObj());
+            Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
         }
         checkCollisions();
         randomSpawn();
         increaseScore(1);
+
     }
 
     public static void movePlayer(int direction)
@@ -80,8 +141,8 @@ public class GameWorld {
     {
         if (Math.random() > 0.95)
         {
-            int col = 1 + (int)(Math.random() * ((3 - 1) + 1));
-            int type = (int)(Math.random() * ((2) + 1));
+            int col = 1 + (int)(Math.random() * 3);
+            int type = (int)(Math.random() * 3);
             new GameObject(GameObjectType.values()[type],col);
         }
     }
@@ -108,7 +169,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if (playerY - blockY < 20.0f) // change this to the actual size of the objects
+                if (playerY - blockY < 15.0f) // change this to the actual size of the objects
                 {
                     block.kill();
                     switch (block.type)
@@ -212,7 +273,7 @@ public class GameWorld {
             this.type = type;
             this.column = column;
 
-            int xPos = 10 + (column-1)*30;
+            int xPos = 15 + (column-1)*25;
 
             if (type != GameObjectType.PLAYER)
             {
@@ -228,7 +289,7 @@ public class GameWorld {
 
         public void setColumn(int column)
         {
-            final int xMovement = (column - this.column)*30;
+            final int xMovement = (column - this.column)*25;
             final int moveTime = 200;
             final Object3D obj = this.getObj();
 

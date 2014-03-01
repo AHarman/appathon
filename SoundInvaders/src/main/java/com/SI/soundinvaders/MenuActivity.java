@@ -18,6 +18,10 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // skip the main menu for testing purposes
+        startGame(null);
+
         setContentView(R.layout.activity_menu);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");

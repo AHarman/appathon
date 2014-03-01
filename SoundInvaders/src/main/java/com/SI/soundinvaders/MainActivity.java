@@ -7,15 +7,27 @@ import java.util.logging.Handler;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
+import java.io.LineNumberReader;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Looper;
+=======
+import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+>>>>>>> 00d601b3b52b658edada82e60a613f62d27ddfb9
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,8 +46,10 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
-public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
+public class MainActivity extends FragmentActivity implements GestureDetector.OnGestureListener {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
@@ -88,10 +102,21 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         tvScore.setTypeface(myTypeface);
 
         hideSystemBars();
+<<<<<<< HEAD
         new ScoreBoard(this.getApplicationContext());
 
         updateScore(0);
 
+=======
+        new ScoreBoard(getApplicationContext());
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void showScores(){
+        android.app.FragmentManager fm = getFragmentManager();
+        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
+        scoreboard.show(fm, "tag");
+>>>>>>> 00d601b3b52b658edada82e60a613f62d27ddfb9
     }
 
     void updateScore(int score)
@@ -143,7 +168,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onDown(MotionEvent event) {return true;}
     public void onLongPress(MotionEvent event) {}
     public void onShowPress(MotionEvent event) {}
-    public boolean onSingleTapUp(MotionEvent event) {return true;}
+    public boolean onSingleTapUp(MotionEvent event)
+    {
+        showScores();
+        return true;
+    }
     public boolean onDoubleTap(MotionEvent event) {return true;}
     public boolean onDoubleTapEvent(MotionEvent event) {return true;}
     public boolean onSingleTapConfirmed(MotionEvent event) {return true;}
@@ -165,18 +194,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onTouchEvent(MotionEvent me) {
 
         mDetector.onTouchEvent(me);
-
         return super.onTouchEvent(me);
-    }
-
-    protected boolean isFullscreenOpaque() {
-        return true;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void hideSystemBars()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -186,6 +210,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             );
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         }
     }
 
@@ -292,12 +318,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
             if(GameAudio.isGoing())
             {
+                if(GameAudio.isInit)
+                    AudioGameplayIntegrater.audioTick();
+
                 beatFracAvg = (float)GameAudio.plzGetBeatFraction();
 
                 if(beatFracAvg < 0.5 && !b)
                 {
                     c++;
-                    //Log.d("SoundInvadersI", Float.toString((float) (c/(System.nanoTime()/(1000.0*1000.0)))));
                     b = true;
                 }
                 if(beatFracAvg > 0.5)

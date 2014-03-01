@@ -15,8 +15,8 @@ public class ScoreBoard {
 
 
     private File dir = null;
-    private ArrayList<Integer> scores = new ArrayList();
-    private ArrayList<String> players = new ArrayList<String>();
+    static private ArrayList<Integer> scores = new ArrayList();
+    static private ArrayList<String> players = new ArrayList<String>();
     private Context appContext;
 
     ScoreBoard(Context contextual)
@@ -115,8 +115,12 @@ public class ScoreBoard {
         return s;
     }
 
-    public int getScore(int i){
+    public static int getScore(int i){
         return scores.get(i);
+    }
+
+    public static String getName(int i){
+        return players.get(i);
     }
 
     private boolean writeScores(){
