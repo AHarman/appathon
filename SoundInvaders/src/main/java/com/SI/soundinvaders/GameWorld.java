@@ -34,7 +34,6 @@ public class GameWorld {
     {
         for (GameObject go : gameObjectsQueue)
         {
-
             switch (go.type)
             {
                 case GREEN_BLOCK:

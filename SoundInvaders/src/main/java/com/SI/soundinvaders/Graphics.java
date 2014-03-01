@@ -14,55 +14,65 @@ import java.util.ArrayList;
  * Created by James on 01/03/14.
  */
 public class Graphics {
-    public Camera cam;
-    public FrameBuffer fb;
-    public World world = null;
+    public static Camera cam;
+    public static FrameBuffer fb;
+    public static World world = null;
 
-    public ArrayList<Object3D> objs = new ArrayList<Object3D>();
+    public static ArrayList<Object3D> objs = new ArrayList<Object3D>();
 
-    private final float depth = 1.0f;
+    private static final float depth = 1.0f;
 
-    Graphics()
-    {
+    static{}
 
-    }
-
-    public void setCamera(Camera c)
+    public static void setCamera(Camera c)
     {
         cam = c;
     }
 
-    public void setFrameBuffer(FrameBuffer b)
+    public static void setFrameBuffer(FrameBuffer b)
     {
         fb = b;
     }
 
-    public void setWorld(World w)
+    public static void setWorld(World w)
     {
         world = w;
     }
 
-    private float translateX(float x)
+    private static float translateX(float x)
     {
         return x - getWidth()/2.0f;
     }
-    private float translateY(float y)
+    private static float translateY(float y)
     {
         return y - getHeight()/2.0f;
     }
 
-    public float getWidth()
+    private static float backTranslateX(float x)
+    {
+        return x + getWidth()/2.0f;
+    }
+
+    private static float backTranslateY(float y)
+    {
+        return y + getHeight()/2.0f;
+    }
+
+    public static float getWidth()
     {
         return 80.0f;
     }
 
-    public float getHeight()
+    public static float getHeight()
     {
         return 120.0f;
     }
 
-    public Object3D addRect(float x, float y)
+    public static Object3D addRect(float x, float y)
     {
+        x = translateX(x);
+        y = translateY(y);
+
         Object3D obj = Primitives.getBox(10.0f, 0.1f);
         obj.rotateY((float) (-Math.PI/4.0));
         obj.rotateY((float) (-Math.PI/2.0));
@@ -81,13 +91,16 @@ public class Graphics {
         return obj;
     }
 
-    public void setColour(int r, int g, int b, Object3D obj)
+    public static void setColour(int r, int g, int b, Object3D obj)
     {
         obj.setAdditionalColor(r, g, b);
     }
 
-    public void setObjPosition(float x, float y, Object3D obj)
+    public static void setObjPosition(float x, float y, Object3D obj)
     {
+        x = translateX(x);
+        y = translateY(y);
+
         SimpleVector v = obj.getTransformedCenter();
         SimpleVector f = new SimpleVector();
 
@@ -99,12 +112,12 @@ public class Graphics {
         obj.translate(x, y, depth);
     }
       
-    public float getObjX(Object3D obj)
+    public static float getObjX(Object3D obj)
     {
-        return obj.getTransformedCenter().x;
+        return backTranslateX(obj.getTransformedCenter().x);
     }
-    public float getObjY(Object3D obj)
+    public static float getObjY(Object3D obj)
     {
-        return obj.getTransformedCenter().y;
+        return backTranslateY(obj.getTransformedCenter().y);
     }
 }
