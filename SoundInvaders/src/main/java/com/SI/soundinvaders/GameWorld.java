@@ -49,7 +49,7 @@ public class GameWorld {
     {
         for (GameObject block: blockQueue)
         {
-            Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
+            Graphics.moveObjPosition(0.0f,1.0f, 0, block.getObj());
         }
         checkCollisions();
         randomSpawn();
@@ -100,7 +100,7 @@ public class GameWorld {
             {
                 if (playerY - blockY < 20.0f) // change this to the actual size of the objects
                 {
-                    block.kill(h);
+                    block.kill();
                     switch (block.type)
                     {
                         case GREEN_BLOCK:
@@ -117,7 +117,7 @@ public class GameWorld {
                             //block.remove(iterator);
                             break;
                         default:
-                      h      Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
+                            Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
                     }
                 }
             }
@@ -127,7 +127,7 @@ public class GameWorld {
     public static class GameObject {
         public Object3D obj;
         public GameObjectType type;
-        boolean alive;
+        boolean alive = true;
 
         public boolean isAlive() {
             return alive;
@@ -139,25 +139,33 @@ public class GameWorld {
 
             alive = false;
 
-            RGBColor initialColour = Graphics.getColour(this.getObj());
+            Log.d("SOUNDINVADERS","Kill");
 
-            initialColour.setTo(initialColour.getRed(),initialColour.getGreen(),initialColour.getBlue(),127);
-
-            Graphics.setColour(initialColour);
-
-            /*Timer moveTimer = new Timer();
+            final Object3D obj = this.getObj();
+            final GameObject gameObject = this;
+            final int moveTime = 500;
+            blockQueue.remove(gameObject);
+            Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
                 int i = stepTime;
                 @Override
                 public void run() {
-                    Graphics.
+                    //float stepMovement = Easings.easeOutExpo(zMovement, i, moveTime) - Easings.easeOutExpo(zMovement, i-stepTime, moveTime);
+                    float stepMovement = (2000/(moveTime/stepTime));
+
+                    Graphics.moveObjPosition(0,0,stepMovement, obj);
 
                     i += stepTime;
-                    if (i>=moveTime) cancel();
+                    if (i>=moveTime)
+                    {
+                        Graphics.moveObjPosition(0.0f,0.0f,-3000.0f, obj);
+                        //gameObject.removeFromWorld();
+                        cancel();
+                    }
                 }
 
-            }, 0, 15);*/
+            }, 0, 15);
         }
 
         int column;
@@ -221,7 +229,7 @@ public class GameWorld {
                 public void run() {
                     float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
 
-                    Graphics.moveObjPosition(stepMovement, 0, obj);
+                    Graphics.moveObjPosition(stepMovement, 0, 0, obj);
 
                     i += stepTime;
                     if (i>=moveTime) cancel();
@@ -245,10 +253,14 @@ public class GameWorld {
             return column;
         }
 
+        private void removeFromWorld() {
+            Graphics.world.removeObject(obj);
+        }
+
         public void remove(Iterator<GameObject> iter)
         {
             iter.remove();
-            Graphics.world.removeObject(obj);
+            removeFromWorld();
         }
     }
 
