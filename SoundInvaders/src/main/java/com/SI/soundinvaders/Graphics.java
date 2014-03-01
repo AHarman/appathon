@@ -44,8 +44,10 @@ public class Graphics {
 
     public Object3D addRect(float x, float y)
     {
-        Object3D obj = Primitives.getBox(0.1f, 10.0f);
+        Object3D obj = Primitives.getBox(10.0f, 0.1f);
         obj.rotateY((float) (-Math.PI/4.0));
+        obj.rotateY((float) (-Math.PI/2.0));
+        obj.rotateX((float) (-Math.PI / 2.0));
         obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(255, 0, 0);
         obj.compile();
@@ -71,6 +73,15 @@ public class Graphics {
 
         obj.translate(f);
         obj.translate(x, y, depth);
+    }
+      
+    public float getObjX(Object3D obj)
+    {
+        return obj.getTransformedCenter().x;
+    }
+    public float getObjY(Object3D obj)
+    {
+        return obj.getTransformedCenter().y;
     }
 
 }
