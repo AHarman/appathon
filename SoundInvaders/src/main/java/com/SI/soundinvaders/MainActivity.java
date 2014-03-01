@@ -180,7 +180,6 @@ public class MainActivity extends Activity {
 
                 plane = Primitives.getPlane(1, 0.001f);
 
-                //graphics.setCamera(camera);
                 Graphics.setWorld(world);
                 Object3D obj = Graphics.addRect(10.0f, 10.0f);
                 Graphics.setObjPosition(5.0f, 5.0f, obj);

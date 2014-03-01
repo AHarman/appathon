@@ -96,6 +96,33 @@ public class Graphics {
         return obj;
     }
 
+    public static Object3D addPlayer(float x, float y)
+    {
+        x = translateX(x);
+        y = translateY(y);
+
+        //Object3D obj = Primitives.getCone(90, 8.0f, 0.1f);
+        //Object3D obj = Primitives.getPyramide(1.0f, 10.0f);
+        Object3D obj = new Object3D(1);
+
+        obj.addTriangle(SimpleVector.create(0, -1.0f, 0), SimpleVector.create(-1.0f, 1.0f, 0), SimpleVector.create(1.0f, 1.0f, 0));
+        obj.build();
+
+        obj.scale(10.0f);
+
+        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        obj.setAdditionalColor(0, 0, 255);
+        obj.compile();
+
+        SimpleVector m = SimpleVector.create(x, y, depth);
+
+        obj.translate(m);
+        objs.add(obj);
+        world.addObject(obj);
+
+        return obj;
+    }
+
     public static void setColour(int r, int g, int b, Object3D obj)
     {
         obj.setAdditionalColor(r, g, b);
