@@ -131,7 +131,7 @@ public class Graphics {
 
         obj.build();
 
-        obj.scale(10.0f);
+        obj.scale(9.0f);
 
         //obj.setOrigin(SimpleVector.create(0, 0, 10.0f));
 

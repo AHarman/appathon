@@ -200,7 +200,7 @@ public class GameWorld {
             this.type = type;
             this.column = column;
 
-            int xPos = 10 + (column-1)*30;
+            int xPos = 15 + (column-1)*25;
 
             if (type != GameObjectType.PLAYER)
             {
@@ -216,7 +216,7 @@ public class GameWorld {
 
         public void setColumn(int column)
         {
-            final int xMovement = (column - this.column)*30;
+            final int xMovement = (column - this.column)*25;
             final int moveTime = 200;
             final Object3D obj = this.getObj();
 
