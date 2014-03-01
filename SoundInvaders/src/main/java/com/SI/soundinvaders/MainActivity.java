@@ -145,11 +145,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onDown(MotionEvent event) {return true;}
     public void onLongPress(MotionEvent event) {}
     public void onShowPress(MotionEvent event) {}
-    public boolean onSingleTapUp(MotionEvent event)
-    {
-        showScores();
-        return true;
-    }
+    public boolean onSingleTapUp(MotionEvent event){showScores();return true;}
     public boolean onDoubleTap(MotionEvent event) {return true;}
     public boolean onDoubleTapEvent(MotionEvent event) {return true;}
     public boolean onSingleTapConfirmed(MotionEvent event) {return true;}
@@ -198,10 +194,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         private GL10 lastInstance = null;
         private int w = 0;
         private int h = 0;
-        private int fps = 0;
-        private int lfps = 0;
-
-        private long time = System.currentTimeMillis();
 
         GLSLShader shader;
 
@@ -339,16 +331,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             fb.clear(back);
             world.renderScene(fb);
             world.draw(fb);
-            blitNumber(lfps, 5, 5);
 
             fb.display();
-
-            if (System.currentTimeMillis() - time >= 1000) {
-                lfps = fps;
-                fps = 0;
-                time = System.currentTimeMillis();
-            }
-            fps++;
 
             master.runOnUiThread(new Runnable() {
                 @Override
