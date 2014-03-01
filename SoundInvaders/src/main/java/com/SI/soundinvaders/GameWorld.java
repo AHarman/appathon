@@ -23,29 +23,40 @@ public class GameWorld {
 
     public static final RGBColor playerColour = new RGBColor(230, 126, 34);
 
-    public static void nextBeat(int intensity) {
-
-    }
-
 
     public static enum GameObjectType
     {
         GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
         PLAYER;
     }
+
     public static void initialise()
     {
-        // start the player in the middle of the screen
-        playerObject = new GameObject(Graphics.addPlayer(Graphics.getWidth() / 2, Graphics.getHeight() - 10.0f, playerColour),GameObjectType.PLAYER, 2);
+        new GameObject(GameObjectType.PLAYER,2);
 
-        Graphics.addRect(10.0f, 10.0f, redColour);
-        Graphics.addRect(35.0f, 10.0f, blueColour);
-        Graphics.addRect(55.0f, 10.0f, greenColour);
+        new GameObject(GameObjectType.BLUE_BLOCK,2);
+        new GameObject(GameObjectType.RED_BLOCK,1);
+        new GameObject(GameObjectType.GREEN_BLOCK,3);
     }
 
     public static void updateScene()
     {
+        for (GameObject block: blockQueue)
+        {
+            Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
+        }
+        checkCollisions();
+        randomSpawn();
+    }
 
+    public static void randomSpawn()
+    {
+        if (Math.random() > 0.95)
+        {
+            int col = 1 + (int)(Math.random() * ((3 - 1) + 1));
+            int type = (int)(Math.random() * ((2) + 1));
+            new GameObject(GameObjectType.values()[type],col);
+        }
     }
 
     public static void checkCollisions()
@@ -64,7 +75,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if (playerY - blockY < 10.0f) // change this to the actual size of the objects
+                if (playerY - blockY < 20.0f) // change this to the actual size of the objects
                 {
                     switch (block.type)
                     {
@@ -94,10 +105,49 @@ public class GameWorld {
         public GameObjectType type;
         int column;
 
+        // Do we still need this?
         public GameObject(Object3D obj, GameObjectType type, int column) {
             this.obj = obj;
             this.type = type;
             this.column = column;
+        }
+
+        public GameObject(GameObjectType type, int column)
+        {
+            // Has to be initialised to prevent a warning
+            RGBColor colour = new RGBColor(0,0,0);
+
+            switch (type)
+            {
+                case GREEN_BLOCK:
+                    colour = greenColour;
+                    break;
+                case RED_BLOCK:
+                    colour = redColour;
+                    break;
+                case BLUE_BLOCK:
+                    colour = blueColour;
+                    break;
+                case PLAYER:
+                    colour = playerColour;
+                    break;
+            }
+
+            this.type = type;
+            this.column = column;
+
+            int xPos = 10 + (column-1)*30;
+
+            if (type != GameObjectType.PLAYER)
+            {
+                this.obj = Graphics.addRect(xPos,0,colour);
+                blockQueue.add(this);
+            }
+            else
+            {
+                this.obj = Graphics.addPlayer(xPos,Graphics.getHeight()-10.f,colour);
+                playerObject = this;
+            }
         }
 
         public Object3D getObj() {
