@@ -144,14 +144,13 @@ public class GameWorld {
             final Object3D obj = this.getObj();
             final GameObject gameObject = this;
             final int moveTime = 500;
-            blockQueue.remove(gameObject);
+            //blockQueue.remove(gameObject);
             Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
                 int i = stepTime;
                 @Override
                 public void run() {
-                    //float stepMovement = Easings.easeOutExpo(zMovement, i, moveTime) - Easings.easeOutExpo(zMovement, i-stepTime, moveTime);
                     float stepMovement = (2000/(moveTime/stepTime));
 
                     Graphics.moveObjPosition(0,0,stepMovement, obj);
@@ -159,7 +158,7 @@ public class GameWorld {
                     i += stepTime;
                     if (i>=moveTime)
                     {
-                        Graphics.moveObjPosition(0.0f,0.0f,-3000.0f, obj);
+                        Graphics.moveObjPosition(0.0f,100.0f,-3000.0f, obj);
                         //gameObject.removeFromWorld();
                         cancel();
                     }
