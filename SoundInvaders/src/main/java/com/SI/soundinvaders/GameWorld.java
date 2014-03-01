@@ -23,7 +23,6 @@ public class GameWorld {
 
     public static final RGBColor playerColour = new RGBColor(230, 126, 34);
 
-
     public static enum GameObjectType
     {
         GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
