@@ -49,6 +49,7 @@ public class GameAudio {
 
     public static void startMedia()
     {
+        mediaPlayerx = MediaPlayer.create(c, com.SI.soundinvaders.R.raw.eiawav);
         mediaPlayerx.start();
     }
 
