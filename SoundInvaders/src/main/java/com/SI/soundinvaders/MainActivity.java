@@ -12,7 +12,9 @@ import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -30,7 +32,7 @@ import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
     private FrameBuffer fb = null;
     private World world = null;
     private RGBColor back = new RGBColor(44, 62, 80);
+
+    private GestureDetector mDetector;
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -66,6 +70,8 @@ public class MainActivity extends Activity {
         if (master != null) {
             copy(master);
         }
+
+        mDetector = new GestureDetector(this,this);
 
         super.onCreate(savedInstanceState);
         mGLView = new GLSurfaceView(getApplication());
@@ -110,6 +116,25 @@ public class MainActivity extends Activity {
             hideSystemBars();
     }
 
+    @Override
+    public boolean onFling(MotionEvent event1, MotionEvent event2,
+                           float velocityX, float velocityY) {
+        if(velocityX < 0)
+            GameWorld.movePlayer(-1);
+        else if(velocityX > 0)
+            GameWorld.movePlayer(1);
+        return true;
+    }
+
+    public boolean onDown(MotionEvent event) {return true;}
+    public void onLongPress(MotionEvent event) {}
+    public void onShowPress(MotionEvent event) {}
+    public boolean onSingleTapUp(MotionEvent event) {return true;}
+    public boolean onDoubleTap(MotionEvent event) {return true;}
+    public boolean onDoubleTapEvent(MotionEvent event) {return true;}
+    public boolean onSingleTapConfirmed(MotionEvent event) {return true;}
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {return true;}
+
     private void copy(Object src) {
         try {
             Logger.log("Copying data from master Activity!");
@@ -125,37 +150,7 @@ public class MainActivity extends Activity {
 
     public boolean onTouchEvent(MotionEvent me) {
 
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            xpos = me.getX();
-            ypos = me.getY();
-            return true;
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_UP) {
-            xpos = -1;
-            ypos = -1;
-            touchTurn = 0;
-            touchTurnUp = 0;
-            return true;
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_MOVE) {
-            float xd = me.getX() - xpos;
-            float yd = me.getY() - ypos;
-
-            xpos = me.getX();
-            ypos = me.getY();
-
-            touchTurn = xd / -100f;
-            touchTurnUp = yd / -100f;
-            return true;
-        }
-
-        try {
-            Thread.sleep(15);
-        } catch (Exception e) {
-            // No need for this...
-        }
+        mDetector.onTouchEvent(me);
 
         return super.onTouchEvent(me);
     }
@@ -212,6 +207,7 @@ public class MainActivity extends Activity {
                 font = new Texture(res.openRawResource(R.raw.numbers));
                 font.setMipmap(false);
 
+                
                 plane = Primitives.getPlane(1, 10000.0f);
                 plane.setOrigin(SimpleVector.create(0, 0, 100));
 
@@ -307,10 +303,12 @@ public class MainActivity extends Activity {
 
             if (touchTurn != 0) {
                 //plane.rotateY(touchTurn);
+                //plane.rotateY(touchTurn);
                 touchTurn = 0;
             }
 
             if (touchTurnUp != 0) {
+                //plane.rotateX(touchTurnUp);
                 //plane.rotateX(touchTurnUp);
                 touchTurnUp = 0;
             }

@@ -8,6 +8,8 @@ import com.threed.jpct.RGBColor;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andy on 01/03/2014.
@@ -53,6 +55,17 @@ public class GameWorld {
         randomSpawn();
     }
 
+    public static void movePlayer(int direction)
+    {
+        int newColumn = playerObject.column + direction;
+
+        if(newColumn > 0 && newColumn < 4)
+        {
+            playerObject.setColumn(newColumn);
+            Log.d("James", "New column: "+String.valueOf(playerObject.column));
+        }
+    }
+
     public static void randomSpawn()
     {
         if (Math.random() > 0.95)
@@ -74,7 +87,7 @@ public class GameWorld {
             int col = block.getColumn();
 
             // check if the block has passed off the bottom of the screen
-            if (blockY > 120.0f + 10.0f/2) // screen height / block height
+            if (blockY > Graphics.getHeight() + 50.0f) // screen height / block height
                 block.remove(iterator);
 
             if (col == playerObject.getColumn())
@@ -144,7 +157,7 @@ public class GameWorld {
 
             if (type != GameObjectType.PLAYER)
             {
-                this.obj = Graphics.addRect(xPos,0,colour);
+                this.obj = Graphics.addRect(xPos,-50,colour);
                 blockQueue.add(this);
             }
             else
@@ -152,6 +165,31 @@ public class GameWorld {
                 this.obj = Graphics.addPlayer(xPos,Graphics.getHeight()-10.f,colour);
                 playerObject = this;
             }
+        }
+
+        public void setColumn(int column)
+        {
+            final int xMovement = (column - this.column)*30;
+            final int moveTime = 200;
+            final Object3D obj = this.getObj();
+
+            Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                final int stepTime = 15;
+                int i = stepTime;
+                @Override
+                public void run() {
+                    float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
+
+                    Graphics.moveObjPosition(stepMovement, 0, obj);
+
+                    i += stepTime;
+                    if (i>=moveTime) cancel();
+                }
+
+            }, 0, 15);
+
+            this.column = column;
         }
 
         public Object3D getObj() {

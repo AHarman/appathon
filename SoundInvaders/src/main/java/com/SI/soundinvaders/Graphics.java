@@ -159,10 +159,10 @@ public class Graphics {
 
         Object3D obj = new Object3D(1);
 
-        obj.addTriangle(SimpleVector.create(0, -1.0f, 0), SimpleVector.create(-1.0f, 1.0f, 0), SimpleVector.create(1.0f, 1.0f, 0));
+        obj.addTriangle(SimpleVector.create(0, -1.0f, -10), SimpleVector.create(-0.7f, 1.0f, -10), SimpleVector.create(0.7f, 1.0f, -10));
         obj.build();
 
-        obj.scale(10.0f);
+        obj.scale(8.0f);
 
         obj.setAdditionalColor(colour);
         obj.compile();
@@ -178,6 +178,7 @@ public class Graphics {
 
     public static void setColour(int r, int g, int b, Object3D obj)
     {
+
         obj.setAdditionalColor(r, g, b);
     }
 
