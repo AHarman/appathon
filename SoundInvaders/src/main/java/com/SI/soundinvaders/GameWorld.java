@@ -184,7 +184,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if (playerY - blockY < 15.0f) // change this to the actual size of the objects
+                if ((playerY - blockY < 15.0f) && (playerY - blockY > -25.0f)) // change this to the actual size of the objects
                 {
                     block.kill();
                     switch (block.type)
@@ -205,7 +205,7 @@ public class GameWorld {
                             //block.remove(iterator);
                             break;
                         default:
-                            Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
+                            Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");
                     }
                 }
             }
