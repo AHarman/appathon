@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scoreboardfragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scoreboardtitle" />
+    <GridLayout
+        android:layout_width="200dp"
+        android:layout_height="350dp"
+        tools:ignore="NewApi"
+        android:columnCount="2"
+        android:rowCount="10">
+
+        <TextView
+            android:id="@+id/scoreName0"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score0"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName1"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score1"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName2"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score2"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName3"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score3"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName4"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score4"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName5"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score5"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName6"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score6"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName7"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score7"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName8"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score8"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scoreName9"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/score9"
+            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"/>
+    </GridLayout>
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/closepopup"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"/>
+</LinearLayout>
