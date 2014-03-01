@@ -78,14 +78,55 @@ public class Graphics {
         x = translateX(x);
         y = translateY(y);
 
-        Object3D obj = Primitives.getBox(10.0f, 0.1f);
-        obj.rotateY((float) (-Math.PI/4.0));
-        obj.rotateY((float) (-Math.PI/2.0));
-        obj.rotateX((float) (-Math.PI/2.0));
+        Object3D obj=new Object3D(12);
+
+        float scale = 0.1f;
+
+        SimpleVector upperLeftFront=new SimpleVector(-1,-1,-1*scale);
+        SimpleVector upperRightFront=new SimpleVector(1,-1,-1*scale);
+        SimpleVector lowerLeftFront=new SimpleVector(-1,1,-1*scale);
+        SimpleVector lowerRightFront=new SimpleVector(1,1,-1*scale);
+
+        SimpleVector upperLeftBack = new SimpleVector( -1, -1, 1*scale);
+        SimpleVector upperRightBack = new SimpleVector(1, -1, 1*scale);
+        SimpleVector lowerLeftBack = new SimpleVector( -1, 1, 1*scale);
+        SimpleVector lowerRightBack = new SimpleVector(1, 1, 1*scale);
+
+        // Front
+        obj.addTriangle(upperLeftFront,0,0, lowerLeftFront,0,1, upperRightFront,1,0);
+        obj.addTriangle(upperRightFront,1,0, lowerLeftFront,0,1, lowerRightFront,1,1);
+
+        // Back
+        obj.addTriangle(upperLeftBack,0,0, upperRightBack,1,0, lowerLeftBack,0,1);
+        obj.addTriangle(upperRightBack,1,0, lowerRightBack,1,1, lowerLeftBack,0,1);
+
+        // Upper
+        obj.addTriangle(upperLeftBack,0,0, upperLeftFront,0,1, upperRightBack,1,0);
+        obj.addTriangle(upperRightBack,1,0, upperLeftFront,0,1, upperRightFront,1,1);
+
+        // Lower
+        obj.addTriangle(lowerLeftBack,0,0, lowerRightBack,1,0, lowerLeftFront,0,1);
+        obj.addTriangle(lowerRightBack,1,0, lowerRightFront,1,1, lowerLeftFront,0,1);
+
+        // Left
+        obj.addTriangle(upperLeftFront,0,0, upperLeftBack,1,0, lowerLeftFront,0,1);
+        obj.addTriangle(upperLeftBack,1,0, lowerLeftBack,1,1, lowerLeftFront,0,1);
+
+        // Right
+        obj.addTriangle(upperRightFront,0,0, lowerRightFront,0,1, upperRightBack,1,0);
+        obj.addTriangle(upperRightBack,1,0, lowerRightFront, 0,1, lowerRightBack,1,1);
+
+        //obj.setTexture("base");
+        obj.build();
+
+        obj.scale(10.0f);
+
+        //obj.rotateY((float) (-Math.PI/4.0));
+        //obj.rotateY((float) (-Math.PI/2.0));
+        //obj.rotateX((float) (-Math.PI/2.0));
         obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(255, 0, 0);
         obj.compile();
-        //obj.setBillboarding(true);
 
         SimpleVector m = SimpleVector.create(x, y, depth);
 
