@@ -293,12 +293,14 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
 
             if(GameAudio.isGoing())
             {
+                if(GameAudio.isInit)
+                    AudioGameplayIntegrater.audioTick();
+
                 beatFracAvg = (float)GameAudio.plzGetBeatFraction();
 
                 if(beatFracAvg < 0.5 && !b)
                 {
                     c++;
-                    //Log.d("SoundInvadersI", Float.toString((float) (c/(System.nanoTime()/(1000.0*1000.0)))));
                     b = true;
                 }
                 if(beatFracAvg > 0.5)

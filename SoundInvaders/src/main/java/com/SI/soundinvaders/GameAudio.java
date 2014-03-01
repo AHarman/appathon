@@ -37,6 +37,8 @@ public class GameAudio {
 
     static long stime = System.nanoTime();
 
+    public static boolean isInit = false;
+
     public static void init(Context con)
     {
         //set context
@@ -67,6 +69,8 @@ public class GameAudio {
         lower2Threshold = mean/1.5;
         lower3Threshold = mean/1.75;
         lower4Threshold = mean/2.0;
+
+        isInit = true;
     }
 
     public static void startMedia()
@@ -89,7 +93,6 @@ public class GameAudio {
 
     public static double plzGetBeatFraction()
     {
-
         double abpm = bpm / 60.0f;
         abpm = 1.0 / abpm;
         double curPos = ((System.nanoTime() - stime)/(1000.0*1000.0)) - intro;
@@ -117,6 +120,10 @@ public class GameAudio {
         double percent = curPos/(mediaPlayerx.getDuration()-intro);
 
         int startpoint = (int)(percent * amps.length);
+        if(startpoint < 0)
+        {
+            return 0;
+        }
         if (startpoint == amps.length) startpoint = startpoint - 1;
         double amplitude = amps[startpoint];
 
@@ -131,11 +138,11 @@ public class GameAudio {
             if (amptemp < 0) amptemp *= -1;
             meanamp = (meanamp*(i) + amptemp) / (i+1);
         }
-        Log.d("DEBUGSAM", "single amplitude = " + amplitude);
+        //Log.d("DEBUGSAM", "single amplitude = " + amplitude);
 
 
         if (meanamp < 0) meanamp = meanamp * -1;
-        Log.d("DEBUGSAM","averaged amplitude = " + meanamp);
+        //Log.d("DEBUGSAM","averaged amplitude = " + meanamp);
         amplitude = meanamp;
         if(amplitude < lower4Threshold)
             return 1;
@@ -160,7 +167,6 @@ public class GameAudio {
         else
 
             return 10;
-    }
     }
 
 }

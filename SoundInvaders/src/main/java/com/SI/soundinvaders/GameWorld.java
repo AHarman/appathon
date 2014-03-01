@@ -25,9 +25,27 @@ public class GameWorld {
 
     public static final RGBColor playerColour = new RGBColor(230, 126, 34);
 
+    public static float ySpeed = 1.0f;
+
     public static void processBeat(int intensity)
     {
+        if(intensity >= 1 && intensity <= 3)
+        {
+            ySpeed = (float) 0.9;
+        }
 
+        if(intensity >= 4 && intensity <= 7)
+        {
+            ySpeed = (float) 1.1;
+        }
+
+        if(intensity >= 8 && intensity <= 10)
+        {
+            ySpeed = (float) 1.3;
+        }
+
+
+        new GameObject(GameObjectType.values()[(int) (Math.random() * 3)], (int) (Math.random() * 3) + 1);
     }
 
     public static enum GameObjectType
@@ -49,10 +67,10 @@ public class GameWorld {
     {
         for (GameObject block: blockQueue)
         {
-            Graphics.moveObjPosition(0.0f,1.0f, 0, block.getObj());
+            Graphics.moveObjPosition(0.0f,ySpeed,block.getObj());
         }
         checkCollisions();
-        randomSpawn();
+        //randomSpawn();
     }
 
     public static void movePlayer(int direction)
@@ -70,8 +88,8 @@ public class GameWorld {
     {
         if (Math.random() > 0.95)
         {
-            int col = 1 + (int)(Math.random() * ((3 - 1) + 1));
-            int type = (int)(Math.random() * ((2) + 1));
+            int col = 1 + (int)(Math.random() * 3);
+            int type = (int)(Math.random() * 3);
             new GameObject(GameObjectType.values()[type],col);
         }
     }
