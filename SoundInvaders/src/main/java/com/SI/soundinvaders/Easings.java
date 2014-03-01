@@ -1,3 +1,5 @@
+package com.SI.soundinvaders;
+
 // Adapted from easings.net
 public class Easings {
     public static float easeOutExpo(float delta, float currentTime, float totalTime)
