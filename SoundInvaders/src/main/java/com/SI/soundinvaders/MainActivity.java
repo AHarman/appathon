@@ -30,12 +30,10 @@ import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
-public class MainActivity extends Activity implements OnScaleGestureListener {
+public class MainActivity extends Activity {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
-
-    private ScaleGestureDetector gestureDec = null;
 
     private GLSurfaceView mGLView;
     private MyRenderer renderer = null;
@@ -75,8 +73,6 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
         setContentView(mGLView);
-
-        gestureDec = new ScaleGestureDetector(this.getApplicationContext(), this);
     }
 
     @Override
@@ -113,8 +109,6 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
     }
 
     public boolean onTouchEvent(MotionEvent me) {
-
-        gestureDec.onTouchEvent(me);
 
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             xpos = me.getX();
@@ -186,11 +180,15 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 font = new Texture(res.openRawResource(R.raw.numbers));
                 font.setMipmap(false);
 
+                plane = Primitives.getPlane(1, 0.001f);
+
                 //graphics.setCamera(camera);
                 graphics.setWorld(world);
-                graphics.addRect(SimpleVector.create(10, 10, 0));
+                Object3D obj = graphics.addRect(10.0f, 10.0f);
+                graphics.setObjPosition(-25.0f, 0, obj);
 
-                //world.addObject(plane);
+                world.addObject(plane);
+
 
                 light = new Light(world);
                 light.enable();
@@ -246,7 +244,7 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 touchTurnUp = 0;
             }
 
-            shader.setUniform("heightScale", scale);
+            //shader.setUniform("heightScale", scale);
 
             fb.clear(back);
             world.renderScene(fb);
@@ -274,30 +272,5 @@ public class MainActivity extends Activity implements OnScaleGestureListener {
                 }
             }
         }
-    }
-
-    public boolean onScale(ScaleGestureDetector detector) {
-        float div = detector.getCurrentSpan() - detector.getPreviousSpan();
-        div /= 5000;
-
-        scale += div;
-
-        if (scale > 0.063f) {
-            scale = 0.063f;
-        }
-        if (scale < 0) {
-            scale = 0;
-        }
-
-        return true;
-    }
-
-    public boolean onScaleBegin(ScaleGestureDetector detector) {
-
-        return true;
-    }
-
-    public void onScaleEnd(ScaleGestureDetector detector) {
-        
     }
 }
