@@ -7,6 +7,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
         setContentView(mGLView);
 
         hideSystemBars();
+        new ScoreBoard(this.getApplicationContext());
     }
 
     @Override
