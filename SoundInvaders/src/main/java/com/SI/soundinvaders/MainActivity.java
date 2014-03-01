@@ -58,8 +58,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     private GLSLShader shader = null;
 
-    private float scale = 0.05f;
-
     protected void onCreate(Bundle savedInstanceState) {
 
         GameAudio.init(getApplicationContext());
