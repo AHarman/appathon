@@ -1,6 +1,5 @@
 package com.SI.soundinvaders;
 
-// Adapted from easings.net
 public class Easings {
     public static float easeOutExpo(float delta, float currentTime, float totalTime)
     {
@@ -27,7 +26,7 @@ public class Easings {
 
         double p=totalTime*0.5;
         double s = p/4;
-        double m = delta*Math.pow(2,-10*currentTime)
+        double m = delta*Math.pow(2,-10*currentTime);
         double n = (currentTime*totalTime-s)*(2*Math.PI)/p;
 
         return (float) (m * Math.sin(n) + delta);

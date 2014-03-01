@@ -8,6 +8,8 @@ import com.threed.jpct.RGBColor;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andy on 01/03/2014.
@@ -167,9 +169,28 @@ public class GameWorld {
 
         public void setColumn(int column)
         {
-            int xMovement = column - this.column;
+            final int xMovement = (column - this.column)*30;
+            final int moveTime = 200;
+            final Object3D obj = this.getObj();
+
+            Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                final int stepTime = 15;
+                int i = stepTime;
+                @Override
+                public void run() {
+                    float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
+
+                    Graphics.moveObjPosition(stepMovement, 0, obj);
+
+                    i += stepTime;
+                    if (i>=moveTime) cancel();
+                }
+
+            }, 0, 15);
+
             this.column = column;
-            Graphics.moveObjPosition(xMovement*30,0,this.getObj());
+//            Graphics.moveObjPosition(xMovement*30,0,this.getObj());
         }
 
         public Object3D getObj() {
