@@ -1,61 +1,84 @@
 package com.SI.soundinvaders;
 
+import android.util.Log;
+
 import com.threed.jpct.Object3D;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 /**
  * Created by andy on 01/03/2014.
  */
 public class GameWorld {
 
-    public Deque<GameObject> gameObjectsQueue = new ArrayDeque<GameObject>();
-    public GameObject playerObject;
+    public static Deque<GameObject> blockQueue = new ArrayDeque<GameObject>();
+    public static GameObject playerObject;
 
-    public enum GameObjectType
+    public static enum GameObjectType
     {
         GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
         PLAYER
     }
 
-    public GameWorld()
+    public static void initialiseGameWorld()
     {
-        initialiseGameWorld();
-    }
-
-    public void initialiseGameWorld()
-    {
-        //playerObject = new GameObject(new Object3D(),GameObjectType.PLAYER);
+        // start the player in the middle of the screen
+        playerObject = new GameObject(Graphics.addRect(Graphics.getWidth()/2, Graphics.getHeight()-10.0f),GameObjectType.PLAYER, 2);
     }
 
 
-    public void checkCollisions()
+    public static void checkCollisions()
     {
-        for (GameObject go : gameObjectsQueue)
+        float playerY = Graphics.getObjY(playerObject.getObj());
+        Iterator<GameObject> iterator = blockQueue.iterator();
+        while (iterator.hasNext())
         {
-            switch (go.type)
+            GameObject block = iterator.next();
+            float blockY = Graphics.getObjY(block.getObj());
+            int col = block.getColumn();
+
+            // check if the block has passed off the bottom of the screen
+            if (blockY > 120.0f + 10.0f/2) // screen height / block height
+                block.remove(iterator);
+
+            if (col == playerObject.getColumn())
             {
-                case GREEN_BLOCK:
-                    break;
-                case RED_BLOCK:
-                    break;
-                case BLUE_BLOCK:
-                    break;
-                case PLAYER:
-                    // do nothing
-                    break;
+                if (playerY - blockY < 10.0f) // change this to the actual size of the objects
+                {
+                    switch (block.type)
+                    {
+                        case GREEN_BLOCK:
+                            // add loads of point to score, fast mode?
+                            Log.d("SOUNDINVADERS", "green collision");
+                            block.remove(iterator);
+                        case RED_BLOCK:
+                            // end the game :(
+                            Log.d("SOUNDINVADERS", "red collision");
+                            break;
+                        case BLUE_BLOCK:
+                            // add small number of points
+                            Log.d("SOUNDINVADERS", "blue collision");
+                            block.remove(iterator);
+                            break;
+                        default:
+                            Log.d("SOUNDINVADERS", "WHAT THE SHIT IS GOING ON?!?!?!?!");
+                    }
+                }
             }
         }
     }
 
-    public class GameObject {
+    public static class GameObject {
         public Object3D obj;
         public GameObjectType type;
+        int column;
 
-        public GameObject(Object3D obj, GameObjectType type) {
+        public GameObject(Object3D obj, GameObjectType type, int column) {
             this.obj = obj;
             this.type = type;
+            this.column = column;
         }
 
         public Object3D getObj() {
@@ -64,6 +87,17 @@ public class GameWorld {
 
         public void setObj(Object3D obj) {
             this.obj = obj;
+        }
+
+        public int getColumn()
+        {
+            return column;
+        }
+
+        public void remove(Iterator<GameObject> iter)
+        {
+            iter.remove();
+            Graphics.world.removeObject(obj);
         }
     }
 
