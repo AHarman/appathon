@@ -34,14 +34,18 @@ public class GameWorld {
         // start the player in the middle of the screen
         playerObject = new GameObject(Graphics.addPlayer(Graphics.getWidth() / 2, Graphics.getHeight() - 10.0f, playerColour),GameObjectType.PLAYER, 2);
 
-        Graphics.addRect(10.0f, 10.0f, redColour);
-        Graphics.addRect(35.0f, 10.0f, blueColour);
-        Graphics.addRect(55.0f, 10.0f, greenColour);
+        blockQueue.push(new GameObject(Graphics.addRect(10.0f, 10.0f, redColour), GameObjectType.RED_BLOCK, 1));
+        blockQueue.push(new GameObject(Graphics.addRect(40.0f, 10.0f, blueColour), GameObjectType.BLUE_BLOCK, 2));
+        blockQueue.push(new GameObject(Graphics.addRect(70.0f, 10.0f, greenColour), GameObjectType.GREEN_BLOCK, 3));
     }
 
     public static void updateScene()
     {
-
+        for (GameObject block: blockQueue)
+        {
+            Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
+        }
+        checkCollisions();
     }
 
     public static void checkCollisions()
@@ -60,7 +64,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if (playerY - blockY < 10.0f) // change this to the actual size of the objects
+                if (playerY - blockY < 20.0f) // change this to the actual size of the objects
                 {
                     switch (block.type)
                     {

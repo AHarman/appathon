@@ -64,7 +64,7 @@ public class Graphics {
 
         //return (x/getWidth())*width + base;
 
-        return x - 5 - getWidth()/2.0f;
+        return x - getWidth()/2.0f;
     }
     private static float translateY(float y)
     {
@@ -73,17 +73,17 @@ public class Graphics {
 
         //return (y/getHeight())*height + base;
 
-        return y - 3 - getHeight()/2.0f;
+        return y - getHeight()/2.0f;
     }
 
     private static float backTranslateX(float x)
     {
-        return x + 5 + getWidth()/2.0f;
+        return x + getWidth()/2.0f;
     }
 
     private static float backTranslateY(float y)
     {
-        return y + 3 + getHeight()/2.0f;
+        return y + getHeight()/2.0f;
     }
 
     public static float getWidth()
