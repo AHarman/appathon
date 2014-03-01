@@ -1,33 +1,16 @@
 package com.SI.soundinvaders;
 
 import java.lang.reflect.Field;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import java.io.LineNumberReader;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.os.Bundle;
-<<<<<<< HEAD
-import android.os.Looper;
-=======
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
->>>>>>> 00d601b3b52b658edada82e60a613f62d27ddfb9
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,10 +29,8 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
-public class MainActivity extends FragmentActivity implements GestureDetector.OnGestureListener {
+public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
@@ -102,13 +83,10 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
         tvScore.setTypeface(myTypeface);
 
         hideSystemBars();
-<<<<<<< HEAD
-        new ScoreBoard(this.getApplicationContext());
 
+        new ScoreBoard(this.getApplicationContext());
         updateScore(0);
 
-=======
-        new ScoreBoard(getApplicationContext());
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -116,7 +94,6 @@ public class MainActivity extends FragmentActivity implements GestureDetector.On
         android.app.FragmentManager fm = getFragmentManager();
         ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
         scoreboard.show(fm, "tag");
->>>>>>> 00d601b3b52b658edada82e60a613f62d27ddfb9
     }
 
     void updateScore(int score)
