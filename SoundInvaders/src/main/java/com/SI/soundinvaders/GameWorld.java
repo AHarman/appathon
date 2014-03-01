@@ -29,6 +29,11 @@ public class GameWorld {
 
     private static int ticksSinceLastRed = 0;
 
+    private static int lastColumn = 0;
+
+    private static float lastSpeed = 0;
+
+
     public static void processBeat(int intensity)
     {
         if(intensity >= 1 && intensity <= 3)
@@ -87,7 +92,17 @@ public class GameWorld {
             }
         }
 
-        new GameObject(GameObjectType.values()[type], (int) (Math.random() * 3) + 1);
+        int column = (int) (Math.random() * 3) + 1;
+
+        if(ySpeed != lastSpeed)
+        {
+            column = (lastColumn %3) + 1;
+        }
+
+        lastColumn = column;
+        lastSpeed = ySpeed;
+
+        new GameObject(GameObjectType.values()[type], column);
     }
 
     public static enum GameObjectType
