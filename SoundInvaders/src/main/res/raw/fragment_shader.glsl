@@ -39,10 +39,10 @@ void main()
 
         if(beatFrac < 0.5)// || beatFrac > 0.70)
         {
-            gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);
+            //gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);
         }
 
 		//gl_FragColor = vec4(1.0*intensity, 0.0, 0.0, 0.0);
-		else
+		//else
 		    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
 }
