@@ -108,7 +108,7 @@ public class Graphics {
 
         Object3D obj=new Object3D(12);
 
-        float scale = 0.1f;
+        float scale = 0.75f;
 
         SimpleVector upperLeftFront=new SimpleVector(-1,-1,-1*scale);
         SimpleVector upperRightFront=new SimpleVector(1,-1,-1*scale);
@@ -149,11 +149,13 @@ public class Graphics {
 
         obj.scale(10.0f);
 
+        //obj.setOrigin(SimpleVector.create(0, 0, 10.0f));
+
         //obj.rotateY((float) (-Math.PI/4.0));
         //obj.rotateY((float) (-Math.PI/2.0));
         //obj.rotateX((float) (-Math.PI/2.0));
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
-        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(colour);
         obj.compile();
 
@@ -179,7 +181,7 @@ public class Graphics {
         obj.scale(10.0f);
 
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
-        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
         obj.setAdditionalColor(colour);
         obj.compile();
 
