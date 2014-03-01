@@ -7,6 +7,7 @@ import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Interact2D;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
+import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.World;
 import com.threed.jpct.Primitives;
@@ -100,7 +101,7 @@ public class Graphics {
         return 10.0f;
     }
 
-    public static Object3D addRect(float x, float y)
+    public static Object3D addRect(float x, float y, RGBColor colour)
     {
         x = translateX(x);
         y = translateY(y);
@@ -152,7 +153,8 @@ public class Graphics {
         //obj.rotateY((float) (-Math.PI/2.0));
         //obj.rotateX((float) (-Math.PI/2.0));
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
-        obj.setAdditionalColor(255, 0, 0);
+        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        obj.setAdditionalColor(colour);
         obj.compile();
 
         SimpleVector m = SimpleVector.create(x, y, depth);
@@ -164,7 +166,7 @@ public class Graphics {
         return obj;
     }
 
-    public static Object3D addPlayer(float x, float y)
+    public static Object3D addPlayer(float x, float y, RGBColor colour)
     {
         x = translateX(x);
         y = translateY(y);
@@ -177,7 +179,8 @@ public class Graphics {
         obj.scale(10.0f);
 
         //obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
-        obj.setAdditionalColor(0, 0, 255);
+        obj.setLighting(Object3D.LIGHTING_NO_LIGHTS);
+        obj.setAdditionalColor(colour);
         obj.compile();
 
         SimpleVector m = SimpleVector.create(x, y, depth);
