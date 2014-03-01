@@ -5,28 +5,26 @@ import java.lang.reflect.Field;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.ScaleGestureDetector.OnScaleGestureListener;
+import android.view.View;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.GLSLShader;
-import com.threed.jpct.ITextureEffect;
 import com.threed.jpct.Light;
-import com.threed.jpct.Loader;
 import com.threed.jpct.Logger;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
-import com.threed.jpct.TextureInfo;
-import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
@@ -39,7 +37,7 @@ public class MainActivity extends Activity {
     private MyRenderer renderer = null;
     private FrameBuffer fb = null;
     private World world = null;
-    private RGBColor back = new RGBColor(50, 50, 100);
+    private RGBColor back = new RGBColor(44, 62, 80);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -73,6 +71,9 @@ public class MainActivity extends Activity {
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
         setContentView(mGLView);
+
+        hideSystemBars();
+        new ScoreBoard(this.getApplicationContext());
     }
 
     @Override
@@ -93,6 +94,15 @@ public class MainActivity extends Activity {
     protected void onStop() {
         Logger.log("onStop");
         super.onStop();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        // Immersive mode is only supported in Android KitKat and above
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus)
+            hideSystemBars();
     }
 
     private void copy(Object src) {
@@ -149,6 +159,22 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void hideSystemBars()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            );
+        }
+    }
+
     class MyRenderer implements GLSurfaceView.Renderer {
 
         private boolean hasToCreateBuffer = false;
@@ -180,12 +206,18 @@ public class MainActivity extends Activity {
 
                 plane = Primitives.getPlane(1, 0.001f);
 
+                Camera cam = world.getCamera();
+
+                Graphics.setCamera(cam);
+                Graphics.setFrameBuffer(fb);
                 Graphics.setWorld(world);
-                Object3D obj = Graphics.addRect(10.0f, 10.0f);
-                Graphics.setObjPosition(5.0f, 5.0f, obj);
+
+                Graphics.init();
+
+                //Object3D obj = Graphics.addRect(10.0f, 10.0f);
+                //Graphics.setObjPosition(10.0f, 0.0f, obj);
 
                 world.addObject(plane);
-
 
                 light = new Light(world);
                 light.enable();
@@ -195,7 +227,7 @@ public class MainActivity extends Activity {
 
                 world.setAmbientLight(10, 10, 10);
 
-                Camera cam = world.getCamera();
+
 
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());
@@ -203,6 +235,8 @@ public class MainActivity extends Activity {
                 MemoryHelper.compact();
 
                 world.compileAllObjects();
+
+                GameWorld.initialise();
 
                 if (master == null) {
                     Logger.log("Saving master Activity!");
@@ -217,6 +251,7 @@ public class MainActivity extends Activity {
                 }
             }
             lastInstance = gl;
+
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -241,6 +276,7 @@ public class MainActivity extends Activity {
                 touchTurnUp = 0;
             }
 
+            GameWorld.updateScene();
             //shader.setUniform("heightScale", scale);
 
             fb.clear(back);
