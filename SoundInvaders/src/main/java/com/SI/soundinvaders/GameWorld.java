@@ -138,7 +138,15 @@ public class GameWorld {
         checkCollisions();
         randomSpawn();
         increaseScore(1);
+    }
 
+    public static void endGame(int reason)
+    {
+        //reasons
+        //0: end of song
+        //1: red block
+
+        Log.d("JAMESS", "endgame()");
     }
 
     public static void movePlayer(int direction)
@@ -193,16 +201,15 @@ public class GameWorld {
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
-                            //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
+                            endGame(1);
                             Log.d("SOUNDINVADERS", "red collision");
                             break;
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
                             increaseScore(500);
-                            //block.remove(iterator);
                             break;
                         default:
                             Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");

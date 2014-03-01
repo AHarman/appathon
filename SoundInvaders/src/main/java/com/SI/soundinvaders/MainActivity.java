@@ -339,6 +339,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     shader.setUniform("beatFrac", beatFracAvg);
                 //Log.d("SoundInvaders", Float.toString(beatFracAvg));
             }
+            else
+            {
+                //Game Finished
+                GameWorld.endGame();
+            }
 
             if (this.hasToCreateBuffer) {
                 Logger.log("Recreating buffer...");
