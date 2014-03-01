@@ -31,12 +31,11 @@ public class GameWorld {
 
     public static void initialise()
     {
-        // start the player in the middle of the screen
-        playerObject = new GameObject(Graphics.addPlayer(Graphics.getWidth() / 2, Graphics.getHeight() - 10.0f, playerColour),GameObjectType.PLAYER, 2);
+        new GameObject(GameObjectType.PLAYER,2);
 
-        blockQueue.push(new GameObject(Graphics.addRect(10.0f, 10.0f, redColour), GameObjectType.RED_BLOCK, 1));
-        blockQueue.push(new GameObject(Graphics.addRect(40.0f, 10.0f, blueColour), GameObjectType.BLUE_BLOCK, 2));
-        blockQueue.push(new GameObject(Graphics.addRect(70.0f, 10.0f, greenColour), GameObjectType.GREEN_BLOCK, 3));
+        new GameObject(GameObjectType.BLUE_BLOCK,2);
+        new GameObject(GameObjectType.RED_BLOCK,1);
+        new GameObject(GameObjectType.GREEN_BLOCK,3);
     }
 
     public static void updateScene()
@@ -46,6 +45,11 @@ public class GameWorld {
             Graphics.moveObjPosition(0.0f,1.0f,block.getObj());
         }
         checkCollisions();
+    }
+
+    public static void spawn(GameObjectType gameObjectType, int col)
+    {
+
     }
 
     public static void checkCollisions()
@@ -98,6 +102,44 @@ public class GameWorld {
             this.obj = obj;
             this.type = type;
             this.column = column;
+        }
+
+        public GameObject(GameObjectType type, int column)
+        {
+            // Has to be initialised to prevent a warning
+            RGBColor colour = new RGBColor(0,0,0);
+
+            switch (type)
+            {
+                case GREEN_BLOCK:
+                    colour = greenColour;
+                    break;
+                case RED_BLOCK:
+                    colour = redColour;
+                    break;
+                case BLUE_BLOCK:
+                    colour = blueColour;
+                    break;
+                case PLAYER:
+                    colour = playerColour;
+                    break;
+            }
+
+            this.type = type;
+            this.column = column;
+
+            int xPos = 10 + (column-1)*30;
+
+            if (type != GameObjectType.PLAYER)
+            {
+                this.obj = Graphics.addRect(xPos,0,colour);
+                blockQueue.add(this);
+            }
+            else
+            {
+                this.obj = Graphics.addPlayer(xPos,Graphics.getHeight()-10.f,colour);
+                playerObject = this;
+            }
         }
 
         public Object3D getObj() {
