@@ -17,22 +17,18 @@ public class AudioGameplayIntegrater
     public static void audioTick()
     {
         boolean isBeat = (GameAudio.plzGetBeatFraction() < 0.5);// || GameAudio.plzGetBeatFraction() > 0.99);
-        //Log.d("OstrichReallyalot", "D1");
         if(isBeat && !justDone)
         {
-            //Log.d("OstrichReallyalot", "D2");
             if(cur==0)
             {
                 justDone = true;
                 GameWorld.processBeat(GameAudio.plzGetIntenseValue());
-                //Log.d("OstrichReallyalot", "D3");
             }
 
             cur = (cur+1) % n;
         }
         else if(!isBeat)
         {
-            //Log.d("OstrichReallyalot", "D4");
             justDone = false;
         }
     }

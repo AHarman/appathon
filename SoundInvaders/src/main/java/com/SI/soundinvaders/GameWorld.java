@@ -109,7 +109,7 @@ public class GameWorld {
     {
         for (GameObject block: blockQueue)
         {
-            Graphics.moveObjPosition(0.0f,ySpeed,block.getObj());
+            Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
         }
         checkCollisions();
         //randomSpawn();
@@ -158,7 +158,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if (playerY - blockY < 20.0f) // change this to the actual size of the objects
+                if (playerY - blockY < 15.0f) // change this to the actual size of the objects
                 {
                     block.kill();
                     switch (block.type)
