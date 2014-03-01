@@ -1,6 +1,7 @@
 package com.SI.soundinvaders;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
@@ -23,7 +24,10 @@ public class GameWorld {
     public static final RGBColor redColour = new RGBColor(192, 57, 43);
     public static final RGBColor greenColour = new RGBColor(46, 204, 113);
 
-    public static final RGBColor playerColour = new RGBColor(230, 126, 34);
+//    public static final RGBColor playerColour = new RGBColor(230, 126, 34);
+    public static final RGBColor playerColour = new RGBColor(211, 84, 0);
+
+    public static int score = 0;
 
     public static float ySpeed = 1.0f;
 
@@ -111,6 +115,11 @@ public class GameWorld {
         PLAYER;
     }
 
+    public static void increaseScore(int inc)
+    {
+        score += inc;
+    }
+
     public static void initialise()
     {
         new GameObject(GameObjectType.PLAYER,2);
@@ -127,7 +136,9 @@ public class GameWorld {
             Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
         }
         checkCollisions();
-        //randomSpawn();
+        randomSpawn();
+        increaseScore(1);
+
     }
 
     public static void movePlayer(int direction)
@@ -181,6 +192,7 @@ public class GameWorld {
                         case GREEN_BLOCK:
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
+                            increaseScore(1000);
                             //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
@@ -189,6 +201,7 @@ public class GameWorld {
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
+                            increaseScore(500);
                             //block.remove(iterator);
                             break;
                         default:
