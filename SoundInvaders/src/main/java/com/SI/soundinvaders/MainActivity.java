@@ -30,7 +30,7 @@ import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
-public class MainActivity extends Activity implements OnScaleGestureListener {
+public class  MainActivity extends Activity implements OnScaleGestureListener {
 
     // Used to handle pause and resume...
     private static MainActivity master = null;
