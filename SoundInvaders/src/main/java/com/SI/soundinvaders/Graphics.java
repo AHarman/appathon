@@ -44,17 +44,21 @@ public class Graphics {
 
     private float translateX(float x)
     {
-        return x - 40.0f;
+        return x - getWidth()/2.0f;
     }
     private float translateY(float y)
     {
-        return y - 60.0f;
+        return y - getHeight()/2.0f;
     }
 
     public float getWidth()
     {
-        //return 5.0f /
-        return 0;
+        return 80.0f;
+    }
+
+    public float getHeight()
+    {
+        return 120.0f;
     }
 
     public Object3D addRect(float x, float y)
