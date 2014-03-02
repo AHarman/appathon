@@ -34,6 +34,7 @@ import com.threed.jpct.Texture;
 import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
 
+
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
 
     // Used to handle pause and resume...
@@ -86,6 +87,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
 
         GameAudio.init(getApplicationContext());
+
 
         Logger.log("onCreate");
         Logger.setLogLevel(Logger.LL_DEBUG);
