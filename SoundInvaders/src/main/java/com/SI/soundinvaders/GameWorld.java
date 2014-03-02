@@ -2,7 +2,6 @@ package com.SI.soundinvaders;
 
 import android.app.Activity;
 import android.util.Log;
-<<<<<<< HEAD
 import 	android.content.Intent;
 import android.widget.TextView;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.EditText;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import android.content.Context;
-=======
->>>>>>> Easing functions for camera animation
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.Object3D;
