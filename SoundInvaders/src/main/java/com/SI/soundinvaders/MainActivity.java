@@ -398,7 +398,25 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 if(shader!=null)
                     shader.setUniform("beatFrac", beatFracAvg);
-                //Log.d("SoundInvaders", Float.toString(beatFracAvg));
+
+                if(GameWorld.isCameraMoving)
+                {
+                    int rb, gb, bb;
+                    rb = GameWorld.playerColour.getRed();
+                    gb = GameWorld.playerColour.getGreen();
+                    bb = GameWorld.playerColour.getBlue();
+
+                    rb = (int) ((255 - rb)*beatFracAvg);
+                    gb = (int) ((255 - gb)*beatFracAvg);
+                    bb = (int) ((255 - bb)*beatFracAvg);
+
+                    GameWorld.playerObject.obj.setAdditionalColor(rb, gb, bb);
+                }
+                else
+                {
+                    GameWorld.playerObject.obj.setAdditionalColor(GameWorld.playerColour);
+                }
+
             }
             else
             {
@@ -409,6 +427,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     GameWorld.endGame(0);
                 }
             }
+
+
 
             if (this.hasToCreateBuffer) {
                 Logger.log("Recreating buffer...");
