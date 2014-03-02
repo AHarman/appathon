@@ -9,6 +9,12 @@ import android.widget.EditText;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import android.content.Context;
+
+import com.threed.jpct.Camera;
+import com.threed.jpct.Object3D;
+import com.threed.jpct.RGBColor;
+import com.threed.jpct.SimpleVector;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
@@ -41,6 +47,53 @@ public class GameWorld {
     private static float lastSpeed = 0;
 
     static Context c;
+
+    public static void changeMode(GameMode mode)
+    {
+        // don't change mode if we're already in the same mode
+        if (mode == currentMode) return;
+        switch (mode)
+        {
+            case MODE_NORMAL:
+                // switch back to normal mode, we'll deal with this later (yawn)
+                break;
+            case MODE_FIRST_PERSON:
+                Log.d("AUDIOSOMETING", "Set mode to first person");
+                // switch into the awesome FIRST PERSON MODE
+                final Camera camera = Graphics.cam;
+
+                Timer t = new Timer();
+                t.scheduleAtFixedRate(new TimerTask() {
+                    public float totalRotation = 0;
+                    @Override
+                    public void run()
+                    {
+                        if (totalRotation > Math.PI/2)
+                        {
+                            cancel();
+                            return;
+                        }
+//                        Log.d("AUDIOSOMETHING", "running timertask");
+                        camera.rotateAxis(new SimpleVector(1, 0, 0), 0.05f);
+                        totalRotation += 0.05f;
+                        SimpleVector position = camera.getPosition();
+                        position.set(position.x, position.y+2f, position.z+1.5f);
+                        camera.setPosition(position);
+//                        camera.lookAt(playerObject.getObj().getCenter());
+                    }
+                }, 0, 16); // delay, time in ms
+                camera.moveCamera(Camera.CAMERA_MOVEDOWN, 10.0f);
+                break;
+        }
+        currentMode = mode;
+    }
+
+
+    public static enum GameMode {
+        MODE_NORMAL, MODE_FIRST_PERSON
+    }
+
+    public static GameMode currentMode = GameMode.MODE_NORMAL;
 
     public static void processBeat(int intensity)
     {
@@ -115,8 +168,7 @@ public class GameWorld {
 
     public static enum GameObjectType
     {
-        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
-        PLAYER;
+        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK, PLAYER
     }
 
     public static void increaseScore(int inc)

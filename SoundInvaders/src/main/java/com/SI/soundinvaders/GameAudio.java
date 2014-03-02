@@ -2,8 +2,6 @@ package com.SI.soundinvaders;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.v7.appcompat.R;
-import android.util.Log;
 
 import com.musicg.wave.Wave;
 
@@ -38,6 +36,13 @@ public class GameAudio {
     static long stime = System.nanoTime();
 
     public static boolean isInit = false;
+
+    public static double getCurTime()
+    {
+        return curTime;
+    }
+
+    public static double curTime;
 
     public static void init(Context con)
     {
@@ -95,9 +100,9 @@ public class GameAudio {
     {
         double abpm = bpm / 60.0f;
         abpm = 1.0 / abpm;
-        double curPos = ((System.nanoTime() - stime)/(1000.0*1000.0)) - intro;
+        curTime = ((System.nanoTime() - stime)/(1000.0*1000.0)) - intro;
 
-        float r = (float) (curPos / (abpm*1000.0));
+        float r = (float) (curTime / (abpm*1000.0));
 
         float f = (float) Math.floor(r);
 

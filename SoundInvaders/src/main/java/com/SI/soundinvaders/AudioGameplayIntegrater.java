@@ -31,5 +31,10 @@ public class AudioGameplayIntegrater
         {
             justDone = false;
         }
+
+        if (GameAudio.getCurTime() > 200 && GameWorld.currentMode != GameWorld.GameMode.MODE_FIRST_PERSON)
+        {
+            GameWorld.changeMode(GameWorld.GameMode.MODE_FIRST_PERSON);
+        }
     }
 }
