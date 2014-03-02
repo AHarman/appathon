@@ -21,6 +21,9 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.net.Uri;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
+
 /**
  * Created by andy on 01/03/2014.
  */
@@ -228,6 +231,9 @@ public class GameWorld {
     {
         new GameObject(GameObjectType.PLAYER,2);
 
+        new GameObject(GameObjectType.BLUE_BLOCK,2);
+        new GameObject(GameObjectType.RED_BLOCK,1);
+        new GameObject(GameObjectType.GREEN_BLOCK,3);
         c = con;
     }
 
@@ -263,7 +269,7 @@ public class GameWorld {
     }
 
     private static boolean gameOver = false;
-    public static void endGame(int reason)
+    public static void endGame()
     {
         //reasons
         //0: end of song
@@ -271,14 +277,12 @@ public class GameWorld {
 
         if(!gameOver)
         {
+            Log.d("JAMESS", "endgame by end of song");
+            //fly out of screen
+            playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
 
-                Log.d("JAMESS", "endgame by end of song");
-                //fly out of screen
-                playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
-
-                EndActivity.getScore(score);
-                MainActivity.endGame();
-
+            MainActivity.endGame();
+            MainActivity.gameOver = true;
         }
     }
 
@@ -366,6 +370,7 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");
                     }
                 }
+                //endGame();
             }
         }
     }
@@ -494,7 +499,7 @@ public class GameWorld {
                     if (i>=moveTime) cancel();
                 }
 
-            }, 0, 20);
+            }, 0, 15);
 
         }
 

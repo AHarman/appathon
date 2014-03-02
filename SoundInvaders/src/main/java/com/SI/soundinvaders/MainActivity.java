@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -66,10 +67,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Object3D plane;
     private Light light;
 
+    public static Context con;
+
     private int screenWidth;
 
+    public static Boolean gameOver = false;
 
     private GLSLShader shader = null;
+    private boolean gameOverNotTriggered = true;
 
     public static void endGame()
     {
@@ -84,6 +89,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point sharp = new Point();
+
+        con  = this.getApplicationContext();
 
         if(Build.VERSION.SDK_INT >= 10)
         {
@@ -134,12 +141,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void showScores(){
-        android.app.FragmentManager fm = getFragmentManager();
-        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
-        scoreboard.show(fm, "tag");
-    }
 
     void updateScore(int score)
     {
@@ -291,7 +292,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 
                 plane = Primitives.getPlane(1, 10000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 400));
+                plane.setOrigin(SimpleVector.create(0, 0, 2000));
                 plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
@@ -325,6 +326,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
 
+                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
+                cam.lookAt(plane.getTransformedCenter());
 
 
                 MemoryHelper.compact();
@@ -386,7 +389,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             else
             {
                 //Game Finished
-                GameWorld.endGame(0);
+                GameWorld.endGame();
             }
 
             if (this.hasToCreateBuffer) {
