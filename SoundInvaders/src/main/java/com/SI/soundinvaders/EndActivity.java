@@ -4,10 +4,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -33,6 +36,19 @@ public class EndActivity extends Activity {
         playButton.setTypeface(myTypeface);
 
         TextView tv;
+
+        ImageView twitterBtn = (ImageView)findViewById(R.id.twitterbtn);
+        twitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://www.twitter.com/intent/tweet?text=I just got " + GameWorld.score + " on Sound Invaders!";
+                                            Intent sendIntent = new Intent();
+                                            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            sendIntent.setAction(Intent.ACTION_VIEW);
+                                            sendIntent.setData(Uri.parse(url));
+                                            getApplicationContext().startActivity(sendIntent);
+            }
+        });
 
         tv = (TextView)findViewById(R.id.score0); tv.setText(Integer.toString(ScoreBoard.getScore(0))); tv.setTypeface(myTypeface);
         tv = (TextView)findViewById(R.id.score1); tv.setText(Integer.toString(ScoreBoard.getScore(1))); tv.setTypeface(myTypeface);
