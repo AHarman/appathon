@@ -1,5 +1,6 @@
 package com.SI.soundinvaders;
 
+import android.app.Activity;
 import android.util.Log;
 import 	android.content.Intent;
 import android.widget.TextView;
@@ -50,12 +51,12 @@ public class GameWorld {
 
         if(intensity >= 4 && intensity <= 7)
         {
-            ySpeed = (float) 1.1;
+            ySpeed = (float) 1.5;
         }
 
         if(intensity >= 8 && intensity <= 10)
         {
-            ySpeed = (float) 1.3;
+            ySpeed = (float) 2.7;
         }
 
         float greenWeight = (float) 0.1;
@@ -120,7 +121,11 @@ public class GameWorld {
 
     public static void increaseScore(int inc)
     {
-        score += inc;
+        if(!gameOver)
+        {
+            score += inc;
+            if (score < 0) score = 0;
+        }
     }
 
     public static void initialise(Context con)
@@ -142,8 +147,33 @@ public class GameWorld {
         checkCollisions();
         randomSpawn();
         increaseScore(1);
-
     }
+
+    private static boolean gameOver = false;
+    public static void endGame(int reason)
+    {
+        //reasons
+        //0: end of song
+        //1: red block
+
+        if(!gameOver)
+        {
+            if (reason == 0)
+            {
+                Log.d("JAMESS", "endgame by end of song");
+                //fly out of screen
+                playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
+
+            }
+            else if (reason == 1)
+            {
+                Log.d("JAMESS", "red block ending game");
+                //get rid of all objects
+
+            }
+        }
+    }
+
 
     public static void movePlayer(int direction)
     {
@@ -152,7 +182,6 @@ public class GameWorld {
         if(newColumn > 0 && newColumn < 4)
         {
             playerObject.setColumn(newColumn);
-            Log.d("James", "New column: "+String.valueOf(playerObject.column));
         }
     }
 
@@ -197,22 +226,30 @@ public class GameWorld {
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
+                            MainActivity.currentStreak += 1000;
+                            MainActivity.streakTimer = 60;
+                            MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                             break;
+
                         case RED_BLOCK:
                             // end the game :(
-                            String url = "http://www.twitter.com/intent/tweet?text=I just got " + score + " on Sound Invaders!";
-                            Intent sendIntent = new Intent();
-                            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            sendIntent.setAction(Intent.ACTION_VIEW);
-                            sendIntent.setData(Uri.parse(url));
-                            c.startActivity(sendIntent);
-                            Log.d("SOUNDINVADERS", "red collision");
+                            Iterator<GameObject> it = blockQueue.iterator();
+                            while(it.hasNext())
+                            {
+                                GameObject bl = it.next();
+                                bl.kill();
+                            }
+                            increaseScore(-3000);
+                            Log.d("REDC", "red collision");
                             break;
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
                             increaseScore(500);
+                            MainActivity.currentStreak += 500;
+                            MainActivity.streakTimer = 60;
+                            MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                             break;
                         default:
@@ -316,18 +353,23 @@ public class GameWorld {
         public void setColumn(int column)
         {
             final int xMovement = (column - this.column)*25;
-            final int moveTime = 200;
             final Object3D obj = this.getObj();
+            moveObject(xMovement, 0, obj, 200);
+            this.column = column;
+        }
 
+        public void moveObject(final float newx, final float newy, final Object3D obj, final int moveTime)
+        {
             Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
                 int i = stepTime;
                 @Override
                 public void run() {
-                    float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
+                    float stepMovementx = Easings.easeOutExpo(newx, i, moveTime) - Easings.easeOutExpo(newx, i-stepTime, moveTime);
+                    float stepMovementy = Easings.easeInCirc(i, newy, moveTime) - Easings.easeInCirc(i - stepTime, newy, moveTime);
 
-                    Graphics.moveObjPosition(stepMovement, 0, 0, obj);
+                    Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
 
                     i += stepTime;
                     if (i>=moveTime) cancel();
@@ -335,8 +377,9 @@ public class GameWorld {
 
             }, 0, 15);
 
-            this.column = column;
         }
+
+
 
         public Object3D getObj() {
             return obj;
