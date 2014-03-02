@@ -24,13 +24,13 @@ public class ScoreBoardDialog extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.scoreboardfragment, container);
         TextView tv;
-        Button pissoff = (Button) view.findViewById(R.id.close);
-        pissoff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        //Button pissoff = (Button) view.findViewById(R.id.close);
+        //pissoff.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+            //public void onClick(View view) {
+              //  dismiss();
+            //}
+        //});
         tv = (TextView)view.findViewById(R.id.score0); tv.setText(Integer.toString(ScoreBoard.getScore(0)));
         tv = (TextView)view.findViewById(R.id.score1); tv.setText(Integer.toString(ScoreBoard.getScore(1)));
         tv = (TextView)view.findViewById(R.id.score2); tv.setText(Integer.toString(ScoreBoard.getScore(2)));
