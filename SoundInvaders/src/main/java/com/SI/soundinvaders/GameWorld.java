@@ -162,7 +162,12 @@ public class GameWorld {
             {
                 Log.d("JAMESS", "red block ending game");
                 //get rid of all objects
-
+                Iterator<GameObject> iterator = blockQueue.iterator();
+                while(iterator.hasNext())
+                {
+                    GameObject block = iterator.next();
+                    block.kill();
+                }
             }
         }
 
