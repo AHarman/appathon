@@ -2,6 +2,7 @@ package com.SI.soundinvaders;
 
 import android.app.Activity;
 import android.util.Log;
+<<<<<<< HEAD
 import 	android.content.Intent;
 import android.widget.TextView;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import android.content.Context;
+=======
+>>>>>>> Easing functions for camera animation
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.Object3D;
@@ -66,31 +69,38 @@ public class GameWorld {
                 Log.d("GameWorld", "Setting mode to first person");
                 // switch into the awesome FIRST PERSON MODE
                 final Camera camera = Graphics.cam;
+                final SimpleVector startPos = camera.getPosition();
+                Log.d("GameWorld", startPos.toString());
+                final int stepTime = 16;
+                final int totalSteps = 2000;
+
+                final int totalYMove = 64; // move back
+                final int totalZMove = 60; // move down
 
                 Timer t = new Timer();
                 t.scheduleAtFixedRate(new TimerTask() {
-                    public float totalRotation = 0;
+                    public final float totalRotation = (float) (Math.PI/2);
+                    public float currentRotation = 0;
+                    public float i = 0;
                     @Override
                     public void run()
                     {
-                        // if we've rotated to the right position, don't keep rotating (duh...)
-                        if (totalRotation > Math.PI/2)
-                        {
-                            cancel();
-                            return;
-                        }
 
-                        camera.rotateAxis(new SimpleVector(1, 0, 0), 0.05f);
-                        totalRotation += 0.05f;
+                        float rotation = Easings.easeInOutExpo(totalRotation, i, totalSteps) - Easings.easeInOutExpo(totalRotation, i - stepTime, totalSteps);
+                        camera.rotateAxis(new SimpleVector(1, 0, 0), rotation);
+                        currentRotation += 0.05f;
                         SimpleVector position = camera.getPosition();
                         // yes these constants are arbitrary but they work so shhhhh
                         // also if you change the time they'll break but the angle will work
-                        position.set(position.x, position.y+2f, position.z+1.6f);
+
+                        float posz = Easings.easeInOutExpo(totalZMove, i, totalSteps);
+                        float posy = Easings.easeInOutExpo(totalYMove, i, totalSteps);
+                        position.set(startPos.x, startPos.y + posy, startPos.z + posz);
                         camera.setPosition(position);
-//                        camera.lookAt(playerObject.getObj().getCenter());
+                        i += stepTime;
+                        if (i >= totalSteps) cancel();
                     }
-                }, 0, 16); // delay, time in ms
-                camera.moveCamera(Camera.CAMERA_MOVEDOWN, 10.0f);
+                }, 0, stepTime); // 0 = delay , 16 = period time in ms
                 break;
         }
         currentMode = mode;
@@ -426,6 +436,7 @@ public class GameWorld {
 
                     Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
 
+                    // moves the camera with the
                     if (currentMode == GameMode.MODE_FIRST_PERSON)
                     {
                         SimpleVector pos = camera.getPosition();
@@ -436,7 +447,7 @@ public class GameWorld {
                     if (i>=moveTime) cancel();
                 }
 
-            }, 0, 15);
+            }, 0, 20);
 
         }
 
