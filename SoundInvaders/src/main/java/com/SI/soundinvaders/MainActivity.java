@@ -134,8 +134,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     void updateScore(int score)
     {
-        //TextView tvScore = (TextView)findViewById(R.id.tvScore);
-        //tvScore.setText(String.valueOf(score));
+        TextView tvScore = (TextView)findViewById(R.id.tvScore);
+        tvScore.setText(String.valueOf(score));
     }
 
     public static void drawPoints(int col, int val){
@@ -281,8 +281,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 font.setMipmap(false);
 
                 
-                plane = Primitives.getPlane(1, 100000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 500));
+                plane = Primitives.getPlane(1, 10000.0f);
+                plane.setOrigin(SimpleVector.create(0, 0, 400));
                 plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));

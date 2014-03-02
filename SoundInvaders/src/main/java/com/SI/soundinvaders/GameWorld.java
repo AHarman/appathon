@@ -208,24 +208,24 @@ public class GameWorld {
     {
         int num = 0;
 
+        float beat = 0;
+        if(GameAudio.isInit)
+            beat = (float) GameAudio.plzGetBeatFraction();
+
+        beat = (float) Math.sin(beat*Math.PI*2) + 1;
+        beat /= 2.5f;
+
         for (GameObject block : blockQueue)
         {
-            if(num >= 4)
-            {
-                break;
-            }
             Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
             valsx[num] = block.obj.getTransformedCenter().x;
             valsy[num] = block.obj.getTransformedCenter().y;
+            block.obj.setScale(9.0f + beat);
+
             num++;
         }
 
-        for(int n=num; n<128; n++)
-        {
-            //vals[n] = SimpleVector.create(0,0,0);
-        }
-
-        //Graphics.updateShader(valsx, valsy, num);
+        Graphics.updateShader(valsx, valsy, num);
 
         checkCollisions();
         randomSpawn();
