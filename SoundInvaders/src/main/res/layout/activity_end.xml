@@ -34,147 +34,213 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="play now!"
+            android:text="play again?"
             android:id="@+id/playButton"
             android:textColor="@color/wetasphalt"
             android:background="@color/clouds"
             android:textSize="25sp"
             android:onClick="startGame"/>
-                <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/scoreboardtitle"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="20dp"/>
         <GridLayout
             android:layout_width="fill_parent"
-            android:layout_height="350dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="30dp"
             android:columnCount="2"
             android:rowCount="10"
             android:layout_gravity="center"
             tools:ignore="NewApi">
+            <LinearLayout
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                >
+             <GridLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="fill_parent"
+                 android:columnCount="2"
+                 android:columnOrderPreserved="true"
+                 android:rowCount="9"
+                 android:rowOrderPreserved="true"
+                 >
 
-            <TextView
-                android:id="@+id/scoreName0"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score0"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName0"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score0"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName1"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score1"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName1"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score1"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName2"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score2"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName2"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score2"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName3"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score3"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName3"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score3"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName4"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score4"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName4"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score4"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName5"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score5"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName5"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score5"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName6"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score6"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName6"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score6"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName7"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score7"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName7"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score7"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName8"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score8"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName8"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score8"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
 
-            <TextView
-                android:id="@+id/scoreName9"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
-            <TextView
-                android:id="@+id/score9"
-                android:gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_width="80dp"
-                android:layout_margin="7dp"/>
+                 <TextView
+                     android:id="@+id/scoreName9"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+                 <TextView
+                     android:id="@+id/score9"
+                     android:gravity="right"
+                     android:layout_height="wrap_content"
+                     android:layout_width="80dp"
+                     android:layout_margin="7dp"
+                     android:textColor="@color/wetasphalt"/>
+             </GridLayout>
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text=""
+                     android:textColor="@color/wetasphalt"
+                     android:textSize="18dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginRight="110dp"
+                     />
+
+                 <ImageView
+                     android:id="@+id/twitterbtn"
+                     android:layout_width="50dp"
+                     android:layout_height="50dp"
+                     android:layout_marginLeft="20dp"
+                     android:layout_marginTop="50dp"
+                     android:src="@drawable/twittericon" />
+                 </LinearLayout>
+             </LinearLayout>
+
+
+            </LinearLayout>
+            </LinearLayout>
+
         </GridLayout>
     </LinearLayout>
 
