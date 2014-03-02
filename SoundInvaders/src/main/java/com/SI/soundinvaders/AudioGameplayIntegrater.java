@@ -32,9 +32,15 @@ public class AudioGameplayIntegrater
             justDone = false;
         }
 
-        if (GameAudio.getCurTime() > 5000 && GameWorld.currentMode != GameWorld.GameMode.MODE_FIRST_PERSON)
+        // temporary values that switch between modes
+        final double curTime = GameAudio.getCurTime() % 15000;
+        if (curTime > 5000 && curTime < 10000 && GameWorld.currentMode != GameWorld.GameMode.MODE_FIRST_PERSON)
         {
             GameWorld.changeMode(GameWorld.GameMode.MODE_FIRST_PERSON);
+        }
+        else if (curTime > 10000 && GameWorld.currentMode != GameWorld.GameMode.MODE_NORMAL)
+        {
+            GameWorld.changeMode(GameWorld.GameMode.MODE_NORMAL);
         }
     }
 }

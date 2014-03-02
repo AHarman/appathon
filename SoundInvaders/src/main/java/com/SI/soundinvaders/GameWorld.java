@@ -46,6 +46,8 @@ public class GameWorld {
 
     private static float lastSpeed = 0;
 
+    public static boolean isCameraMoving = false;
+
     static Context c;
     public static enum GameMode {
         MODE_NORMAL, MODE_FIRST_PERSON
@@ -57,27 +59,57 @@ public class GameWorld {
     {
         // don't change mode if we're already in the same mode
         if (mode == currentMode) return;
+
+        final Camera camera = Graphics.cam;
+        final int stepTime = 16;
+        final int totalSteps = 2000;
+
+        final int totalYMove = 64; // move back
+        final int totalZMove = 60; // move down
+        final int totalXMove = (playerObject.getColumn() - 2) * 25;
+
+        Timer t = new Timer();
+
+        currentMode = mode;
+        isCameraMoving = true;
+
         switch (mode)
         {
             case MODE_NORMAL:
-                // switch back to normal mode, we'll deal with this later (yawn)
+                Log.d("GameWorld", "Setting mode to normal person");
+                // switch back to normal mode
+                t.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI/2);
+                    final SimpleVector startPos = camera.getPosition();
+
+                    public float i = 0;
+                    @Override
+                    public void run()
+                    {
+                        float rotation = Easings.easeInOutExpo(totalRotation, i, totalSteps) - Easings.easeInOutExpo(totalRotation, i - stepTime, totalSteps);
+                        camera.rotateAxis(new SimpleVector(1, 0, 0), -rotation);
+                        SimpleVector position = camera.getPosition();
+                        float posx = Easings.easeInOutExpo(totalXMove, i, totalSteps);
+                        float posy = Easings.easeInOutExpo(totalYMove, i, totalSteps);
+                        float posz = Easings.easeInOutExpo(totalZMove, i, totalSteps);
+                        position.set(startPos.x - posx, startPos.y - posy, startPos.z - posz);
+                        camera.setPosition(position);
+                        i += stepTime;
+                        if (i >= totalSteps)
+                        {
+                            isCameraMoving = false;
+                            cancel();
+                        }
+                    }
+                }, 0, stepTime); // 0 = delay
                 break;
             case MODE_FIRST_PERSON:
                 Log.d("GameWorld", "Setting mode to first person");
-                // switch into the awesome FIRST PERSON MODE
-                final Camera camera = Graphics.cam;
-                final SimpleVector startPos = camera.getPosition();
-                Log.d("GameWorld", startPos.toString());
-                final int stepTime = 16;
-                final int totalSteps = 2000;
-
-                final int totalYMove = 64; // move back
-                final int totalZMove = 60; // move down
-
-                Timer t = new Timer();
+                // switch into the awesome FIRST PERSON MODEn
                 t.scheduleAtFixedRate(new TimerTask() {
                     public final float totalRotation = (float) (Math.PI/2);
-                    public float currentRotation = 0;
+                    final SimpleVector startPos = camera.getPosition();
+
                     public float i = 0;
                     @Override
                     public void run()
@@ -85,22 +117,22 @@ public class GameWorld {
 
                         float rotation = Easings.easeInOutExpo(totalRotation, i, totalSteps) - Easings.easeInOutExpo(totalRotation, i - stepTime, totalSteps);
                         camera.rotateAxis(new SimpleVector(1, 0, 0), rotation);
-                        currentRotation += 0.05f;
                         SimpleVector position = camera.getPosition();
-                        // yes these constants are arbitrary but they work so shhhhh
-                        // also if you change the time they'll break but the angle will work
-
-                        float posz = Easings.easeInOutExpo(totalZMove, i, totalSteps);
+                        float posx = Easings.easeInOutExpo(totalXMove, i, totalSteps);
                         float posy = Easings.easeInOutExpo(totalYMove, i, totalSteps);
-                        position.set(startPos.x, startPos.y + posy, startPos.z + posz);
+                        float posz = Easings.easeInOutExpo(totalZMove, i, totalSteps);
+                        position.set(startPos.x + posx, startPos.y + posy, startPos.z + posz);
                         camera.setPosition(position);
                         i += stepTime;
-                        if (i >= totalSteps) cancel();
+                        if (i >= totalSteps)
+                        {
+                            isCameraMoving = false;
+                            cancel();
+                        }
                     }
-                }, 0, stepTime); // 0 = delay , 16 = period time in ms
+                }, 0, stepTime); // 0 = delay
                 break;
         }
-        currentMode = mode;
     }
 
     public static void processBeat(int intensity)
@@ -237,6 +269,8 @@ public class GameWorld {
 
     public static void movePlayer(int direction)
     {
+        if (isCameraMoving) return;
+        
         int newColumn = playerObject.column + direction;
 
         if(newColumn > 0 && newColumn < 4)
