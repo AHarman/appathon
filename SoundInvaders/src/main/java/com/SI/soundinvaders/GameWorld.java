@@ -48,6 +48,8 @@ public class GameWorld {
 
     public static boolean isCameraMoving = false;
 
+    public static boolean menupressed = false;
+
     static Context c;
     public static enum GameMode {
         MODE_NORMAL, MODE_FIRST_PERSON
@@ -63,6 +65,8 @@ public class GameWorld {
         final Camera camera = Graphics.cam;
         final int stepTime = 16;
         final int totalSteps = 2000;
+
+
 
         final int totalYMove = 64; // move back
         final int totalZMove = 60; // move down
@@ -262,13 +266,13 @@ public class GameWorld {
         increaseScore(1);
     }
 
-    private static boolean gameOver = false;
+    public static boolean gameOver = false;
     public static void endGame(int reason)
     {
         //reasons
         //0: end of song
         //1: red block
-
+        Log.d("JAHHH", "In end game");
         if(!gameOver)
         {
 

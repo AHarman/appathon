@@ -57,7 +57,7 @@ public class EndActivity extends Activity {
     }
 
     public static void getScore(int score) {
-        menuTitle.setText(Integer.toString(score));
+//        menuTitle.setText(Integer.toString(score));
     }
 
 }

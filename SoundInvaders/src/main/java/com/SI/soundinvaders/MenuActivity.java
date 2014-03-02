@@ -52,7 +52,8 @@ public class MenuActivity extends Activity {
 
     public void startGame(View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        GameWorld.gameOver = false;
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
 
     }

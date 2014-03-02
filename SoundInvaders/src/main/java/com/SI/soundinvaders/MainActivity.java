@@ -14,11 +14,13 @@ import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.threed.jpct.Camera;
@@ -68,16 +70,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     private int screenWidth;
 
+    LinearLayout btnreset;
+    LinearLayout btnMenu;
+
 
     private GLSLShader shader = null;
-
-    public static void endGame()
-    {
-
-        Intent intent = new Intent(master, EndActivity.class);
-        master.startActivity(intent);
-
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -132,6 +129,22 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         new ScoreBoard(this.getApplicationContext());
         updateScore(0);
 
+        btnreset = (LinearLayout)findViewById(R.id.resetbtn);
+        btnreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("JAHHH", "resetbtnpressed");
+            }
+        });
+        btnMenu = (LinearLayout)findViewById(R.id.menubtn);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GameWorld.menupressed = true;
+                master.finish();
+                Log.d("JAHHH", "menubtnpressed");
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -139,6 +152,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         android.app.FragmentManager fm = getFragmentManager();
         ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
         scoreboard.show(fm, "tag");
+    }
+
+    public static void endGame()
+    {
+
+        Intent intent = new Intent(master, EndActivity.class);
+        master.startActivity(intent);
+
     }
 
     void updateScore(int score)
@@ -386,7 +407,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             else
             {
                 //Game Finished
-                GameWorld.endGame(0);
+                if(!GameWorld.menupressed)
+                {
+                    Log.d("JAHHH", "SOMEHOW HERE");
+                    GameWorld.endGame(0);
+                }
             }
 
             if (this.hasToCreateBuffer) {
