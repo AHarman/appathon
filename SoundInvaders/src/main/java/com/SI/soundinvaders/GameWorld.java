@@ -270,21 +270,14 @@ public class GameWorld {
 
         if(!gameOver)
         {
-            if (reason == 0)
-            {
+
                 Log.d("JAMESS", "endgame by end of song");
                 //fly out of screen
                 playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
+
                 EndActivity.getScore(score);
                 MainActivity.endGame();
 
-            }
-            else if (reason == 1)
-            {
-                Log.d("JAMESS", "red block ending game");
-                //get rid of all objects
-
-            }
         }
     }
 

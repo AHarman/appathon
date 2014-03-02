@@ -13,6 +13,7 @@ import android.widget.TextView;
 /**
  * Created by alexander on 01/03/2014.
  */
+
 public class EndActivity extends Activity {
     public static TextView menuTitle;
     protected void onCreate(Bundle savedInstanceState)
