@@ -126,6 +126,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @Override
     protected void onPause() {
         Logger.log("onPause");
+        GameAudio.pauseMedia();
         super.onPause();
         mGLView.onPause();
     }
