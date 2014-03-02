@@ -20,7 +20,7 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.net.Uri;
+
 /**
  * Created by andy on 01/03/2014.
  */
@@ -72,7 +72,15 @@ public class GameWorld {
         final int totalZMove = 60; // move down
         final int totalXMove = (playerObject.getColumn() - 2) * 25;
 
-        Timer t = new Timer();
+        Timer moveTimer = new Timer();
+        Timer safeModeTimer = new Timer();
+        safeModeTimer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            {
+                isCameraMoving = false;
+            }
+        }, totalSteps/stepTime + 2000);
 
         currentMode = mode;
         isCameraMoving = true;
@@ -82,11 +90,12 @@ public class GameWorld {
             case MODE_NORMAL:
                 Log.d("GameWorld", "Setting mode to normal person");
                 // switch back to normal mode
-                t.scheduleAtFixedRate(new TimerTask() {
-                    public final float totalRotation = (float) (Math.PI/2);
+                moveTimer.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI / 2);
                     final SimpleVector startPos = camera.getPosition();
 
                     public float i = 0;
+
                     @Override
                     public void run()
                     {
@@ -102,7 +111,6 @@ public class GameWorld {
                         if (i >= totalSteps)
                         {
                             camera.setPosition(Graphics.cameraDefault);
-                            isCameraMoving = false;
                             cancel();
                         }
                     }
@@ -111,11 +119,12 @@ public class GameWorld {
             case MODE_FIRST_PERSON:
                 Log.d("GameWorld", "Setting mode to first person");
                 // switch into the awesome FIRST PERSON MODEn
-                t.scheduleAtFixedRate(new TimerTask() {
-                    public final float totalRotation = (float) (Math.PI/2);
+                moveTimer.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI / 2);
                     final SimpleVector startPos = camera.getPosition();
 
                     public float i = 0;
+
                     @Override
                     public void run()
                     {
@@ -137,6 +146,8 @@ public class GameWorld {
                     }
                 }, 0, stepTime); // 0 = delay
                 break;
+            default:
+                safeModeTimer.cancel();
         }
     }
 
@@ -232,6 +243,9 @@ public class GameWorld {
     {
         new GameObject(GameObjectType.PLAYER,2);
 
+        new GameObject(GameObjectType.BLUE_BLOCK,2);
+        new GameObject(GameObjectType.RED_BLOCK,1);
+        new GameObject(GameObjectType.GREEN_BLOCK,3);
         c = con;
     }
 
@@ -275,14 +289,12 @@ public class GameWorld {
         Log.d("JAHHH", "In end game");
         if(!gameOver)
         {
+            Log.d("JAMESS", "endgame by end of song");
+            //fly out of screen
+            playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
 
-                Log.d("JAMESS", "endgame by end of song");
-                //fly out of screen
-                playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
-
-                EndActivity.getScore(score);
-                MainActivity.endGame();
-
+            MainActivity.endGame();
+            gameOver = true;
         }
     }
 
@@ -331,7 +343,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if ((playerY - blockY < 15.0f) && (playerY - blockY > -25.0f)) // change this to the actual size of the objects
+                if ((playerY - blockY < 15.0f) && (playerY - blockY > -15.0f)) // change this to the actual size of the objects
                 {
                     block.kill();
                     switch (block.type)
@@ -348,6 +360,7 @@ public class GameWorld {
 
                         case RED_BLOCK:
                             // end the game :(
+                            if (isCameraMoving) break;
                             Iterator<GameObject> it = blockQueue.iterator();
                             while(it.hasNext())
                             {
@@ -370,6 +383,7 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");
                     }
                 }
+                //endGame();
             }
         }
     }
@@ -498,7 +512,7 @@ public class GameWorld {
                     if (i>=moveTime) cancel();
                 }
 
-            }, 0, 20);
+            }, 0, 15);
 
         }
 
