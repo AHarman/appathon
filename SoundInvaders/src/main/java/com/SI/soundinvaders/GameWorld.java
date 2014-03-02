@@ -266,7 +266,7 @@ public class GameWorld {
     }
 
     private static boolean gameOver = false;
-    public static void endGame(int reason)
+    public static void endGame()
     {
         //reasons
         //0: end of song
@@ -274,22 +274,12 @@ public class GameWorld {
 
         if(!gameOver)
         {
-            if (reason == 0)
-            {
-                Log.d("JAMESS", "endgame by end of song");
-                //fly out of screen
-                playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
+            Log.d("JAMESS", "endgame by end of song");
+            //fly out of screen
+            playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
 
-                EndActivity.getScore(score);
-                MainActivity.endGame();
-                MainActivity.gameOver = true;
-            }
-            else if (reason == 1)
-            {
-                Log.d("JAMESS", "red block ending game");
-                //get rid of all objects
-
-            }
+            MainActivity.endGame();
+            MainActivity.gameOver = true;
         }
     }
 
@@ -377,6 +367,7 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");
                     }
                 }
+                endGame();
             }
         }
     }

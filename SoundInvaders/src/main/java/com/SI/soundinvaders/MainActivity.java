@@ -367,7 +367,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         public void onDrawFrame(GL10 gl) {
 
-            if(gameOver == true && gameOverNotTriggered == true)
+            if(gameOver && gameOverNotTriggered)
             {
                 Log.d("endgame", "here");
                 gameOverNotTriggered = false;
@@ -397,7 +397,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             else
             {
                 //Game Finished
-                GameWorld.endGame(0);
+                GameWorld.endGame();
             }
 
             if (this.hasToCreateBuffer) {
