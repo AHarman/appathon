@@ -97,6 +97,7 @@ public class GameWorld {
                         i += stepTime;
                         if (i >= totalSteps)
                         {
+                            camera.setPosition(Graphics.cameraDefault);
                             isCameraMoving = false;
                             cancel();
                         }
