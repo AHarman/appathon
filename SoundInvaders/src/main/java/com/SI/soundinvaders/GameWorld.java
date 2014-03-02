@@ -339,7 +339,7 @@ public class GameWorld {
 
             if (col == playerObject.getColumn())
             {
-                if ((playerY - blockY < 15.0f) && (playerY - blockY > -15.0f)) // change this to the actual size of the objects
+                if ((playerY - blockY < 15.0f) && (playerY - blockY > -.0f)) // change this to the actual size of the objects
                 {
                     block.kill();
                     switch (block.type)
