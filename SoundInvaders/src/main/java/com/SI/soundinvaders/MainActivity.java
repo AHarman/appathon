@@ -142,7 +142,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 
 
-
     void updateScore(int score)
     {
         TextView tvScore = (TextView)findViewById(R.id.tvScore);
@@ -206,10 +205,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 
     public boolean onDown(MotionEvent event) {return true;}
-    public void onLongPress(MotionEvent event)
-    {
-        gameOver = true;
-    }
+    public void onLongPress(MotionEvent event) {}
     public void onShowPress(MotionEvent event) {}
 
     public boolean onDoubleTap(MotionEvent event) {return true;}
@@ -296,7 +292,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 
                 plane = Primitives.getPlane(1, 10000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 400));
+                plane.setOrigin(SimpleVector.create(0, 0, 2000));
                 plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
@@ -330,6 +326,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
 
+                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
+                cam.lookAt(plane.getTransformedCenter());
 
 
                 MemoryHelper.compact();
@@ -366,12 +364,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         boolean b = false;
 
         public void onDrawFrame(GL10 gl) {
-
-            if(gameOver && gameOverNotTriggered)
-            {
-                Log.d("endgame", "here");
-                gameOverNotTriggered = false;
-            }
 
             if(GameAudio.isGoing())
             {
@@ -426,7 +418,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             world.draw(fb);
 
             fb.display();
-
 
             master.runOnUiThread(new Runnable() {
                 @Override

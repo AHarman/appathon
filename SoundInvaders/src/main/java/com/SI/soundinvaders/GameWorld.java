@@ -30,7 +30,7 @@ import static android.support.v4.app.ActivityCompat.startActivity;
 public class GameWorld {
 
     public static Deque<GameObject> blockQueue = new ArrayDeque<GameObject>();
-    public static GameObject playerObject = null;
+    public static GameObject playerObject;
 
     public static final RGBColor blueColour = new RGBColor(41, 128, 185);
     public static final RGBColor redColour = new RGBColor(192, 57, 43);
@@ -215,7 +215,8 @@ public class GameWorld {
 
     public static enum GameObjectType
     {
-        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK, PLAYER
+        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
+        PLAYER;
     }
 
     public static void increaseScore(int inc)
@@ -231,6 +232,9 @@ public class GameWorld {
     {
         new GameObject(GameObjectType.PLAYER,2);
 
+        new GameObject(GameObjectType.BLUE_BLOCK,2);
+        new GameObject(GameObjectType.RED_BLOCK,1);
+        new GameObject(GameObjectType.GREEN_BLOCK,3);
         c = con;
     }
 
@@ -496,7 +500,7 @@ public class GameWorld {
                     if (i>=moveTime) cancel();
                 }
 
-            }, 0, 20);
+            }, 0, 15);
 
         }
 
