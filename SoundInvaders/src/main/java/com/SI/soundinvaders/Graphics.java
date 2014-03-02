@@ -23,19 +23,9 @@ public class Graphics {
     public static FrameBuffer fb;
     public static World world = null;
 
-    //public static ArrayList<Object3D> objs = new ArrayList<Object3D>();
-
     private static final float depth = 1.0f;
 
-    static
-    {
-
-    }
-
-    public static void init()
-    {
-
-    }
+    public static void init(){}
 
     public static void setCamera(Camera c)
     {
