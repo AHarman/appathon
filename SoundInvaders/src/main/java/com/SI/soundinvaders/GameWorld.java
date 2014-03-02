@@ -1,17 +1,19 @@
 package com.SI.soundinvaders;
 
 import android.util.Log;
+import 	android.content.Intent;
 import android.widget.TextView;
-
+import android.view.View;
+import android.widget.EditText;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
-
+import android.content.Context;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import android.net.Uri;
 /**
  * Created by andy on 01/03/2014.
  */
@@ -37,6 +39,7 @@ public class GameWorld {
 
     private static float lastSpeed = 0;
 
+    static Context c;
 
     public static void processBeat(int intensity)
     {
@@ -120,13 +123,14 @@ public class GameWorld {
         score += inc;
     }
 
-    public static void initialise()
+    public static void initialise(Context con)
     {
         new GameObject(GameObjectType.PLAYER,2);
 
         new GameObject(GameObjectType.BLUE_BLOCK,2);
         new GameObject(GameObjectType.RED_BLOCK,1);
         new GameObject(GameObjectType.GREEN_BLOCK,3);
+        c = con;
     }
 
     public static void updateScene()
@@ -194,8 +198,15 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
                             //block.remove(iterator);
+                            break;
                         case RED_BLOCK:
                             // end the game :(
+                            String url = "http://www.twitter.com/intent/tweet?text=I just got " + score + " on Sound Invaders!";
+                            Intent sendIntent = new Intent();
+                            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            sendIntent.setAction(Intent.ACTION_VIEW);
+                            sendIntent.setData(Uri.parse(url));
+                            c.startActivity(sendIntent);
                             Log.d("SOUNDINVADERS", "red collision");
                             break;
                         case BLUE_BLOCK:

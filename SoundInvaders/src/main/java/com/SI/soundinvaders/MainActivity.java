@@ -287,7 +287,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 world.compileAllObjects();
 
-                GameWorld.initialise();
+                GameWorld.initialise(getApplicationContext());
 
                 GameAudio.startMedia();
 
