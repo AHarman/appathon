@@ -300,6 +300,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 plane.setAdditionalColor(0, 255, 0);
 
+                plane.setVisibility(false);
+
                 shader.setUniform("boxNum", 0);
 
                 Camera cam = world.getCamera();
