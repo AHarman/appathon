@@ -26,18 +26,12 @@ public class Graphics {
 
     private static final float depth = 1.0f;
 
-<<<<<<< .mine
     private static GLSLShader pshad = null;
 
     static
     {
-=======
-    public static void init(){}
 
-
-
->>>>>>> .theirs
-
+    }
 
 	public static void init(){}
 
@@ -101,17 +95,17 @@ public class Graphics {
         for(int i=0; i<n; i++)
         {
             SimpleVector v = SimpleVector.create(valsx[i], valsy[i], 1.0f);
-            valsx[i] = Interact2D.project3D2D(cam, fb, v).x;
-            valsy[i] = Interact2D.project3D2D(cam, fb, v).y;
+            //valsx[i] = Interact2D.project3D2D(cam, fb, v).x;
+            //valsy[i] = Interact2D.project3D2D(cam, fb, v).y;
         }
         //assert pshad != null;
 
         if(pshad == null)
             return;
 
-        pshad.setUniform("boxNum", n);
-        pshad.setFloatArrayUniform("boxPositionsX", valsx);
-        pshad.setFloatArrayUniform("boxPositionsY", valsy);
+        //pshad.setUniform("boxNum", n);
+        //pshad.setFloatArrayUniform("boxPositionsX", valsx);
+        //pshad.setFloatArrayUniform("boxPositionsY", valsy);
     }
 
     public static Object3D addRect(float x, float y, RGBColor colour)

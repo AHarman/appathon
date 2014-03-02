@@ -27,7 +27,7 @@ import android.net.Uri;
 public class GameWorld {
 
     public static Deque<GameObject> blockQueue = new ArrayDeque<GameObject>();
-    public static GameObject playerObject;
+    public static GameObject playerObject = null;
 
     public static final RGBColor blueColour = new RGBColor(41, 128, 185);
     public static final RGBColor redColour = new RGBColor(192, 57, 43);
@@ -225,7 +225,7 @@ public class GameWorld {
             num++;
         }
 
-        Graphics.updateShader(valsx, valsy, num);
+        //Graphics.updateShader(valsx, valsy, num);
 
         checkCollisions();
         randomSpawn();
@@ -260,6 +260,11 @@ public class GameWorld {
 
     public static void movePlayer(int direction)
     {
+        if(playerObject == null)
+        {
+            return;
+        }
+
         int newColumn = playerObject.column + direction;
 
         if(newColumn > 0 && newColumn < 4)
