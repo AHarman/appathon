@@ -151,7 +151,6 @@ public class GameWorld {
 
         if(!gameOver)
         {
-
             if (reason == 0)
             {
                 Log.d("JAMESS", "endgame by end of song");
@@ -174,6 +173,10 @@ public class GameWorld {
 //            gameOver = true;
         }
 
+            }
+        }
+
+//        gameOver = true;
     }
 
     public static void movePlayer(int direction)
