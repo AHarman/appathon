@@ -20,7 +20,7 @@ public class MenuActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // skip the main menu for testing purposes
-        startGame(null);
+//        startGame(null);
 
         setContentView(R.layout.activity_menu);
 

@@ -117,7 +117,8 @@ public class GameWorld {
 
     public static void increaseScore(int inc)
     {
-        score += inc;
+        if(!gameOver)
+            score += inc;
     }
 
     public static void initialise()
@@ -140,13 +141,29 @@ public class GameWorld {
         increaseScore(1);
     }
 
+    private static boolean gameOver = false;
     public static void endGame(int reason)
     {
         //reasons
         //0: end of song
         //1: red block
 
-        Log.d("JAMESS", "endgame()");
+        if(!gameOver && reason == 1)
+        {
+            if (reason == 0)
+            {
+                Log.d("JAMESS", "endgame by end of song");
+                //fly out of screen
+                playerObject.moveObject(0, -170, playerObject.getObj(), 2000);
+                //move text
+            }
+            else if (reason == 1)
+            {
+                Log.d("JAMESS", "red block ending game");
+            }
+        }
+
+        gameOver = true;
     }
 
     public static void movePlayer(int direction)
@@ -156,7 +173,6 @@ public class GameWorld {
         if(newColumn > 0 && newColumn < 4)
         {
             playerObject.setColumn(newColumn);
-            Log.d("James", "New column: "+String.valueOf(playerObject.column));
         }
     }
 
@@ -312,18 +328,25 @@ public class GameWorld {
         public void setColumn(int column)
         {
             final int xMovement = (column - this.column)*25;
-            final int moveTime = 200;
             final Object3D obj = this.getObj();
+            final int moveTime = 200;
+            moveObject(xMovement, 0, obj, 200);
 
+            this.column = column;
+        }
+
+        public void moveObject(final float newx, final float newy, final Object3D obj, final int moveTime)
+        {
             Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
                 int i = stepTime;
                 @Override
                 public void run() {
-                    float stepMovement = Easings.easeOutExpo(xMovement, i, moveTime) - Easings.easeOutExpo(xMovement, i-stepTime, moveTime);
+                    float stepMovementx = Easings.easeOutExpo(newx, i, moveTime) - Easings.easeOutExpo(newx, i-stepTime, moveTime);
+                    float stepMovementy = Easings.easeInCirc(i, newy, moveTime) - Easings.easeInCirc(i-stepTime, newy, moveTime);
 
-                    Graphics.moveObjPosition(stepMovement, 0, 0, obj);
+                    Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
 
                     i += stepTime;
                     if (i>=moveTime) cancel();
@@ -331,8 +354,9 @@ public class GameWorld {
 
             }, 0, 15);
 
-            this.column = column;
         }
+
+
 
         public Object3D getObj() {
             return obj;
