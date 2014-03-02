@@ -278,7 +278,7 @@ public class GameWorld {
                 playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
                 EndActivity.getScore(score);
                 MainActivity.endGame();
-
+                MainActivity.gameOver = true;
             }
             else if (reason == 1)
             {
