@@ -138,6 +138,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void showScores(){
+        Log.d("endgame", "in showscores");
         android.app.FragmentManager fm = getFragmentManager();
         ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
         scoreboard.show(fm, "tag");
@@ -206,7 +207,10 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 
     public boolean onDown(MotionEvent event) {return true;}
-    public void onLongPress(MotionEvent event) {}
+    public void onLongPress(MotionEvent event)
+    {
+        gameOver = true;
+    }
     public void onShowPress(MotionEvent event) {}
 
     public boolean onDoubleTap(MotionEvent event) {return true;}
@@ -396,6 +400,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             {
                 //Game Finished
                 GameWorld.endGame(0);
+                showScores();
             }
 
             if (this.hasToCreateBuffer) {
