@@ -54,6 +54,15 @@ public class MenuActivity extends Activity {
         }
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        // Immersive mode is only supported in Android KitKat and above
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus)
+            hideSystemBars();
+    }
+
     public void startGame(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
