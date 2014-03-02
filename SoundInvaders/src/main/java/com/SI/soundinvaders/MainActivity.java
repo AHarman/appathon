@@ -67,11 +67,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Object3D plane;
     private Light light;
 
+    public static Context con;
+
     private int screenWidth;
 
     public static Boolean gameOver = false;
 
     private GLSLShader shader = null;
+    private boolean gameOverNotTriggered = true;
 
     public static void endGame()
     {
@@ -86,6 +89,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point sharp = new Point();
+
+        con  = this.getApplicationContext();
 
         if(Build.VERSION.SDK_INT >= 10)
         {
@@ -136,13 +141,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void showScores(){
-        Log.d("endgame", "in showscores");
-        android.app.FragmentManager fm = getFragmentManager();
-        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
-        scoreboard.show(fm, "tag");
-    }
+
 
     void updateScore(int score)
     {
@@ -368,11 +367,10 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         public void onDrawFrame(GL10 gl) {
 
-            if(gameOver)
+            if(gameOver == true && gameOverNotTriggered == true)
             {
                 Log.d("endgame", "here");
-                showScores();
-                gameOver=false;
+                gameOverNotTriggered = false;
             }
 
             if(GameAudio.isGoing())
@@ -400,7 +398,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             {
                 //Game Finished
                 GameWorld.endGame(0);
-                showScores();
             }
 
             if (this.hasToCreateBuffer) {

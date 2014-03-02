@@ -21,6 +21,9 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.net.Uri;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
+
 /**
  * Created by andy on 01/03/2014.
  */
@@ -276,6 +279,7 @@ public class GameWorld {
                 Log.d("JAMESS", "endgame by end of song");
                 //fly out of screen
                 playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
+
                 EndActivity.getScore(score);
                 MainActivity.endGame();
                 MainActivity.gameOver = true;
