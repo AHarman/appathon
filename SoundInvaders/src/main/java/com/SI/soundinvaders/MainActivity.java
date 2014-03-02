@@ -342,11 +342,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             else
             {
                 //Game Finished
-<<<<<<< HEAD
                 GameWorld.endGame(0);
-=======
-//                GameWorld.endGame(0);
->>>>>>> adbf51b7ca3a75ed1c906c1d76ea73793660a36f
             }
 
             if (this.hasToCreateBuffer) {

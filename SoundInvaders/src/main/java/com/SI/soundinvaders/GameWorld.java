@@ -169,15 +169,9 @@ public class GameWorld {
                     block.kill();
                 }
             }
-
-//            gameOver = true;
         }
-
-            }
-        }
-
-//        gameOver = true;
     }
+
 
     public static void movePlayer(int direction)
     {
