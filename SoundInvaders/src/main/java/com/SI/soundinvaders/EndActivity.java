@@ -25,6 +25,7 @@ public class EndActivity extends Activity {
         setContentView(R.layout.activity_end);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");
+
         menuTitle = (TextView)findViewById(R.id.menuTitle);
 
         TextView playButton = (TextView) findViewById(R.id.playButton);
