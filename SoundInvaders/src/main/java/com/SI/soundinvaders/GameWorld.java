@@ -227,9 +227,6 @@ public class GameWorld {
     {
         new GameObject(GameObjectType.PLAYER,2);
 
-        new GameObject(GameObjectType.BLUE_BLOCK,2);
-        new GameObject(GameObjectType.RED_BLOCK,1);
-        new GameObject(GameObjectType.GREEN_BLOCK,3);
         c = con;
     }
 
@@ -260,7 +257,7 @@ public class GameWorld {
         //Graphics.updateShader(valsx, valsy, num);
 
         checkCollisions();
-        randomSpawn();
+        //randomSpawn();
         increaseScore(1);
     }
 
