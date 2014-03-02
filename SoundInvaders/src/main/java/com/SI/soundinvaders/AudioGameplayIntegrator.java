@@ -7,7 +7,7 @@ import android.util.Log;
  * Created by James on 01/03/14.
  */
 
-public class AudioGameplayIntegrater
+public class AudioGameplayIntegrator
 {
     private static final int n = 1;
     private static int cur = 0;
@@ -37,14 +37,22 @@ public class AudioGameplayIntegrater
         }
 
         // temporary values that switch between modes
-        final double curTime = GameAudio.getCurTime() % 15000;
-        if (curTime > 5000 && curTime < 10000 && GameWorld.currentMode != GameWorld.GameMode.MODE_FIRST_PERSON)
+
+        final double curTime = GameAudio.getCurTime();
+
+        if ((curTime > 47000 && curTime < 67000) || (curTime > 87000 && curTime < 99000))
         {
             GameWorld.changeMode(GameWorld.GameMode.MODE_FIRST_PERSON);
         }
-        else if (curTime > 10000 && GameWorld.currentMode != GameWorld.GameMode.MODE_NORMAL)
+        else
         {
             GameWorld.changeMode(GameWorld.GameMode.MODE_NORMAL);
         }
     }
 }
+/*
+48000 dubstep
+67000 end dubstep
+87000 start breakdown
+100000 end breakdown
+*/

@@ -8,5 +8,8 @@
 
     <color name="clouds">#ecf0f1</color>
     <color name="wetasphalt">#2c3e50</color>
+    <color name="pumpkin">#d35400</color>
+    <color name="concrete">#95a5a6</color>
+    //rgb(211, 84, 0)
 
 </resources>

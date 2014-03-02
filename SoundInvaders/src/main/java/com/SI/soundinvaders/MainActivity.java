@@ -14,11 +14,13 @@ import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.threed.jpct.Camera;
@@ -66,24 +68,22 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Object3D plane;
     private Light light;
 
+    public static Context con;
+
     private int screenWidth;
 
+    LinearLayout btnreset;
+    LinearLayout btnMenu;
 
     private GLSLShader shader = null;
-
-    public static void endGame()
-    {
-
-        Intent intent = new Intent(master, EndActivity.class);
-        master.startActivity(intent);
-
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
 
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point sharp = new Point();
+
+        con  = this.getApplicationContext();
 
         if(Build.VERSION.SDK_INT >= 10)
         {
@@ -132,13 +132,31 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         new ScoreBoard(this.getApplicationContext());
         updateScore(0);
 
+        btnreset = (LinearLayout)findViewById(R.id.resetbtn);
+        btnreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("JAHHH", "resetbtnpressed");
+            }
+        });
+        btnMenu = (LinearLayout)findViewById(R.id.menubtn);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GameWorld.menupressed = true;
+                master.finish();
+                Log.d("JAHHH", "menubtnpressed");
+            }
+        });
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void showScores(){
-        android.app.FragmentManager fm = getFragmentManager();
-        ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
-        scoreboard.show(fm, "tag");
+
+    public static void endGame()
+    {
+
+        Intent intent = new Intent(master, EndActivity.class);
+        master.startActivity(intent);
+
     }
 
     void updateScore(int score)
@@ -291,7 +309,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 
                 plane = Primitives.getPlane(1, 10000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 400));
+                plane.setOrigin(SimpleVector.create(0, 0, 2000));
                 plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
@@ -305,7 +323,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 shader.setUniform("boxNum", 0);
 
                 Camera cam = world.getCamera();
-                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
+                //cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
                 cam.lookAt(plane.getTransformedCenter());
 
                 Graphics.setCamera(cam);
@@ -325,6 +343,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
 
+                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
+                cam.lookAt(plane.getTransformedCenter());
 
 
                 MemoryHelper.compact();
@@ -365,7 +385,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             if(GameAudio.isGoing())
             {
                 if(GameAudio.isInit)
-                    AudioGameplayIntegrater.audioTick();
+                    AudioGameplayIntegrator.audioTick();
 
                 beatFracAvg = (float)GameAudio.plzGetBeatFraction();
 
@@ -386,7 +406,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             else
             {
                 //Game Finished
-                GameWorld.endGame(0);
+                if(!GameWorld.menupressed)
+                {
+                    Log.d("JAHHH", "SOMEHOW HERE");
+                    GameWorld.endGame(0);
+                }
             }
 
             if (this.hasToCreateBuffer) {
