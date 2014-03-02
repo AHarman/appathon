@@ -47,6 +47,11 @@ public class GameWorld {
     private static float lastSpeed = 0;
 
     static Context c;
+    public static enum GameMode {
+        MODE_NORMAL, MODE_FIRST_PERSON
+    }
+
+    public static GameMode currentMode = GameMode.MODE_NORMAL;
 
     public static void changeMode(GameMode mode)
     {
@@ -58,7 +63,7 @@ public class GameWorld {
                 // switch back to normal mode, we'll deal with this later (yawn)
                 break;
             case MODE_FIRST_PERSON:
-                Log.d("AUDIOSOMETING", "Set mode to first person");
+                Log.d("GameWorld", "Setting mode to first person");
                 // switch into the awesome FIRST PERSON MODE
                 final Camera camera = Graphics.cam;
 
@@ -68,16 +73,19 @@ public class GameWorld {
                     @Override
                     public void run()
                     {
+                        // if we've rotated to the right position, don't keep rotating (duh...)
                         if (totalRotation > Math.PI/2)
                         {
                             cancel();
                             return;
                         }
-//                        Log.d("AUDIOSOMETHING", "running timertask");
+
                         camera.rotateAxis(new SimpleVector(1, 0, 0), 0.05f);
                         totalRotation += 0.05f;
                         SimpleVector position = camera.getPosition();
-                        position.set(position.x, position.y+2f, position.z+1.5f);
+                        // yes these constants are arbitrary but they work so shhhhh
+                        // also if you change the time they'll break but the angle will work
+                        position.set(position.x, position.y+2f, position.z+1.6f);
                         camera.setPosition(position);
 //                        camera.lookAt(playerObject.getObj().getCenter());
                     }
@@ -87,13 +95,6 @@ public class GameWorld {
         }
         currentMode = mode;
     }
-
-
-    public static enum GameMode {
-        MODE_NORMAL, MODE_FIRST_PERSON
-    }
-
-    public static GameMode currentMode = GameMode.MODE_NORMAL;
 
     public static void processBeat(int intensity)
     {
@@ -412,6 +413,8 @@ public class GameWorld {
 
         public void moveObject(final float newx, final float newy, final Object3D obj, final int moveTime)
         {
+            final Camera camera = Graphics.cam;
+
             Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
@@ -422,6 +425,12 @@ public class GameWorld {
                     float stepMovementy = Easings.easeInCirc(i, newy, moveTime) - Easings.easeInCirc(i - stepTime, newy, moveTime);
 
                     Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
+
+                    if (currentMode == GameMode.MODE_FIRST_PERSON)
+                    {
+                        SimpleVector pos = camera.getPosition();
+                        camera.setPosition(pos.x+stepMovementx, pos.y, pos.z);
+                    }
 
                     i += stepTime;
                     if (i>=moveTime) cancel();
