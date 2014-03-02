@@ -151,11 +151,12 @@ public class GameWorld {
 
         if(!gameOver)
         {
+
             if (reason == 0)
             {
                 Log.d("JAMESS", "endgame by end of song");
                 //fly out of screen
-                playerObject.moveObject(0, -170, playerObject.getObj(), 2000);
+                playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
 
             }
             else if (reason == 1)
@@ -169,9 +170,10 @@ public class GameWorld {
                     block.kill();
                 }
             }
+
+//            gameOver = true;
         }
 
-//        gameOver = true;
     }
 
     public static void movePlayer(int direction)
@@ -225,10 +227,11 @@ public class GameWorld {
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
+                            break;
                         case RED_BLOCK:
                             // end the game :(
                             endGame(1);
-                            Log.d("SOUNDINVADERS", "red collision");
+                            Log.d("REDC", "red collision");
                             break;
                         case BLUE_BLOCK:
                             // add small number of points
