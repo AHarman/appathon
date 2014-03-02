@@ -1,7 +1,6 @@
 package com.SI.soundinvaders;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
@@ -193,6 +192,9 @@ public class GameWorld {
                             // add loads of point to score, fast mode?
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
+                            MainActivity.currentStreak += 1000;
+                            MainActivity.streakTimer = 120;
+                            MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
@@ -202,6 +204,9 @@ public class GameWorld {
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
                             increaseScore(500);
+                            MainActivity.currentStreak += 500;
+                            MainActivity.streakTimer = 120;
+                            MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                             break;
                         default:

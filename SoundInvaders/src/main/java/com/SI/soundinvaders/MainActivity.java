@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     // Used to handle pause and resume...
     private static MainActivity master = null;
 
+
     private GLSurfaceView mGLView;
     private MyRenderer renderer = null;
     private FrameBuffer fb = null;
@@ -53,12 +54,18 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private float xpos = -1;
     private float ypos = -1;
 
+    private static TextView pointTextViews[] = {null, null, null};
+    public static int currentStreak = 0;
+    public static int pointsShowing[] = {0, 0, 0};
+    public static int streakTimer;
+
     private Texture font = null;
 
     private Object3D plane;
     private Light light;
 
     private int screenWidth;
+
 
     private GLSLShader shader = null;
 
@@ -102,6 +109,10 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         TextView tvScore = (TextView)findViewById(R.id.tvScore);
         tvScore.setTypeface(myTypeface);
 
+        pointTextViews[0] = (TextView)findViewById(R.id.leftBox);
+        pointTextViews[1] = (TextView)findViewById(R.id.centreBox);
+        pointTextViews[2] = (TextView)findViewById(R.id.rightBox);
+
         hideSystemBars();
 
         new ScoreBoard(this.getApplicationContext());
@@ -120,6 +131,21 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     {
         TextView tvScore = (TextView)findViewById(R.id.tvScore);
         tvScore.setText(String.valueOf(GameWorld.score));
+    }
+
+    public static void drawPoints(int col, int val){
+        if(pointTextViews[col - 1] == null)
+            return;
+
+        if(val > 0)
+        {
+            pointTextViews[col - 1].setText("+" + val);
+            pointsShowing[col - 1] = 20;
+        }
+        else
+        {
+            pointTextViews[col - 1].setText("");
+        }
     }
 
 
@@ -373,10 +399,27 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     master.updateScore(GameWorld.score);
                 }
             });
-
+            master.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        if(pointsShowing[i] == 90){
+                            master.drawPoints(i+1, currentStreak);
+                            pointsShowing[i]--;
+                        }
+                        else if(pointsShowing[i] > 0)
+                        {
+                            pointsShowing[i]--;
+                            if(pointsShowing[i] == 0)
+                                master.drawPoints(i+1, -1);
+                        }
+                    }
+                    if(pointsShowing[0] + pointsShowing[1] + pointsShowing[2] == 0)
+                        currentStreak = 0;
+                }
+            });
         }
-
-
 
         private void blitNumber(int number, int x, int y) {
 
