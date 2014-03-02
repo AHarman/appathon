@@ -199,7 +199,7 @@ public class GameWorld {
                         case RED_BLOCK:
                             // end the game :(
                             Log.d("SOUNDINVADERS", "red collision");
-                            Main.streakTimer = 0;
+                            MainActivity.streakTimer = 0;
                             break;
                         case BLUE_BLOCK:
                             // add small number of points
