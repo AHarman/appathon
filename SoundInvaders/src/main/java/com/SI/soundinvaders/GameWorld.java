@@ -9,6 +9,12 @@ import android.widget.EditText;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import android.content.Context;
+
+import com.threed.jpct.Camera;
+import com.threed.jpct.Object3D;
+import com.threed.jpct.RGBColor;
+import com.threed.jpct.SimpleVector;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
@@ -21,7 +27,7 @@ import android.net.Uri;
 public class GameWorld {
 
     public static Deque<GameObject> blockQueue = new ArrayDeque<GameObject>();
-    public static GameObject playerObject;
+    public static GameObject playerObject = null;
 
     public static final RGBColor blueColour = new RGBColor(41, 128, 185);
     public static final RGBColor redColour = new RGBColor(192, 57, 43);
@@ -41,6 +47,61 @@ public class GameWorld {
     private static float lastSpeed = 0;
 
     static Context c;
+    public static enum GameMode {
+        MODE_NORMAL, MODE_FIRST_PERSON
+    }
+
+    public static GameMode currentMode = GameMode.MODE_NORMAL;
+
+    public static void changeMode(GameMode mode)
+    {
+        // don't change mode if we're already in the same mode
+        if (mode == currentMode) return;
+        switch (mode)
+        {
+            case MODE_NORMAL:
+                // switch back to normal mode, we'll deal with this later (yawn)
+                break;
+            case MODE_FIRST_PERSON:
+                Log.d("GameWorld", "Setting mode to first person");
+                // switch into the awesome FIRST PERSON MODE
+                final Camera camera = Graphics.cam;
+                final SimpleVector startPos = camera.getPosition();
+                Log.d("GameWorld", startPos.toString());
+                final int stepTime = 16;
+                final int totalSteps = 2000;
+
+                final int totalYMove = 64; // move back
+                final int totalZMove = 60; // move down
+
+                Timer t = new Timer();
+                t.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI/2);
+                    public float currentRotation = 0;
+                    public float i = 0;
+                    @Override
+                    public void run()
+                    {
+
+                        float rotation = Easings.easeInOutExpo(totalRotation, i, totalSteps) - Easings.easeInOutExpo(totalRotation, i - stepTime, totalSteps);
+                        camera.rotateAxis(new SimpleVector(1, 0, 0), rotation);
+                        currentRotation += 0.05f;
+                        SimpleVector position = camera.getPosition();
+                        // yes these constants are arbitrary but they work so shhhhh
+                        // also if you change the time they'll break but the angle will work
+
+                        float posz = Easings.easeInOutExpo(totalZMove, i, totalSteps);
+                        float posy = Easings.easeInOutExpo(totalYMove, i, totalSteps);
+                        position.set(startPos.x, startPos.y + posy, startPos.z + posz);
+                        camera.setPosition(position);
+                        i += stepTime;
+                        if (i >= totalSteps) cancel();
+                    }
+                }, 0, stepTime); // 0 = delay , 16 = period time in ms
+                break;
+        }
+        currentMode = mode;
+    }
 
     public static void processBeat(int intensity)
     {
@@ -104,19 +165,21 @@ public class GameWorld {
 
         if(ySpeed != lastSpeed)
         {
-            column = (lastColumn %3) + 1;
+            column = (lastColumn % 3) + 1;
         }
 
         lastColumn = column;
         lastSpeed = ySpeed;
 
         new GameObject(GameObjectType.values()[type], column);
+
+        //Log.d("Dosomething", "Hello2");
+
     }
 
     public static enum GameObjectType
     {
-        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK,
-        PLAYER;
+        GREEN_BLOCK, RED_BLOCK, BLUE_BLOCK, PLAYER
     }
 
     public static void increaseScore(int inc)
@@ -138,12 +201,32 @@ public class GameWorld {
         c = con;
     }
 
+    static float[] valsx = new float[32];
+    static float[] valsy = new float[32];
+
     public static void updateScene()
     {
-        for (GameObject block: blockQueue)
+        int num = 0;
+
+        float beat = 0;
+        if(GameAudio.isInit)
+            beat = (float) GameAudio.plzGetBeatFraction();
+
+        beat = (float) Math.sin(beat*Math.PI*2) + 1;
+        beat /= 2.5f;
+
+        for (GameObject block : blockQueue)
         {
             Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
+            valsx[num] = block.obj.getTransformedCenter().x;
+            valsy[num] = block.obj.getTransformedCenter().y;
+            block.obj.setScale(9.0f + beat);
+
+            num++;
         }
+
+        //Graphics.updateShader(valsx, valsy, num);
+
         checkCollisions();
         randomSpawn();
         increaseScore(1);
@@ -179,6 +262,11 @@ public class GameWorld {
 
     public static void movePlayer(int direction)
     {
+        if(playerObject == null)
+        {
+            return;
+        }
+
         int newColumn = playerObject.column + direction;
 
         if(newColumn > 0 && newColumn < 4)
@@ -362,6 +450,8 @@ public class GameWorld {
 
         public void moveObject(final float newx, final float newy, final Object3D obj, final int moveTime)
         {
+            final Camera camera = Graphics.cam;
+
             Timer moveTimer = new Timer();
             moveTimer.schedule(new TimerTask() {
                 final int stepTime = 15;
@@ -373,11 +463,18 @@ public class GameWorld {
 
                     Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
 
+                    // moves the camera with the
+                    if (currentMode == GameMode.MODE_FIRST_PERSON)
+                    {
+                        SimpleVector pos = camera.getPosition();
+                        camera.setPosition(pos.x+stepMovementx, pos.y, pos.z);
+                    }
+
                     i += stepTime;
                     if (i>=moveTime) cancel();
                 }
 
-            }, 0, 15);
+            }, 0, 20);
 
         }
 

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="appathon" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="android-gradle" name="Android-Gradle">
-      <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":SoundInvaders" />
-      </configuration>
-    </facet>
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="defaultFlavorDebug" />
@@ -16,8 +11,12 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+      </configuration>
+    </facet>
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":SoundInvaders" />
       </configuration>
     </facet>
   </component>
@@ -37,10 +36,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavorDebug/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/r/test/defaultFlavor/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/aidl/test/defaultFlavor/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/buildConfig/test/defaultFlavor/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/rs/test/defaultFlavor/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/source/r/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/source/aidl/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/source/buildConfig/test/defaultFlavor/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/source/rs/test/defaultFlavor/debug" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/res/rs/test/defaultFlavor/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavor/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/defaultFlavor/assets" isTestSource="false" />
@@ -91,10 +90,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="appcompat-v7-19.0.0" level="project" />
     <orderEntry type="library" exported="" name="jpct_ae" level="project" />
     <orderEntry type="library" exported="" name="musicg-1.4.2.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-19.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />
+    <orderEntry type="library" exported="" name="ComAndroidSupportAppcompatV71901.aar" level="project" />
   </component>
 </module>
 
