@@ -1,5 +1,6 @@
 package com.SI.soundinvaders;
 
+import android.app.Activity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -148,22 +149,24 @@ public class GameWorld {
         //0: end of song
         //1: red block
 
-        if(!gameOver && reason == 1)
+        if(!gameOver)
         {
             if (reason == 0)
             {
                 Log.d("JAMESS", "endgame by end of song");
                 //fly out of screen
                 playerObject.moveObject(0, -170, playerObject.getObj(), 2000);
-                //move text
+
             }
             else if (reason == 1)
             {
                 Log.d("JAMESS", "red block ending game");
+                //get rid of all objects
+
             }
         }
 
-        gameOver = true;
+//        gameOver = true;
     }
 
     public static void movePlayer(int direction)
@@ -329,9 +332,7 @@ public class GameWorld {
         {
             final int xMovement = (column - this.column)*25;
             final Object3D obj = this.getObj();
-            final int moveTime = 200;
             moveObject(xMovement, 0, obj, 200);
-
             this.column = column;
         }
 
@@ -344,7 +345,7 @@ public class GameWorld {
                 @Override
                 public void run() {
                     float stepMovementx = Easings.easeOutExpo(newx, i, moveTime) - Easings.easeOutExpo(newx, i-stepTime, moveTime);
-                    float stepMovementy = Easings.easeInCirc(i, newy, moveTime) - Easings.easeInCirc(i-stepTime, newy, moveTime);
+                    float stepMovementy = Easings.easeInCirc(i, newy, moveTime) - Easings.easeInCirc(i - stepTime, newy, moveTime);
 
                     Graphics.moveObjPosition(stepMovementx, stepMovementy, 0, obj);
 
