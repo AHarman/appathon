@@ -408,7 +408,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             }
 
             GameWorld.updateScene();
-            //shader.setUniform("heightScale", scale);
 
             fb.clear(back);
             world.renderScene(fb);
