@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SoundInvaders/SoundInvaders.iml" filepath="$PROJECT_DIR$/SoundInvaders/SoundInvaders.iml" />
       <module fileurl="file://$PROJECT_DIR$/SoundInvaders/SoundInvaders-SoundInvaders.iml" filepath="$PROJECT_DIR$/SoundInvaders/SoundInvaders-SoundInvaders.iml" />
       <module fileurl="file://$PROJECT_DIR$/appathon.iml" filepath="$PROJECT_DIR$/appathon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/appathon - Copy.iml" filepath="$PROJECT_DIR$/appathon - Copy.iml" />
     </modules>
   </component>
 </project>
