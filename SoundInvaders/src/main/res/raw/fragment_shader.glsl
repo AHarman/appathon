@@ -16,9 +16,14 @@ uniform vec3 windowSize;
 
 uniform float beatFrac;
 
+//uniform vec3 boxPositions[128];
+uniform float boxPositionsX[32];
+uniform float boxPositionsY[32];
+uniform int boxNum;
+
 void main()
 {
-        vec2 pos = gl_FragCoord.xy;
+       /* vec2 pos = gl_FragCoord.xy;
         vec2 centre = windowSize.xy/2.0;
 
         float dist = length(pos - centre);
@@ -44,5 +49,38 @@ void main()
 
 		//gl_FragColor = vec4(1.0*intensity, 0.0, 0.0, 0.0);
 		//else
-		    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+		    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);*/
+
+		if(boxNum == 0)
+		{
+		    gl_FragColor = vec4(0.0,0.0,0.0,0.0);
+		}
+		else
+		{
+            float maxdist = 200.0;
+
+            int mn = -1;
+            float ml = 99999.0;
+
+            for(int i=0; i<boxNum; i++)
+            {
+                if(length(gl_FragCoord.xy - vec2(boxPositionsX[i], boxPositionsY[i])) < ml)
+                {
+                    ml = length(gl_FragCoord.xy - vec2(boxPositionsX[i], boxPositionsY[i]));
+                    mn = i;
+                }
+            }
+
+            //float ringwidth = 20.0;
+
+            float dist = ml;
+
+            float distp = dist / maxdist;
+
+            distp = clamp(distp, 0.0, 1.0);
+
+
+            gl_FragColor = vec4(1.0 * distp,0.0,0.0,0.0);
+        }
+
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
+import com.threed.jpct.GLSLShader;
 import com.threed.jpct.Interact2D;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
@@ -25,7 +26,20 @@ public class Graphics {
 
     private static final float depth = 1.0f;
 
+<<<<<<< .mine
+    private static GLSLShader pshad = null;
+
+    static
+    {
+=======
     public static void init(){}
+
+
+
+>>>>>>> .theirs
+
+
+	public static void init(){}
 
     public static void setCamera(Camera c)
     {
@@ -74,6 +88,30 @@ public class Graphics {
     public static float getBoxSize()
     {
         return 10.0f;
+    }
+
+    public static void setShader(GLSLShader shad)
+    {
+        pshad = shad;
+    }
+
+
+    public static void updateShader(float[] valsx, float[] valsy, int n)
+    {
+        for(int i=0; i<n; i++)
+        {
+            SimpleVector v = SimpleVector.create(valsx[i], valsy[i], 1.0f);
+            valsx[i] = Interact2D.project3D2D(cam, fb, v).x;
+            valsy[i] = Interact2D.project3D2D(cam, fb, v).y;
+        }
+        //assert pshad != null;
+
+        if(pshad == null)
+            return;
+
+        pshad.setUniform("boxNum", n);
+        pshad.setFloatArrayUniform("boxPositionsX", valsx);
+        pshad.setFloatArrayUniform("boxPositionsY", valsy);
     }
 
     public static Object3D addRect(float x, float y, RGBColor colour)
@@ -209,8 +247,6 @@ public class Graphics {
         obj.setTransparencyMode(Object3D.TRANSPARENCY_MODE_ADD);
         obj.setTransparency(a);
     }
-
-
 
     public static void setObjPosition(float x, float y, Object3D obj)
     {

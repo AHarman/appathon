@@ -165,13 +165,16 @@ public class GameWorld {
 
         if(ySpeed != lastSpeed)
         {
-            column = (lastColumn %3) + 1;
+            column = (lastColumn % 3) + 1;
         }
 
         lastColumn = column;
         lastSpeed = ySpeed;
 
         new GameObject(GameObjectType.values()[type], column);
+
+        //Log.d("Dosomething", "Hello2");
+
     }
 
     public static enum GameObjectType
@@ -198,12 +201,32 @@ public class GameWorld {
         c = con;
     }
 
+    static float[] valsx = new float[32];
+    static float[] valsy = new float[32];
+
     public static void updateScene()
     {
-        for (GameObject block: blockQueue)
+        int num = 0;
+
+        for (GameObject block : blockQueue)
         {
+            if(num >= 4)
+            {
+                break;
+            }
             Graphics.moveObjPosition(0.0f,ySpeed,0.0f,block.getObj());
+            valsx[num] = block.obj.getTransformedCenter().x;
+            valsy[num] = block.obj.getTransformedCenter().y;
+            num++;
         }
+
+        for(int n=num; n<128; n++)
+        {
+            //vals[n] = SimpleVector.create(0,0,0);
+        }
+
+        //Graphics.updateShader(valsx, valsy, num);
+
         checkCollisions();
         randomSpawn();
         increaseScore(1);

@@ -134,8 +134,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     void updateScore(int score)
     {
-        TextView tvScore = (TextView)findViewById(R.id.tvScore);
-        tvScore.setText(String.valueOf(GameWorld.score));
+        //TextView tvScore = (TextView)findViewById(R.id.tvScore);
+        //tvScore.setText(String.valueOf(score));
     }
 
     public static void drawPoints(int col, int val){
@@ -281,8 +281,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 font.setMipmap(false);
 
                 
-                plane = Primitives.getPlane(1, 10000.0f);
-                plane.setOrigin(SimpleVector.create(0, 0, 2000));
+                plane = Primitives.getPlane(1, 100000.0f);
+                plane.setOrigin(SimpleVector.create(0, 0, 500));
                 plane.setAdditionalColor(back);
 
                 shader = new GLSLShader(Loader.loadTextFile(res.openRawResource(R.raw.vertex_shader)), Loader.loadTextFile(res.openRawResource(R.raw.fragment_shader)));
@@ -290,6 +290,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 plane.setShader(shader);
 
                 plane.setAdditionalColor(0, 255, 0);
+
+                shader.setUniform("boxNum", 0);
 
                 Camera cam = world.getCamera();
 
@@ -299,8 +301,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 Graphics.init();
 
-                //Object3D obj = Graphics.addRect(10.0f, 10.0f, GameWorld.blueColour);
-                //Graphics.moveObjPosition(10.0f, 10.0f, obj);
+                Graphics.setShader(shader);
 
                 world.addObject(plane);
 
