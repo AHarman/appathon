@@ -367,7 +367,7 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "WHAT THE S*** IS GOING ON?!?!?!?!");
                     }
                 }
-                endGame();
+                //endGame();
             }
         }
     }
