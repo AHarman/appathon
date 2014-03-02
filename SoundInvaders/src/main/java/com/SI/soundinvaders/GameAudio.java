@@ -15,6 +15,7 @@ public class GameAudio {
 
     static double bpm = 148.003; //beat per minute
     static double spb = 60.0/bpm; //seconds per beat
+    static double end = 158843;
 
     static int intro = 1346;
     static double mean = 0;
@@ -80,6 +81,7 @@ public class GameAudio {
 
     public static void startMedia()
     {
+        stime = System.nanoTime();
         mediaPlayerx = MediaPlayer.create(c, com.SI.soundinvaders.R.raw.eiawav);
         mediaPlayerx.start();
     }
@@ -115,7 +117,7 @@ public class GameAudio {
 
     public static boolean isGoing()
     {
-        return mediaPlayerx.isPlaying();
+        return mediaPlayerx.isPlaying() && ((System.nanoTime() - stime)/(1000.0*1000)) - intro < end;
     }
 
 

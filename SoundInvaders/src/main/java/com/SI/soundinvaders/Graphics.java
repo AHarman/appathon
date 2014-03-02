@@ -23,6 +23,7 @@ public class Graphics {
     public static Camera cam;
     public static FrameBuffer fb;
     public static World world = null;
+    public static SimpleVector cameraDefault;
 
     private static final float depth = 1.0f;
 
@@ -33,7 +34,10 @@ public class Graphics {
 
     }
 
-	public static void init(){}
+	public static void init()
+    {
+        cameraDefault = cam.getPosition();
+    }
 
     public static void setCamera(Camera c)
     {

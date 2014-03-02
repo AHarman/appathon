@@ -305,6 +305,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 shader.setUniform("boxNum", 0);
 
                 Camera cam = world.getCamera();
+                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
+                cam.lookAt(plane.getTransformedCenter());
 
                 Graphics.setCamera(cam);
                 Graphics.setFrameBuffer(fb);
@@ -323,8 +325,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 light.setPosition(SimpleVector.create(0, 0, -100));
                 world.setAmbientLight(10, 10, 10);
 
-                cam.moveCamera(Camera.CAMERA_MOVEOUT, 70);
-                cam.lookAt(plane.getTransformedCenter());
+
 
                 MemoryHelper.compact();
 
