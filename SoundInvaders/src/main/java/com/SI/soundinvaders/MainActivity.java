@@ -7,6 +7,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -69,6 +70,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 
     private GLSLShader shader = null;
+
+    public static void endGame()
+    {
+
+        Intent intent = new Intent(master, EndActivity.class);
+        master.startActivity(intent);
+
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Created by alexander on 01/03/2014.
  */
 public class EndActivity extends Activity {
-
+    public static TextView menuTitle;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,8 @@ public class EndActivity extends Activity {
         setContentView(R.layout.activity_end);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");
-        TextView menuTitle = (TextView)findViewById(R.id.menuTitle);
+        menuTitle = (TextView)findViewById(R.id.menuTitle);
+
         TextView playButton = (TextView) findViewById(R.id.playButton);
         menuTitle.setTypeface(myTypeface);
         playButton.setTypeface(myTypeface);
@@ -52,6 +53,10 @@ public class EndActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
+    }
+
+    public static void getScore(int score) {
+        menuTitle.setText(Integer.toString(score));
     }
 
 }
