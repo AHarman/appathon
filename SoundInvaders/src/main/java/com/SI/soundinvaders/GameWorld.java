@@ -68,7 +68,15 @@ public class GameWorld {
         final int totalZMove = 60; // move down
         final int totalXMove = (playerObject.getColumn() - 2) * 25;
 
-        Timer t = new Timer();
+        Timer moveTimer = new Timer();
+        Timer safeModeTimer = new Timer();
+        safeModeTimer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            {
+                isCameraMoving = false;
+            }
+        }, totalSteps/stepTime + 2000);
 
         currentMode = mode;
         isCameraMoving = true;
@@ -78,11 +86,12 @@ public class GameWorld {
             case MODE_NORMAL:
                 Log.d("GameWorld", "Setting mode to normal person");
                 // switch back to normal mode
-                t.scheduleAtFixedRate(new TimerTask() {
-                    public final float totalRotation = (float) (Math.PI/2);
+                moveTimer.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI / 2);
                     final SimpleVector startPos = camera.getPosition();
 
                     public float i = 0;
+
                     @Override
                     public void run()
                     {
@@ -98,7 +107,6 @@ public class GameWorld {
                         if (i >= totalSteps)
                         {
                             camera.setPosition(Graphics.cameraDefault);
-                            isCameraMoving = false;
                             cancel();
                         }
                     }
@@ -107,11 +115,12 @@ public class GameWorld {
             case MODE_FIRST_PERSON:
                 Log.d("GameWorld", "Setting mode to first person");
                 // switch into the awesome FIRST PERSON MODEn
-                t.scheduleAtFixedRate(new TimerTask() {
-                    public final float totalRotation = (float) (Math.PI/2);
+                moveTimer.scheduleAtFixedRate(new TimerTask() {
+                    public final float totalRotation = (float) (Math.PI / 2);
                     final SimpleVector startPos = camera.getPosition();
 
                     public float i = 0;
+
                     @Override
                     public void run()
                     {
@@ -133,6 +142,8 @@ public class GameWorld {
                     }
                 }, 0, stepTime); // 0 = delay
                 break;
+            default:
+                safeModeTimer.cancel();
         }
     }
 
@@ -344,6 +355,7 @@ public class GameWorld {
 
                         case RED_BLOCK:
                             // end the game :(
+                            if (isCameraMoving) break;
                             Iterator<GameObject> it = blockQueue.iterator();
                             while(it.hasNext())
                             {
