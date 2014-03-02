@@ -13,16 +13,13 @@ import android.widget.TextView;
 /**
  * Created by alexander on 01/03/2014.
  */
-public class MenuActivity extends Activity {
+public class EndActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        // skip the main menu for testing purposes
-//        startGame(null);
-
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_end);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");
         TextView menuTitle = (TextView)findViewById(R.id.menuTitle);

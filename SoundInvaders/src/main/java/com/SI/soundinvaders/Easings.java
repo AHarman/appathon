@@ -32,6 +32,14 @@ public class Easings {
         return (float) (m * Math.sin(n) + delta);
     }
 
+    public static float easeInCirc (float currentTime, float totalchange, float duration) {
+        return (float)(-totalchange * (Math.sqrt(1 - (currentTime=currentTime/duration)*currentTime)-1));
+    }
+
+//    easeInCirc: function (x, t, b, c, d) {
+//        return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
+//    },
+
     public static float easeOutBack(float delta, float currentTime, float totalTime)
     {
         double s = 1.70158;
