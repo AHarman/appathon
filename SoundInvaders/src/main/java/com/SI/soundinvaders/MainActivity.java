@@ -404,7 +404,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 public void run() {
                     for(int i = 0; i < 3; i++)
                     {
-                        if(pointsShowing[i] == 90){
+                        if(pointsShowing[i] == 50){
                             master.drawPoints(i+1, currentStreak);
                             pointsShowing[i]--;
                         }
@@ -415,7 +415,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                                 master.drawPoints(i+1, -1);
                         }
                     }
-                    if(pointsShowing[0] + pointsShowing[1] + pointsShowing[2] == 0)
+
+                    streakTimer--;
+                    if(streakTimer == 0)
                         currentStreak = 0;
                 }
             });

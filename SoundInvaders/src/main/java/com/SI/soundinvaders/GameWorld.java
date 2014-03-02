@@ -193,19 +193,20 @@ public class GameWorld {
                             Log.d("SOUNDINVADERS", "green collision");
                             increaseScore(1000);
                             MainActivity.currentStreak += 1000;
-                            MainActivity.streakTimer = 120;
+                            MainActivity.streakTimer = 60;
                             MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                         case RED_BLOCK:
                             // end the game :(
                             Log.d("SOUNDINVADERS", "red collision");
+                            Main.streakTimer = 0;
                             break;
                         case BLUE_BLOCK:
                             // add small number of points
                             Log.d("SOUNDINVADERS", "blue collision");
                             increaseScore(500);
                             MainActivity.currentStreak += 500;
-                            MainActivity.streakTimer = 120;
+                            MainActivity.streakTimer = 60;
                             MainActivity.pointsShowing[col - 1] = 50;
                             //block.remove(iterator);
                             break;
