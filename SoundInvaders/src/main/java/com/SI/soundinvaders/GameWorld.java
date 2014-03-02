@@ -242,10 +242,6 @@ public class GameWorld {
     public static void initialise(Context con)
     {
         new GameObject(GameObjectType.PLAYER,2);
-
-        new GameObject(GameObjectType.BLUE_BLOCK,2);
-        new GameObject(GameObjectType.RED_BLOCK,1);
-        new GameObject(GameObjectType.GREEN_BLOCK,3);
         c = con;
     }
 
