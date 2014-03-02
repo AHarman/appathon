@@ -48,12 +48,12 @@ public class GameWorld {
 
         if(intensity >= 4 && intensity <= 7)
         {
-            ySpeed = (float) 1.1;
+            ySpeed = (float) 1.5;
         }
 
         if(intensity >= 8 && intensity <= 10)
         {
-            ySpeed = (float) 1.3;
+            ySpeed = (float) 2.7;
         }
 
         float greenWeight = (float) 0.1;
@@ -119,7 +119,10 @@ public class GameWorld {
     public static void increaseScore(int inc)
     {
         if(!gameOver)
+        {
             score += inc;
+            if (score < 0) score = 0;
+        }
     }
 
     public static void initialise()
@@ -162,12 +165,7 @@ public class GameWorld {
             {
                 Log.d("JAMESS", "red block ending game");
                 //get rid of all objects
-                Iterator<GameObject> iterator = blockQueue.iterator();
-                while(iterator.hasNext())
-                {
-                    GameObject block = iterator.next();
-                    block.kill();
-                }
+
             }
         }
     }
@@ -227,7 +225,13 @@ public class GameWorld {
                             break;
                         case RED_BLOCK:
                             // end the game :(
-                            endGame(1);
+                            Iterator<GameObject> it = blockQueue.iterator();
+                            while(it.hasNext())
+                            {
+                                GameObject bl = it.next();
+                                bl.kill();
+                            }
+                            increaseScore(-3000);
                             Log.d("REDC", "red collision");
                             break;
                         case BLUE_BLOCK:
