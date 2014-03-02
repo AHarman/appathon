@@ -34,26 +34,26 @@ public class EndActivity extends Activity {
 
         TextView tv;
 
-        tv = (TextView)findViewById(R.id.score0); tv.setText(Integer.toString(ScoreBoard.getScore(0)));
-        tv = (TextView)findViewById(R.id.score1); tv.setText(Integer.toString(ScoreBoard.getScore(1)));
-        tv = (TextView)findViewById(R.id.score2); tv.setText(Integer.toString(ScoreBoard.getScore(2)));
-        tv = (TextView)findViewById(R.id.score3); tv.setText(Integer.toString(ScoreBoard.getScore(3)));
-        tv = (TextView)findViewById(R.id.score4); tv.setText(Integer.toString(ScoreBoard.getScore(4)));
-        tv = (TextView)findViewById(R.id.score5); tv.setText(Integer.toString(ScoreBoard.getScore(5)));
-        tv = (TextView)findViewById(R.id.score6); tv.setText(Integer.toString(ScoreBoard.getScore(6)));
-        tv = (TextView)findViewById(R.id.score7); tv.setText(Integer.toString(ScoreBoard.getScore(7)));
-        tv = (TextView)findViewById(R.id.score8); tv.setText(Integer.toString(ScoreBoard.getScore(8)));
-        tv = (TextView)findViewById(R.id.score9); tv.setText(Integer.toString(ScoreBoard.getScore(9)));
-        tv = (TextView)findViewById(R.id.scoreName0); tv.setText(ScoreBoard.getName(0));
-        tv = (TextView)findViewById(R.id.scoreName1); tv.setText(ScoreBoard.getName(1));
-        tv = (TextView)findViewById(R.id.scoreName2); tv.setText(ScoreBoard.getName(2));
-        tv = (TextView)findViewById(R.id.scoreName3); tv.setText(ScoreBoard.getName(3));
-        tv = (TextView)findViewById(R.id.scoreName4); tv.setText(ScoreBoard.getName(4));
-        tv = (TextView)findViewById(R.id.scoreName5); tv.setText(ScoreBoard.getName(5));
-        tv = (TextView)findViewById(R.id.scoreName6); tv.setText(ScoreBoard.getName(6));
-        tv = (TextView)findViewById(R.id.scoreName7); tv.setText(ScoreBoard.getName(7));
-        tv = (TextView)findViewById(R.id.scoreName8); tv.setText(ScoreBoard.getName(8));
-        tv = (TextView)findViewById(R.id.scoreName9); tv.setText(ScoreBoard.getName(9));
+        tv = (TextView)findViewById(R.id.score0); tv.setText(Integer.toString(ScoreBoard.getScore(0))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score1); tv.setText(Integer.toString(ScoreBoard.getScore(1))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score2); tv.setText(Integer.toString(ScoreBoard.getScore(2))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score3); tv.setText(Integer.toString(ScoreBoard.getScore(3))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score4); tv.setText(Integer.toString(ScoreBoard.getScore(4))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score5); tv.setText(Integer.toString(ScoreBoard.getScore(5))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score6); tv.setText(Integer.toString(ScoreBoard.getScore(6))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score7); tv.setText(Integer.toString(ScoreBoard.getScore(7))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score8); tv.setText(Integer.toString(ScoreBoard.getScore(8))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.score9); tv.setText(Integer.toString(ScoreBoard.getScore(9))); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName0); tv.setText(ScoreBoard.getName(0)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName1); tv.setText(ScoreBoard.getName(1)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName2); tv.setText(ScoreBoard.getName(2)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName3); tv.setText(ScoreBoard.getName(3)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName4); tv.setText(ScoreBoard.getName(4)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName5); tv.setText(ScoreBoard.getName(5)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName6); tv.setText(ScoreBoard.getName(6)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName7); tv.setText(ScoreBoard.getName(7)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName8); tv.setText(ScoreBoard.getName(8)); tv.setTypeface(myTypeface);
+        tv = (TextView)findViewById(R.id.scoreName9); tv.setText(ScoreBoard.getName(9)); tv.setTypeface(myTypeface);
     }
 
     public void startGame(View view)
