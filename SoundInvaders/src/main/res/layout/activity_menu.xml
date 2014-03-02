@@ -45,6 +45,7 @@
             android:textColor="@color/wetasphalt"
             android:layout_gravity="center_horizontal"
             android:text="or don't."
+            android:id="@+id/ordont"
             android:paddingTop="15dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -52,6 +53,16 @@
             android:textColor="@color/wetasphalt"
             android:layout_gravity="center_horizontal"
             android:text="I don't care."
+            android:id="@+id/idontcare"
             android:paddingTop="15dp"/>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eqImage"
+        android:src="@drawable/equaliser"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"/>
 </RelativeLayout>

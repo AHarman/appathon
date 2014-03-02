@@ -27,8 +27,12 @@ public class MenuActivity extends Activity {
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");
         TextView menuTitle = (TextView)findViewById(R.id.menuTitle);
         TextView playButton = (TextView) findViewById(R.id.playButton);
+        TextView ordont = (TextView) findViewById(R.id.ordont);
+        TextView idontcare = (TextView) findViewById(R.id.idontcare);
         menuTitle.setTypeface(myTypeface);
         playButton.setTypeface(myTypeface);
+        ordont.setTypeface(myTypeface);
+        idontcare.setTypeface(myTypeface);
 
         hideSystemBars();
     }
