@@ -3,7 +3,7 @@
     <string name="app_name">Sound Invaders</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="display_name">sound invaders</string>
+    <string name="display_name">game over</string>
     <string name="scoreboardtitle">Leader Board</string>
     <string name="closepopup">Close</string>
 </resources>

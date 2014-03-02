@@ -17,7 +17,7 @@ public class ScoreBoard {
     private File dir = null;
     static private ArrayList<Integer> scores = new ArrayList();
     static private ArrayList<String> players = new ArrayList<String>();
-    private Context appContext;
+    private static Context appContext;
 
     ScoreBoard(Context contextual)
     {
@@ -102,9 +102,15 @@ public class ScoreBoard {
         if(position < 0)
             return false;
 
+        for(int i = 9; i > position; i--)
+        {
+            scores.set(i, scores.get(i - 1));
+            players.set(i, players.get(i - 1));
+        }
         scores.set(position, score);
-        players.set(position, name);
-        //writeScores();
+        players.set(position, "player1");
+
+        writeScores();
         return true;
     }
 
@@ -123,16 +129,16 @@ public class ScoreBoard {
         return players.get(i);
     }
 
-    private boolean writeScores(){
+    private static boolean writeScores(){
 
         try{
             FileOutputStream outyougo = appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
             for(int i = 0; i < 10; i++)
                 outyougo.write((players.get(i) + ";" + scores.get(i) + "\n").getBytes());
             outyougo.close();
-            } catch (Exception e){
-                Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
-            }
+        } catch (Exception e){
+            Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
+        }
         return true;
     }
 }
