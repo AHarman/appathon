@@ -157,9 +157,34 @@ public class Graphics {
         x = translateX(x);
         y = translateY(y);
 
-        Object3D obj = new Object3D(1);
+        Object3D obj = new Object3D(7);
 
-        obj.addTriangle(SimpleVector.create(0, -1.0f, -10), SimpleVector.create(-0.7f, 1.0f, -10), SimpleVector.create(0.7f, 1.0f, -10));
+        float zscale = 0.3f;
+
+
+        SimpleVector topFront=new SimpleVector(0   ,-1,1*zscale);
+        SimpleVector topLeft =new SimpleVector(-0.7, 1,1*zscale);
+        SimpleVector topRight=new SimpleVector(0.7  , 1,1*zscale);
+
+        SimpleVector bottomFront=new SimpleVector(0   ,-1,-1*zscale);
+        SimpleVector bottomLeft =new SimpleVector(-0.7, 1,-1*zscale);
+        SimpleVector bottomRight=new SimpleVector(0.7 , 1,-1*zscale);
+
+
+        // Top
+        obj.addTriangle(bottomFront, bottomLeft, bottomRight);
+        // LHS
+        //obj.addTriangle(topFront,bottomLeft,bottomFront);
+        //obj.addTriangle(topFront,topLeft,bottomLeft);
+//        RHS
+        //obj.addTriangle(topRight,topFront,bottomRight);
+        //obj.addTriangle(topFront,bottomFront,bottomRight);
+        // Back
+        //obj.addTriangle(topLeft,bottomLeft,topRight);
+        //obj.addTriangle(bottomLeft,topRight,bottomRight);
+        // Bottom
+        // not necessary
+
         obj.build();
 
         obj.scale(8.0f);
@@ -172,6 +197,8 @@ public class Graphics {
 
         obj.translate(m);
         world.addObject(obj);
+
+        //obj.
 
         return obj;
     }
