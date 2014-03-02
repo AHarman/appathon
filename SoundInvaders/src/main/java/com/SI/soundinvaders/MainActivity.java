@@ -6,14 +6,18 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.threed.jpct.Camera;
@@ -54,9 +58,25 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Object3D plane;
     private Light light;
 
+    private int screenWidth;
+
     private GLSLShader shader = null;
 
     protected void onCreate(Bundle savedInstanceState) {
+
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point sharp = new Point();
+
+        if(Build.VERSION.SDK_INT >= 10)
+        {
+            display.getRealSize(sharp);
+            screenWidth = sharp.x;
+        }
+        else
+        {
+            screenWidth = display.getWidth();
+        }
 
         GameAudio.init(getApplicationContext());
 
@@ -145,11 +165,23 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     public boolean onDown(MotionEvent event) {return true;}
     public void onLongPress(MotionEvent event) {}
     public void onShowPress(MotionEvent event) {}
-    public boolean onSingleTapUp(MotionEvent event){showScores();return true;}
+
     public boolean onDoubleTap(MotionEvent event) {return true;}
     public boolean onDoubleTapEvent(MotionEvent event) {return true;}
     public boolean onSingleTapConfirmed(MotionEvent event) {return true;}
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {return true;}
+
+    public boolean onSingleTapUp(MotionEvent event)
+    {
+        //showScores();
+        if(event.getX() > (int)(screenWidth/2))
+            GameWorld.movePlayer(1);
+        else
+            GameWorld.movePlayer(-1);
+
+        return true;
+    }
+
 
     private void copy(Object src) {
         try {
