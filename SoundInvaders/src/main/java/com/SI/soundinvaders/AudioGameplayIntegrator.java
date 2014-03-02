@@ -7,7 +7,7 @@ import android.util.Log;
  * Created by James on 01/03/14.
  */
 
-public class AudioGameplayIntegrater
+public class AudioGameplayIntegrator
 {
     private static final int n = 1;
     private static int cur = 0;

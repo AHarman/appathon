@@ -365,7 +365,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             if(GameAudio.isGoing())
             {
                 if(GameAudio.isInit)
-                    AudioGameplayIntegrater.audioTick();
+                    AudioGameplayIntegrator.audioTick();
 
                 beatFracAvg = (float)GameAudio.plzGetBeatFraction();
 
