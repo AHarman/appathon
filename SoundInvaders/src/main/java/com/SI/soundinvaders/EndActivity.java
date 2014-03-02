@@ -70,6 +70,8 @@ public class EndActivity extends Activity {
         tv = (TextView)findViewById(R.id.scoreName7); tv.setText(ScoreBoard.getName(7)); tv.setTypeface(myTypeface);
         tv = (TextView)findViewById(R.id.scoreName8); tv.setText(ScoreBoard.getName(8)); tv.setTypeface(myTypeface);
         tv = (TextView)findViewById(R.id.scoreName9); tv.setText(ScoreBoard.getName(9)); tv.setTypeface(myTypeface);
+
+        hideSystemBars();
     }
 
     public void startGame(View view)
@@ -81,6 +83,34 @@ public class EndActivity extends Activity {
 
     public static void getScore(int score) {
 //        menuTitle.setText(Integer.toString(score));
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        // Immersive mode is only supported in Android KitKat and above
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus)
+            hideSystemBars();
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void hideSystemBars()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            );
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        }
     }
 
 }

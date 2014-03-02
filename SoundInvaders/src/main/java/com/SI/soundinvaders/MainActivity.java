@@ -262,7 +262,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void hideSystemBars()
+    public void hideSystemBars()
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         {
