@@ -20,6 +20,7 @@ public class EndActivity extends Activity {
         Log.d("endgame", "in oncreate");
         super.onCreate(savedInstanceState);
 
+        ScoreBoard.newScore(GameWorld.score, "Player1");
         setContentView(R.layout.activity_end);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Lato-Bol.ttf");

@@ -83,7 +83,7 @@ public class ScoreBoard {
     }
 
     //Return between 0 an 9 if true, -1 if false
-    private int checkHighScore(int newScore)
+    private static int checkHighScore(int newScore)
     {
         if(scores.size() < 10)
             return scores.size();
@@ -96,7 +96,7 @@ public class ScoreBoard {
         return -1;
     }
 
-    public boolean newScore(int score, String name)
+    public static boolean newScore(int score, String name)
     {
         int position = checkHighScore(score);
         if(position < 0)
@@ -104,7 +104,7 @@ public class ScoreBoard {
 
         scores.set(position, score);
         players.set(position, name);
-        writeScores();
+        //writeScores();
         return true;
     }
 
@@ -124,6 +124,15 @@ public class ScoreBoard {
     }
 
     private boolean writeScores(){
+
+        try{
+            FileOutputStream outyougo = appContext.openFileOutput("scores.txt", Context.MODE_APPEND);
+            for(int i = 0; i < 10; i++)
+                outyougo.write((players.get(i) + ";" + scores.get(i) + "\n").getBytes());
+            outyougo.close();
+            } catch (Exception e){
+                Log.e("files", "why gaiuhsdlouydsfbuf " + e.toString());
+            }
         return true;
     }
 }
