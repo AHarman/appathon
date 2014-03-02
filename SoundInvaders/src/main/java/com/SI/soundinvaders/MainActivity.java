@@ -114,6 +114,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         pointTextViews[0] = (TextView)findViewById(R.id.leftBox);
         pointTextViews[1] = (TextView)findViewById(R.id.centreBox);
         pointTextViews[2] = (TextView)findViewById(R.id.rightBox);
+        pointTextViews[0].setTypeface(myTypeface);
+        pointTextViews[1].setTypeface(myTypeface);
+        pointTextViews[2].setTypeface(myTypeface);
 
         hideSystemBars();
 

@@ -31,27 +31,30 @@
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="80dp">
         <TextView
             android:id="@+id/leftBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:textColor="@android:color/white"/>
         <TextView
             android:id="@+id/centreBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:textColor="@android:color/white"/>
         <TextView
             android:id="@+id/rightBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </FrameLayout>
