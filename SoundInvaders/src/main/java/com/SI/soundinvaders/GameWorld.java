@@ -163,7 +163,7 @@ public class GameWorld {
                 Log.d("JAMESS", "endgame by end of song");
                 //fly out of screen
                 playerObject.moveObject(0, -200, playerObject.getObj(), 4000);
-
+                MainActivity.gameOver = true;
             }
             else if (reason == 1)
             {

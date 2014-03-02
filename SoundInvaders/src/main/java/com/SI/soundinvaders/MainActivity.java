@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -67,6 +68,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     private int screenWidth;
 
+    public static Boolean gameOver = false;
 
     private GLSLShader shader = null;
 
@@ -126,7 +128,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void showScores(){
+    public void showScores(){
         android.app.FragmentManager fm = getFragmentManager();
         ScoreBoardDialog scoreboard = ScoreBoardDialog.newInstance();
         scoreboard.show(fm, "tag");
@@ -349,6 +351,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
         public void onDrawFrame(GL10 gl) {
 
+            if(gameOver)
+            {
+                Log.d("endgame", "here");
+                showScores();
+                gameOver=false;
+            }
+
             if(GameAudio.isGoing())
             {
                 if(GameAudio.isInit)
@@ -402,6 +411,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             world.draw(fb);
 
             fb.display();
+
 
             master.runOnUiThread(new Runnable() {
                 @Override
