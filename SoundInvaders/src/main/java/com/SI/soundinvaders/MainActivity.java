@@ -365,6 +365,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     shader.setUniform("beatFrac", beatFracAvg);
                 //Log.d("SoundInvaders", Float.toString(beatFracAvg));
             }
+            else
+            {
+                //Game Finished
+                GameWorld.endGame(0);
+            }
 
             if (this.hasToCreateBuffer) {
                 Logger.log("Recreating buffer...");
@@ -423,19 +428,5 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             });
         }
 
-        private void blitNumber(int number, int x, int y) {
-
-
-            if (font != null) {
-                String sNum = Integer.toString(number);
-
-                for (int i = 0; i < sNum.length(); i++) {
-                    char cNum = sNum.charAt(i);
-                    int iNum = cNum - 48;
-                    fb.blit(font, iNum * 5, 0, x, y, 5, 9, 5, 9, 10, true, null);
-                    x += 5;
-                }
-            }
-        }
     }
 }
